@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 public class Game {
-
+	public static BufferedImage Icon;
+	
 	public static void main(String[] args) throws IOException {
 		int fWidth=700, fHeight=500;
 		JFrame gameFrame= new JFrame(); 
-		
 		
 		gameFrame.setSize(fWidth, fHeight);
 		gameFrame.setResizable(false);
@@ -35,12 +35,12 @@ public class Game {
 	}
 
 	public static void addIconImage(String icon, JFrame jframe){
-		jframe.setIconImage(loadImage(icon));//test
+		loadImage(icon, Icon);
+		jframe.setIconImage(Icon);//test
 		System.out.println("trying to add icon");
 	}
 	
-	public static Image loadImage(String fileName){
-		Image image = null;
+	public static void loadImage(String fileName, BufferedImage image){
 		ClassLoader cl = Thread.currentThread().getContextClassLoader();
 		InputStream input;
 		input= cl.getResourceAsStream(fileName);
@@ -50,7 +50,6 @@ public class Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return image;
 	}
 	
 }

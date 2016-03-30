@@ -28,6 +28,29 @@ public class MovingBackground{
 	public double getMovingSpeed(){
 		return movingSpeed;
 	}
-
+	
+	public void moveBackground(String leftOrRight){
+		if (leftOrRight.equals("left")){
+		pic1Loc -= 20 * movingSpeed;
+		pic2Loc -= 20 * movingSpeed;
+		if(PicWidth*-1 - pic1Loc >=0){
+			pic1Loc = PicWidth - (PicWidth*-1 - pic1Loc);
+		}
+		if(PicWidth*-1 - pic2Loc >=0){
+			pic2Loc = PicWidth - (PicWidth*-1 - pic2Loc);
+		}
+		}else if(leftOrRight.equals("right")){
+		pic1Loc += 20 * movingSpeed;
+		pic2Loc += 20 * movingSpeed;
+		if(pic1Loc - PicWidth>=0){
+			pic1Loc =  -1*PicWidth + (pic1Loc - PicWidth);
+		}
+		if(pic2Loc - PicWidth>=0){
+			pic2Loc =  -1*PicWidth + (pic2Loc - PicWidth);
+		}
+		}
+		
+		
+	}
 	
 }
