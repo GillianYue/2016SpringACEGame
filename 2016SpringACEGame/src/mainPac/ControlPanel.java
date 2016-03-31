@@ -5,6 +5,11 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import background.BackgroundPanel;
+import background.MovingBackground;
+import character.Bird;
+import character.CharacterPanel;
+
 public class ControlPanel extends JPanel implements KeyListener{
 	int pressedKeyCode;
 	boolean isPressed;
@@ -30,13 +35,11 @@ public class ControlPanel extends JPanel implements KeyListener{
 		pressedKeyCode=e.getKeyCode();
 		moveTheBird();
 		moveTheBackground();
-		System.out.println("controlPanel: keypressed!");
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		isPressed=false;
-		System.out.println("controlPanel: keyreleased!");
 	}
 
 	public boolean keyIsPressed(){
@@ -54,9 +57,11 @@ public class ControlPanel extends JPanel implements KeyListener{
 	public void moveTheBird(){
 		if(getCurrentKeyCode() == KeyEvent.VK_RIGHT){
 			bird.faceRight();
+			bird.moveOneStepRight();
 		}
 		if(getCurrentKeyCode() == KeyEvent.VK_LEFT){
 			bird.faceLeft();
+			bird.moveOneStepLeft();
 		}
 	}
 	

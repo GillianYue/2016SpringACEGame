@@ -12,11 +12,14 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import background.BackgroundPanel;
+import character.CharacterPanel;
+
 public class Game {
 	public static BufferedImage Icon;
+	public static int fWidth=700, fHeight=500;
 	
 	public static void main(String[] args) throws IOException {
-		int fWidth=700, fHeight=500;
 		JFrame gameFrame= new JFrame(); 
 		
 		gameFrame.setSize(fWidth, fHeight);

@@ -1,4 +1,4 @@
-package mainPac;
+package character;
 
 import java.awt.Graphics;
 
@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class CharacterPanel extends JPanel{
 	
 	private int pWidth, pHeight;
-	Bird bird;
+	public Bird bird;
 	
 	public CharacterPanel(int width, int height){
 		pWidth=width;
@@ -19,7 +19,6 @@ public class CharacterPanel extends JPanel{
 	
 	public void paintComponent(Graphics g){
 		bird.drawCharacter(g); 
-		System.out.println("characterPanel trying to paint");
 	}
 
 

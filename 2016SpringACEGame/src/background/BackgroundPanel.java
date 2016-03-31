@@ -1,4 +1,4 @@
-package mainPac;
+package background;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -13,7 +13,7 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 //TODO make keyListener work
 	private static final long serialVersionUID = 1L;
 	
-	Background forest; MovingBackground mountains;
+	Background forest; public MovingBackground mountains;
 	private int pWidth, pHeight; 
 	
 	public BackgroundPanel(int width, int height){
@@ -31,7 +31,6 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 	public void paintComponent(Graphics g){
 		forest.drawBackground(g, 0, 0, null);
 		mountains.updateMovingBackground(g);
-		System.out.println("backgroundPanel trying to paint");
 
 	}
 
@@ -54,7 +53,7 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+		System.out.println(e.getX()+" "+e.getY());
 	}
 
 

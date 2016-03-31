@@ -1,4 +1,4 @@
-package mainPac;
+package background;
 
 import java.awt.Graphics;
 
