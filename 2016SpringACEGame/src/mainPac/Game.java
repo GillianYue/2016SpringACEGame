@@ -1,5 +1,6 @@
 package mainPac;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -18,15 +20,26 @@ public class Game {
 		JFrame gameFrame= new JFrame(); 
 		
 		gameFrame.setSize(fWidth, fHeight);
-		gameFrame.setResizable(false);
+	
+		//gameFrame.setResizable(false);
 		addIconImage("Pics/icon.png", gameFrame);
 		
+		JLayeredPane jlp = new JLayeredPane();
+	
 		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight);
-		//background image is added in background panel
 		backgroundPanel.setSize(fWidth, fHeight);
 		
-		gameFrame.add(backgroundPanel);
+		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight);
+		characterPanel.setSize(fWidth, fHeight);
+		
+		jlp.add(backgroundPanel, Integer.valueOf(1));
+		jlp.add(characterPanel, Integer.valueOf(2));
+		jlp.setVisible(true);
+
+		gameFrame.add(jlp);
 		gameFrame.setVisible(true);
+		
+		characterPanel.repaint();
 		backgroundPanel.repaint();
 		
 		gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

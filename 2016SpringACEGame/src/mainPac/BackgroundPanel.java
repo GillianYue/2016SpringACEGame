@@ -13,7 +13,7 @@ public class BackgroundPanel extends JPanel implements KeyListener, MouseListene
 //TODO make keyListener work
 	private static final long serialVersionUID = 1L;
 	Background forest; MovingBackground mountains;
-	int pWidth, pHeight;
+	private int pWidth, pHeight; 
 	
 	public BackgroundPanel(int width, int height){
 		this.setBackground(Color.GRAY);
@@ -31,6 +31,8 @@ public class BackgroundPanel extends JPanel implements KeyListener, MouseListene
 	public void paintComponent(Graphics g){
 		forest.drawBackground(g, 0, 0, null);
 		mountains.updateMovingBackground(g);
+		System.out.println("backgroundPanel trying to paint");
+
 	}
 
 
