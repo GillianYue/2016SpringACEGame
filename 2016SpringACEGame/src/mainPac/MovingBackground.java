@@ -9,6 +9,7 @@ public class MovingBackground{
 	Background pic1, pic2;
 	int pic1Loc, pic2Loc;
 	int PicWidth; double movingSpeed;
+	
 	public MovingBackground(String fileName, double MovingSpeed, JPanel myPanel){
 		pic1 = new Background(fileName, myPanel);
 		pic2 = new Background(fileName, myPanel);

@@ -21,8 +21,9 @@ public class Game {
 		
 		gameFrame.setSize(fWidth, fHeight);
 	
-		//gameFrame.setResizable(false);
+		gameFrame.setResizable(false);
 		addIconImage("Pics/icon.png", gameFrame);
+	
 		
 		JLayeredPane jlp = new JLayeredPane();
 	
@@ -39,8 +40,10 @@ public class Game {
 		gameFrame.add(jlp);
 		gameFrame.setVisible(true);
 		
-		characterPanel.repaint();
-		backgroundPanel.repaint();
+		ControlPanel controlPanel = new ControlPanel(backgroundPanel, characterPanel);
+		gameFrame.add(controlPanel);
+		
+		PanelUpdater pu = new PanelUpdater (characterPanel);
 		
 		gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -9,9 +9,10 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-public class BackgroundPanel extends JPanel implements KeyListener, MouseListener{
+public class BackgroundPanel extends JPanel implements MouseListener{
 //TODO make keyListener work
 	private static final long serialVersionUID = 1L;
+	
 	Background forest; MovingBackground mountains;
 	private int pWidth, pHeight; 
 	
@@ -22,8 +23,7 @@ public class BackgroundPanel extends JPanel implements KeyListener, MouseListene
 		pWidth=width; 
 		pHeight=height;
 		forest.setBackgroundSize(pWidth, pHeight, forest.getBackgroundImage());
-		this.setFocusable(true);
-		addKeyListener(this);
+
 		addMouseListener(this);
 	}
 	
@@ -35,28 +35,6 @@ public class BackgroundPanel extends JPanel implements KeyListener, MouseListene
 
 	}
 
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		
-	}
-
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-			mountains.moveBackground("left");
-		}
-		if(e.getKeyCode() == KeyEvent.VK_LEFT){
-			mountains.moveBackground("right");
-		}
-		repaint();
-	}
-
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-	}
 
 
 	@Override

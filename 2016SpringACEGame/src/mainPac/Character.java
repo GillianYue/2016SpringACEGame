@@ -11,18 +11,20 @@ import javax.imageio.ImageIO;
 public class Character {
 	int x, y;
 	BufferedImage myImage;
+	int facingDirection;	//1 is not flipped; -1 is flipped
 	
 	public Character(String fileName, int initialX, int initialY){
 		x=initialX;
 		y=initialY;
+		facingDirection=1; //Default facing right
 		loadImage(fileName, myImage);
 	}
 	
-	public void drawCharacter(Graphics g, int flippedOrNot){
-		g.drawImage(myImage, x, y, null);
-		g.drawImage(myImage, x, y, x+flippedOrNot*myImage.getWidth(),
-				y, 0, 0, myImage.getWidth(), myImage.getHeight(), null);
-		//for now, the character can not be tilted because dy2 is set to y
+	public void drawCharacter(Graphics g){
+		g.drawImage(myImage, x, y, x+facingDirection*myImage.getWidth(),
+				y+
+				myImage.getHeight(),
+				0, 0, myImage.getWidth(), myImage.getHeight(), null);
 		//for now it draws the whole image
 	}
 	
@@ -38,4 +40,11 @@ public class Character {
 		}
 	}
 	
+	public void faceRight(){
+		facingDirection=1;
+	}
+	
+	public void faceLeft(){
+		facingDirection=-1;
+	}
 }
