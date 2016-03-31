@@ -10,6 +10,7 @@ public class TerrainPanel extends JPanel{
 	public TerrainPanel(int width, int height){
 		pWidth = width;
 		pHeight = height;
+		
 	}
 	
 	public void paintComponent(Graphics g){

@@ -12,19 +12,13 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import mainPac.ImageLoader;
+
 public class Background{
 	BufferedImage background;
 	
-	public Background(String fileName, JPanel myPanel){
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream input;
-		input= cl.getResourceAsStream(fileName);
-		try {
-			background=ImageIO.read(input);
-			System.out.println("IOsuccess! "+fileName);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public Background(JPanel myPanel, ImageLoader il){
+		background = il.sun;
 	}
 
 	public void setBackgroundSize(int width, int height, BufferedImage image){

@@ -5,16 +5,18 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
+import mainPac.ImageLoader;
+
 public class CharacterPanel extends JPanel{
 	
 	private int pWidth, pHeight;
 	public Bird bird;
 	
-	public CharacterPanel(int width, int height){
+	public CharacterPanel(int width, int height, ImageLoader il){
 		pWidth=width;
 		pHeight=height;
 		this.setOpaque(false);
-		bird= new Bird("Pics/bird.png", 200, 300);
+		bird= new Bird(200, 300, il);
 	}
 	
 	public void paintComponent(Graphics g){

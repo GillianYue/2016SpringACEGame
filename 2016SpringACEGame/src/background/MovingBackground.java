@@ -1,19 +1,21 @@
 package background;
 
 import java.awt.Graphics;
-
+import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import mainPac.ImageLoader;
+
 public class MovingBackground{
-	Background pic1, pic2;
+	BufferedImage pic1, pic2;
 	int pic1Loc, pic2Loc;
 	int PicWidth; double movingSpeed;
 	
-	public MovingBackground(String fileName, double MovingSpeed, JPanel myPanel){
-		pic1 = new Background(fileName, myPanel);
-		pic2 = new Background(fileName, myPanel);
-		PicWidth = pic1.getBackgroundWidth();
+	public MovingBackground(double MovingSpeed, JPanel myPanel, ImageLoader il){
+		pic1 = il.mountains;
+		pic2 = il.mountains;
+		PicWidth = pic1.getWidth();
 		//initializing the starting locations of pic1 & pic2
 		pic1Loc = 0;
 		pic2Loc = PicWidth;
@@ -22,8 +24,8 @@ public class MovingBackground{
 	
 	public void updateMovingBackground(Graphics g){
 
-		pic1.drawBackground(g, pic1Loc, 0, null);
-		pic2.drawBackground(g, pic2Loc, 0, null);
+		g.drawImage(pic1, pic1Loc, 0, null);
+		g.drawImage(pic2, pic2Loc, 0, null);
 	}
 
 	public double getMovingSpeed(){

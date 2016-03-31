@@ -1,9 +1,12 @@
 package character;
 
+import mainPac.ImageLoader;
+
 public class Bird extends Character{
 //our protagonist for now..
 	
-	public Bird(String fileName, int initialX, int initialY){
-		super(fileName, initialX, initialY);
+	public Bird(int initialX, int initialY, ImageLoader il){
+		super(initialX, initialY, il);
+		myImage = il.bird;
 	}
 }

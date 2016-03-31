@@ -27,13 +27,14 @@ public class Game {
 		gameFrame.setResizable(false);
 		addIconImage("Pics/icon.png", gameFrame);
 	
+		ImageLoader imageLoader = new ImageLoader();
 		
 		JLayeredPane jlp = new JLayeredPane();
 	
-		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight);
+		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight, imageLoader);
 		backgroundPanel.setSize(fWidth, fHeight);
 		
-		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight);
+		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
 		characterPanel.setSize(fWidth, fHeight);
 		
 		jlp.add(backgroundPanel, Integer.valueOf(1));

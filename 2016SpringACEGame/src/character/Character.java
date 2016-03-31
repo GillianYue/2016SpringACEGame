@@ -9,6 +9,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 import mainPac.Game;
+import mainPac.ImageLoader;
 
 public class Character {
 	int x, y; //this is where the bird is on the panel
@@ -16,12 +17,12 @@ public class Character {
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
 	
-	public Character(String fileName, int initialX, int initialY){
+	public Character(int initialX, int initialY, ImageLoader il){
 		x=initialX;
 		y=initialY;
 		
 		facingDirection=1; //Default facing right
-		loadImage(fileName, myImage);
+		//myImage is not loaded in this class. Load the image in its child classes
 	}
 	
 	public void drawCharacter(Graphics g){
@@ -37,17 +38,6 @@ public class Character {
 		}
 	}
 	
-	public void loadImage(String fileName, BufferedImage image){
-		ClassLoader cl = Thread.currentThread().getContextClassLoader();
-		InputStream input;
-		input= cl.getResourceAsStream(fileName);
-		try {
-			myImage=ImageIO.read(input);
-			System.out.println("IOsuccess! "+fileName);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 	
 	public void faceRight(){
 		facingDirection=1;

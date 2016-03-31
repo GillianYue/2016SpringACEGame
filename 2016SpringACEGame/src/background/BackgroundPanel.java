@@ -9,6 +9,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import mainPac.ImageLoader;
+
 public class BackgroundPanel extends JPanel implements MouseListener{
 //TODO make keyListener work
 	private static final long serialVersionUID = 1L;
@@ -16,10 +18,10 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 	Background forest; public MovingBackground mountains;
 	private int pWidth, pHeight; 
 	
-	public BackgroundPanel(int width, int height){
+	public BackgroundPanel(int width, int height, ImageLoader il){
 		this.setBackground(Color.GRAY);
-		forest= new Background ("Pics/sun.png", this);
-		mountains = new MovingBackground ("Pics/mountains.png", 1.5 , this);
+		forest= new Background (this, il);
+		mountains = new MovingBackground (1.5 , this, il);
 		pWidth=width; 
 		pHeight=height;
 		forest.setBackgroundSize(pWidth, pHeight, forest.getBackgroundImage());
