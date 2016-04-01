@@ -14,6 +14,7 @@ import javax.swing.WindowConstants;
 
 import background.BackgroundPanel;
 import character.CharacterPanel;
+import map.TerrainPanel;
 
 public class Game {
 	public static BufferedImage Icon;
@@ -37,8 +38,12 @@ public class Game {
 		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
 		characterPanel.setSize(fWidth, fHeight);
 		
+		TerrainPanel terrainPanel = new TerrainPanel (fWidth, fHeight, imageLoader);
+		terrainPanel.setSize(fWidth, fHeight);
+		
 		jlp.add(backgroundPanel, Integer.valueOf(1));
 		jlp.add(characterPanel, Integer.valueOf(2));
+		jlp.add(terrainPanel, Integer.valueOf(3));
 		jlp.setVisible(true);
 
 		gameFrame.add(jlp);

@@ -56,6 +56,7 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println(e.getX()+" "+e.getY());
+		
 	}
 
 
