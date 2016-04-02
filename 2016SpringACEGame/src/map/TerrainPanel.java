@@ -28,7 +28,10 @@ public class TerrainPanel extends JPanel{
 			}
 		}
 		for(int t=0; t<=69; t++){
-			map[t][43]=1; //terrain pieces
+			map[t][43]=2;
+			for(int l=44; l<=49; l++){
+			map[t][l]=1; //terrain pieces	
+			}
 		}
 		
 
@@ -41,6 +44,9 @@ public class TerrainPanel extends JPanel{
 					; mapy++){
 				if (map[mapx][mapy]==1){
 					Unit tempUnit = new Unit (mapx*10, mapy*10, 1, Il);
+					tempUnit.drawUnit(g);
+				}else if(map[mapx][mapy]==2){
+					Unit tempUnit = new Unit (mapx*10, mapy*10, 2, Il);
 					tempUnit.drawUnit(g);
 				}
 			}

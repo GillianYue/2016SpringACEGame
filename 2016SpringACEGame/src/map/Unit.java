@@ -20,6 +20,10 @@ public class Unit {
 		if(whatAmI==1){
 			myImage=il.terrainpiece;
 		}
+		if(whatAmI==2){
+			myImage=il.terrainlayer;
+			System.out.println("hey");
+		}
 	}
 	
 	public boolean drawUnit (Graphics g){

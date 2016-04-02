@@ -7,7 +7,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 
 public class ImageLoader {
-	public BufferedImage bird, icon, mountains, sun, terrainpiece;
+	public BufferedImage bird, icon, mountains, sun, terrainpiece, terrainlayer;
 	
 	public ImageLoader(){
 		bird=loadImage("Pics/bird.png", bird);
@@ -15,6 +15,7 @@ public class ImageLoader {
 		mountains=loadImage("Pics/mountains.png", mountains);
 		sun=loadImage("Pics/sun.png", sun);
 		terrainpiece=loadImage("Pics/terrainpiece.png", terrainpiece);
+		terrainlayer=loadImage("Pics/terrainlayer.png", terrainlayer);
 	}
 	
 	public BufferedImage loadImage(String fileName, BufferedImage image){
