@@ -10,16 +10,20 @@ import javax.imageio.ImageIO;
 
 import mainPac.Game;
 import mainPac.ImageLoader;
+import map.MapPanel;
 
 public class Character {
 	int x, y; //this is where the bird is on the panel
-	int mapX, mapY; //the character's coordinates on the actual map
+	private int myMapX, myMapY; //the character's coordinates on the actual map
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
+	String characterName;
 	
 	public Character(int initialX, int initialY, ImageLoader il){
 		x=initialX;
 		y=initialY;
+		myMapX=initialX/10;
+		myMapY=initialY/10;
 		
 		facingDirection=1; //Default facing right
 		//myImage is not loaded in this class. Load the image in its child classes
@@ -48,19 +52,28 @@ public class Character {
 	}
 	
 	public void moveOneStepRight(){
-		if(x<Game.fWidth-55){
 		x+=10;
-		}
-		mapX+=1; //on the map it moved one unit to the right. one unit is 10 pixels
-		System.out.println("mapX: "+mapX);
+		myMapX+=1; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
 	public void moveOneStepLeft(){
-		if(x>10){
 		x-=10;
-		}
-		mapX-=1;
-		System.out.println("mapX: "+mapX);
+		myMapX-=1;
 	}
 	
+	public int getMapX(){
+		return myMapX;
+	}
+	
+	public int getMapY(){
+		return myMapY;
+	}
+	
+	public int getScreenX(){
+		return x;
+	}
+	
+	public int getScreenY(){
+		return y;
+	}
 }

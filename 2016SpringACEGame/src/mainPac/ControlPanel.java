@@ -9,10 +9,10 @@ import background.BackgroundPanel;
 import background.MovingBackground;
 import character.Bird;
 import character.CharacterPanel;
+import map.MapPanel;
 
 public class ControlPanel extends JPanel implements KeyListener{
 	int pressedKeyCode;
-	boolean isPressed;
 	Bird bird; MovingBackground BG;
 	
 	public ControlPanel(BackgroundPanel background, CharacterPanel character){
@@ -24,53 +24,65 @@ public class ControlPanel extends JPanel implements KeyListener{
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		isPressed=true;
 		pressedKeyCode=e.getKeyCode();
-		moveTheBird();
-		moveTheBackground();
+		if(pressedKeyCode == KeyEvent.VK_RIGHT || pressedKeyCode == KeyEvent.VK_LEFT){
+			updateMapInterval(pressedKeyCode);
+			moveTheBird(pressedKeyCode);
+			moveTheBackground(pressedKeyCode);
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		isPressed=false;
 	}
 
-	public boolean keyIsPressed(){
-		return isPressed;
-	}
 	
-	public int getCurrentKeyCode(){
-		if (keyIsPressed()){
-		return pressedKeyCode;
-		}else{
-			return -1000;
-		}
-	}
-	
-	public void moveTheBird(){
-		if(getCurrentKeyCode() == KeyEvent.VK_RIGHT){
+	public void moveTheBird(int KeyCode){
+		if(KeyCode == KeyEvent.VK_RIGHT){
 			bird.faceRight();
+			if(bird.getScreenX() < 500){//if it's in the middle of the panel
 			bird.moveOneStepRight();
+			System.out.println(bird.getMapX()+" bird Moved");
+			}
 		}
-		if(getCurrentKeyCode() == KeyEvent.VK_LEFT){
+		if(KeyCode == KeyEvent.VK_LEFT){
 			bird.faceLeft();
+			if(bird.getScreenX()>200){//if it's in the middle of the panel
 			bird.moveOneStepLeft();
+			System.out.println(bird.getMapX()+" bird Moved");
+			}
 		}
 	}
 	
-	public void moveTheBackground(){
-		if(getCurrentKeyCode() == KeyEvent.VK_RIGHT){
+	public void moveTheBackground(int KeyCode){
+//since this is the background, it moves the opposite way of the character's moving direction
+		if((KeyCode == KeyEvent.VK_RIGHT) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
+				&& (bird.getScreenX() >= 500)){
 			BG.moveBackground("left");
 		}
-		if(getCurrentKeyCode() == KeyEvent.VK_LEFT){
+		if((KeyCode == KeyEvent.VK_LEFT) && (MapPanel.currmapMinX > MapPanel.mapMinX)
+				&& (bird.getScreenX() <= 200)){
 			BG.moveBackground("right");
+		}
+	}
+	
+	public void updateMapInterval(int KeyCode){
+		if((KeyCode == KeyEvent.VK_RIGHT) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
+				&& (bird.getScreenX() >= 500)){
+			MapPanel.currmapMinX+=1;
+			MapPanel.currmapMaxX+=1;
+			System.out.println(MapPanel.currmapMinX+" "+MapPanel.currmapMaxX);
+		}
+		if((KeyCode == KeyEvent.VK_LEFT) && (MapPanel.currmapMinX > MapPanel.mapMinX)
+				&& (bird.getScreenX() <= 200)){
+			MapPanel.currmapMinX-=1;
+			MapPanel.currmapMaxX-=1;
+			System.out.println(MapPanel.currmapMinX+" "+MapPanel.currmapMaxX);
 		}
 	}
 }

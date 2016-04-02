@@ -1,7 +1,6 @@
 package mainPac;
 
-import java.awt.Color;
-import java.awt.Image;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,12 +8,11 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import background.BackgroundPanel;
 import character.CharacterPanel;
-import map.TerrainPanel;
+import map.MapPanel;
 
 public class Game {
 	public static BufferedImage Icon;
@@ -32,18 +30,19 @@ public class Game {
 		
 		JLayeredPane jlp = new JLayeredPane();
 	
+		MapPanel mapPanel = new MapPanel (fWidth, fHeight, imageLoader);
+		mapPanel.setSize(fWidth, fHeight);
+		
 		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight, imageLoader);
 		backgroundPanel.setSize(fWidth, fHeight);
 		
 		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
 		characterPanel.setSize(fWidth, fHeight);
 		
-		TerrainPanel terrainPanel = new TerrainPanel (fWidth, fHeight, imageLoader);
-		terrainPanel.setSize(fWidth, fHeight);
 		
 		jlp.add(backgroundPanel, Integer.valueOf(1));
 		jlp.add(characterPanel, Integer.valueOf(2));
-		jlp.add(terrainPanel, Integer.valueOf(3));
+		jlp.add(mapPanel, Integer.valueOf(3));
 		jlp.setVisible(true);
 
 		gameFrame.add(jlp);

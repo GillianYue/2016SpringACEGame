@@ -13,16 +13,15 @@ public class Unit {
 	int whatamI; 
 	BufferedImage myImage;
 	//0: nothing; 1: terrain; 2: terrainwithlayer; 
-	public Unit (int screenX, int screenY, int whatAmI, ImageLoader il) {
-		Screenx=screenX;
-		Screeny=screenY;
+	public Unit (int screenx, int screeny, int whatAmI, ImageLoader il) {
+		Screenx=screenx;
+		Screeny=screeny;
 		whatamI=whatAmI;
 		if(whatAmI==1){
 			myImage=il.terrainpiece;
 		}
 		if(whatAmI==2){
 			myImage=il.terrainlayer;
-			System.out.println("hey");
 		}
 	}
 	
