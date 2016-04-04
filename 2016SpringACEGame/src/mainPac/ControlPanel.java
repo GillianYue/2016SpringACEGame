@@ -14,12 +14,14 @@ import map.MapPanel;
 public class ControlPanel extends JPanel implements KeyListener{
 	int pressedKeyCode;
 	Bird bird; MovingBackground BG;
+	int pwidth;
 	
-	public ControlPanel(BackgroundPanel background, CharacterPanel character){
+	public ControlPanel(BackgroundPanel backgroundP, CharacterPanel character){
 		bird=character.bird;
-		BG=background.mountains;
+		BG=backgroundP.mountains;
 		this.setFocusable(true);
 		addKeyListener(this);
+		pwidth=backgroundP.getWidth();
 	}
 
 	@Override
@@ -44,17 +46,25 @@ public class ControlPanel extends JPanel implements KeyListener{
 	
 	public void moveTheBird(int KeyCode){
 		if(KeyCode == KeyEvent.VK_RIGHT){
+			if(bird.getScreenX()<pwidth-50){
 			bird.faceRight();
 			if(bird.getScreenX() < 500){//if it's in the middle of the panel
 			bird.moveOneStepRight();
-			System.out.println(bird.getMapX()+" bird Moved");
+			}else if((MapPanel.currmapMaxX == MapPanel.mapMaxX)
+				&& (bird.getScreenX() >= 500)){
+					bird.moveOneStepRight();
+				}
 			}
 		}
 		if(KeyCode == KeyEvent.VK_LEFT){
+			if(bird.getScreenX()>5){
 			bird.faceLeft();
 			if(bird.getScreenX()>200){//if it's in the middle of the panel
 			bird.moveOneStepLeft();
-			System.out.println(bird.getMapX()+" bird Moved");
+			}else if((MapPanel.currmapMinX == MapPanel.mapMinX)
+					&& (bird.getScreenX() <= 200)){
+				bird.moveOneStepLeft();
+			}
 			}
 		}
 	}
@@ -76,13 +86,11 @@ public class ControlPanel extends JPanel implements KeyListener{
 				&& (bird.getScreenX() >= 500)){
 			MapPanel.currmapMinX+=1;
 			MapPanel.currmapMaxX+=1;
-			System.out.println(MapPanel.currmapMinX+" "+MapPanel.currmapMaxX);
 		}
 		if((KeyCode == KeyEvent.VK_LEFT) && (MapPanel.currmapMinX > MapPanel.mapMinX)
 				&& (bird.getScreenX() <= 200)){
 			MapPanel.currmapMinX-=1;
 			MapPanel.currmapMaxX-=1;
-			System.out.println(MapPanel.currmapMinX+" "+MapPanel.currmapMaxX);
 		}
 	}
 }
