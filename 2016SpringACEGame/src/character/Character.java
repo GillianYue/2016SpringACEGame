@@ -14,17 +14,18 @@ import map.MapPanel;
 
 public class Character {
 	int x, y; //this is where the bird is on the panel
-	private int myMapX, myMapY; //the character's coordinates on the actual map
+	protected int myMapX, myMapY; //the character's coordinates on the actual map
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
 	String characterName;
+	int myStatus=0; //the total number of status depends on the individual character
+	int numOfWalkingStatus;
 	
-	public Character(int initialX, int initialY, ImageLoader il){
-		x=initialX;
-		y=initialY;
-		myMapX=initialX/10;
-		myMapY=initialY/10;
-		
+	public Character(int initialmapX, int initialmapY, ImageLoader il){
+		myMapX=initialmapX;
+		myMapY=initialmapY;
+		x=myMapX*10;
+		y=myMapY*10;
 		facingDirection=1; //Default facing right
 		//myImage is not loaded in this class. Load the image in its child classes
 	}
@@ -75,5 +76,20 @@ public class Character {
 	
 	public int getScreenY(){
 		return y;
+	}
+	
+	public void rotateWalkingStatus(){
+		if(myStatus==numOfWalkingStatus-1){
+			myStatus=0;
+		}
+		myStatus++;
+	}
+	
+	public void changeStatus(int status){
+		myStatus=status;
+	}
+	
+	public void returnToOriginalStatus(){
+		myStatus=0;
 	}
 }

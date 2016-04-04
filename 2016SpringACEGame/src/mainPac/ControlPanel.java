@@ -32,15 +32,14 @@ public class ControlPanel extends JPanel implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		pressedKeyCode=e.getKeyCode();
-		if(pressedKeyCode == KeyEvent.VK_RIGHT || pressedKeyCode == KeyEvent.VK_LEFT){
 			updateMapInterval(pressedKeyCode);
 			moveTheBird(pressedKeyCode);
 			moveTheBackground(pressedKeyCode);
-		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		bird.returnToOriginalStatus();
 	}
 
 	
@@ -67,6 +66,9 @@ public class ControlPanel extends JPanel implements KeyListener{
 			}
 			}
 		}
+		if(KeyCode == KeyEvent.VK_SPACE){
+			bird.jump();
+		}
 	}
 	
 	public void moveTheBackground(int KeyCode){
@@ -84,11 +86,13 @@ public class ControlPanel extends JPanel implements KeyListener{
 	public void updateMapInterval(int KeyCode){
 		if((KeyCode == KeyEvent.VK_RIGHT) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
 				&& (bird.getScreenX() >= 500)){
+			bird.rotateWalkingStatus();
 			MapPanel.currmapMinX+=1;
 			MapPanel.currmapMaxX+=1;
 		}
 		if((KeyCode == KeyEvent.VK_LEFT) && (MapPanel.currmapMinX > MapPanel.mapMinX)
 				&& (bird.getScreenX() <= 200)){
+			bird.rotateWalkingStatus();
 			MapPanel.currmapMinX-=1;
 			MapPanel.currmapMaxX-=1;
 		}

@@ -16,7 +16,7 @@ public class CharacterPanel extends JPanel{
 		pWidth=width;
 		pHeight=height;
 		this.setOpaque(false);
-		bird= new Bird(200, 300, il);
+		bird= new Bird(20, 38, il);
 	}
 	
 	public void paintComponent(Graphics g){
