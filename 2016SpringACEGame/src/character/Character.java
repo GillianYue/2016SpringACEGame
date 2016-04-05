@@ -13,13 +13,16 @@ import mainPac.ImageLoader;
 import map.MapPanel;
 
 public class Character {
-	int x, y; //this is where the bird is on the panel
-	protected int myMapX, myMapY; //the character's coordinates on the actual map
+	public int x, y; //this is where the bird is on the panel
+	public int myMapX, myMapY; //the character's coordinates on the actual map
+	public double gravity=9.8;
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
 	String characterName;
 	int myStatus=0; //the total number of status depends on the individual character
 	int numOfWalkingStatus;
+	public int velocity=0;
+	public boolean falling;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il){
 		myMapX=initialmapX;
@@ -61,7 +64,7 @@ public class Character {
 		x-=10;
 		myMapX-=1;
 	}
-	
+
 	public int getMapX(){
 		return myMapX;
 	}

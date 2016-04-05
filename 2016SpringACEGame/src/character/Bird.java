@@ -43,11 +43,17 @@ public class Bird extends Character{
 		myMapX-=1;
 	}
 	
-	public void jump(){
+	public void jump(){ //jump once
 		myStatus=7;
-		y-=10;
-		myMapY-=1;
-		System.out.println("hey im jumping");
+		velocity=40;
+		falling=true;
+	}
+	
+	public void fall(){ //fall is called a lot
+		if(velocity<0){
+		myStatus=8;
+		}
+		velocity-=0.5*gravity;
 	}
 	
 }

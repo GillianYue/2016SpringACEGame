@@ -11,11 +11,13 @@ public class PanelUpdater implements ActionListener{
 	Timer t;
 	JPanel [] allPanels;
 	JPanel  tempCharacter; 
+	
 	public PanelUpdater(JPanel character){
 	    tempCharacter = character;
 		t = new Timer (80, this);
 		t.start();
 	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		tempCharacter.repaint();//somehow...this updates both of the panels...
