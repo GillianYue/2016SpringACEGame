@@ -20,6 +20,7 @@ public class MapPanel extends JPanel{
 	private int pWidth, pHeight; 
 	
 	public static int[][] map; //gives the unit the whatamI data
+	public static Unit[][] units;
 	ImageLoader Il;
 	
 	public MapPanel(int width, int height, ImageLoader il){
@@ -31,24 +32,33 @@ public class MapPanel extends JPanel{
 		mapMaxX=100;  mapMaxY=60; //sets the overall max and min for the map
 		currmapMinX=0; currmapMaxX=pWidth/10; 
 		map = new int [mapMaxX][mapMaxY];
+		units = new Unit [currmapMaxX][mapMaxY]; 
 		for(int mapx=mapMinX; mapx<mapMaxX; mapx++){
 			for(int mapy=mapMinY; mapy<mapMaxY; mapy++){//coordinates on map
 				map[mapx][mapy]=0; //nothing
 			}
 		}
-		for(int tl=0; tl<70; tl++){
+		for(int tl=0; tl<35; tl++){
 			map[tl][43]=2;
 			for(int t=44; t<50; t++){
 			map[tl][t]=1; //terrain pieces	
 			}
 		}
-		for(int e=70; e<80; e++){
+		for(int s=35; s<45; s++){
+			if(s>36 && s<44){
+			map[s][33]=1;
+			}
+			map[s][34]=1;
+			
+		}
+		
+		for(int e=50; e<80; e++){
 			map[e][20]=2;
 			map[e][21]=1;
 		}
 		for(int ee=80; ee<100; ee++){
 			map[ee][35]=2;
-			map[ee][36]=2;
+			map[ee][36]=1;
 			map[ee][37]=1;
 			map[ee][38]=1;
 			map[ee][39]=1;
@@ -59,9 +69,9 @@ public class MapPanel extends JPanel{
 	public void updateUnits (Graphics g){ //draws the part of the map that should be displayed on screen
 		for(int Umapx=currmapMinX; Umapx<currmapMaxX; Umapx++){
 			for(int Umapy=mapMinY; Umapy<mapMaxY; Umapy++){			
-				Unit tempUnit = new Unit (MapToScreenConverter(Umapx), Umapy*10, 
+		units[Umapx-currmapMinX][Umapy-mapMinY] = new Unit (MapToScreenConverter(Umapx), Umapy*10, 
 						map[Umapx][Umapy], Il, Umapx, Umapy);
-				tempUnit.drawUnit(g);
+		units[Umapx-currmapMinX][Umapy-mapMinY].drawUnit(g);
 			}
 		}
 	}

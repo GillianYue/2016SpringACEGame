@@ -65,4 +65,12 @@ public class Unit {
 	public int getMapY(){
 		return mapY;
 	}
+	
+	public int getScreenX(){
+		return Screenx;
+	}
+	
+	public int getScreenY(){
+		return Screeny;
+	}
 }

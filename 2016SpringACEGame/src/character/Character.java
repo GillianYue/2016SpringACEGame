@@ -15,9 +15,9 @@ import map.MapPanel;
 import map.Unit;
 
 public class Character {
-	public int x, y; //this is where the bird is on the panel
-	public int myMapX, myMapY; //the character's coordinates on the actual map
-	public double gravity=9.8;
+	protected int x, y; //this is where the bird is on the panel
+	protected int myMapX, myMapY; //the character's coordinates on the actual map
+	public double gravity=10;
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
 	String characterName;
@@ -27,6 +27,7 @@ public class Character {
 	public boolean falling=true;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
+	public boolean onGround;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
@@ -86,6 +87,22 @@ public class Character {
 		return y;
 	}
 	
+	public void setMapX(int mx){
+		myMapX=mx;
+	}
+	
+	public void setMapY(int my){
+		myMapY=my;
+	}
+	
+	public void setScreenX(int sx){
+		x=sx;
+	}
+	
+	public void setScreeny(int sy){
+		y=sy;
+	}
+	
 	public void rotateWalkingStatus(){
 		if(myStatus==numOfWalkingStatus-1){
 			myStatus=0;
@@ -105,11 +122,12 @@ public class Character {
 		return new Rectangle(x, y, individualWidth, individualHeight);
 	}
 	
-	public boolean checkCollision(Unit unit){
+	public Rectangle checkCollisionWithUnit(Unit unit){
 		if (getMyBounds().intersects(unit.getBounds())){
-			return true;
+			getMyBounds().intersection(unit.getBounds());
+			return getMyBounds().intersection(unit.getBounds());
 		}else{
-			return false;
+			return null;
 		}
 	}
 	
@@ -123,5 +141,9 @@ public class Character {
 	
 	public void printMyCoordinates(){
 		System.out.println(characterName+" mx "+myMapX+" my "+myMapY+" sx "+x+" sy "+y);
+	}
+	
+	public void setOnGround(boolean og){
+		onGround=og;
 	}
 }

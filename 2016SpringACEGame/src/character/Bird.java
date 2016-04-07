@@ -53,10 +53,12 @@ public class Bird extends Character{
 	}
 	
 	public void fall(){ //fall is called a lot
-		if(velocity<0){
+		if(velocity<0 && !onGround){
 		myStatus=8;
 		}
+		if(!onGround){
 		velocity-=0.5*gravity;
+		}
 	}
 	
 	@Override
