@@ -150,7 +150,7 @@ bird.setScreeny(bird.getScreenY() - (int)bird.checkCollisionWithUnit(mapPanel.un
 								bird.setMapY(bird.getScreenY()/10);
 								System.out.println("2");
 		}
-	}
+	}else
 		if(bird.onGround && MapPanel.map[bird.getMapX()+1][bird.getMapY()+4]==0){
 			if(MapPanel.map[bird.getMapX()+1-mapPanel.currmapMinX]
 					[bird.getMapY()+5]!=0	&& 

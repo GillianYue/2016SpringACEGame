@@ -47,9 +47,11 @@ public class Bird extends Character{
 	}
 	
 	public void jump(){ //jump once
+		if(onGround){
 		myStatus=7;
 		velocity=40;
 		falling=true;
+		}
 	}
 	
 	public void fall(){ //fall is called a lot
