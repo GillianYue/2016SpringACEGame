@@ -19,7 +19,7 @@ public class MapPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private int pWidth, pHeight; 
 	
-	private int[][] map; //gives the unit the whatamI data
+	public static int[][] map; //gives the unit the whatamI data
 	ImageLoader Il;
 	
 	public MapPanel(int width, int height, ImageLoader il){
@@ -28,7 +28,7 @@ public class MapPanel extends JPanel{
 		pHeight = height;
 		Il=il;
 		mapMinX=0;  mapMinY=0; 
-		mapMaxX=100;  mapMaxY=50; //sets the overall max and min for the map
+		mapMaxX=100;  mapMaxY=60; //sets the overall max and min for the map
 		currmapMinX=0; currmapMaxX=pWidth/10; 
 		map = new int [mapMaxX][mapMaxY];
 		for(int mapx=mapMinX; mapx<mapMaxX; mapx++){
@@ -58,14 +58,10 @@ public class MapPanel extends JPanel{
 	
 	public void updateUnits (Graphics g){ //draws the part of the map that should be displayed on screen
 		for(int Umapx=currmapMinX; Umapx<currmapMaxX; Umapx++){
-			for(int Umapy=mapMinY; Umapy<mapMaxY; Umapy++){
-				if (map[Umapx][Umapy]==1){
-					Unit tempUnit = new Unit (MapToScreenConverter(Umapx), Umapy*10, 1, Il);
-					tempUnit.drawUnit(g);
-				}else if(map[Umapx][Umapy]==2){
-					Unit tempUnit = new Unit (MapToScreenConverter(Umapx), Umapy*10, 2, Il);
-					tempUnit.drawUnit(g);
-				}
+			for(int Umapy=mapMinY; Umapy<mapMaxY; Umapy++){			
+				Unit tempUnit = new Unit (MapToScreenConverter(Umapx), Umapy*10, 
+						map[Umapx][Umapy], Il, Umapx, Umapy);
+				tempUnit.drawUnit(g);
 			}
 		}
 	}
@@ -82,5 +78,9 @@ public class MapPanel extends JPanel{
 		then the unit should be printed at (20,100) on screen (10*(12-10),10*10)
 		Just in case i get confused in the future */
 		return ((mymapXPos - currmapMinX)*10);
+	}
+	
+	public void resetMapPanel(){
+		currmapMinX=0; currmapMaxX=pWidth/10; 
 	}
 }

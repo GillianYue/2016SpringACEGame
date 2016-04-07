@@ -13,21 +13,29 @@ import background.MovingBackground;
 import character.Bird;
 import character.CharacterPanel;
 import map.MapPanel;
+import map.Unit;
 
 public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	int pressedKeyCode;
 	Bird bird; MovingBackground BG;
 	int pwidth;
-	Timer t;
+	Timer t, t2;
 	double gravity=9.8; 
+	ImageLoader Il;
+	boolean lost;
+	CharacterPanel characterPanel;
+	MapPanel mapPanel;
 	
-	public ControlPanel(BackgroundPanel backgroundP, CharacterPanel character){
+	public ControlPanel(MapPanel mp, BackgroundPanel bp, CharacterPanel character, ImageLoader il){
 		bird=character.bird;
-		BG=backgroundP.mountains;
+		BG=bp.mountains;
+		characterPanel=character;
+		mapPanel=mp;
+		Il=il;
 		this.setFocusable(true);
 		addKeyListener(this);
-		pwidth=backgroundP.getWidth();
-		t = new Timer (80, this);
+		pwidth=bp.getWidth();
+		t = new Timer (60, this);
 		t.start();
 		}
 
@@ -97,30 +105,55 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			bird.rotateWalkingStatus();
 			MapPanel.currmapMinX+=1;
 			MapPanel.currmapMaxX+=1;
+			bird.myMapX+=1;
 		}
 		if((KeyCode == KeyEvent.VK_LEFT) && (MapPanel.currmapMinX > MapPanel.mapMinX)
 				&& (bird.getScreenX() <= 200)){
 			bird.rotateWalkingStatus();
 			MapPanel.currmapMinX-=1;
 			MapPanel.currmapMaxX-=1;
+			bird.myMapX-=1;
 		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//bird.myMapY -= (int)((bird.velocity*0.5)/10);
+	
 		bird.y -= (int)(bird.velocity*0.5);
 		bird.myMapY = bird.y /10 ;
+		
 		if(bird.falling){
 			bird.fall();
 		}
-		if(bird.myMapY>38 && bird.velocity!=0){
-			bird.velocity=0;
-			bird.falling=false;
-			bird.changeStatus(0);
+		checkForLose();
+		if(lost){
+			restartLevel();
+			lost=false;
 		}
-		System.out.println(bird.myMapY+ " "+ bird.y);
-		
+		if(MapPanel.map[bird.myMapX+1][bird.myMapY+4]>0 ||
+				MapPanel.map[bird.myMapX+2][bird.myMapY+4]>0){
+		if(bird.checkCollision(new Unit(bird.x+10, bird.y+40, 1, Il, bird.myMapX+1, bird.myMapY+4)) ||
+			bird.checkCollision(new Unit(bird.x+20, bird.y+40, 1, Il, bird.myMapX+2, bird.myMapY+4))){
+			//the units used to checkCollision here are Imaginary Units...
+			bird.velocity=0;
+			bird.changeStatus(0);
+	
+		}
+	
+	}
+		//bird.printMyCoordinates();
+}
+	
+	public void checkForLose(){
+		if(bird.myMapY>55){
+			System.out.println("you lose!!!!!");
+			lost=true;
+		}
 	}
 	
+	public void restartLevel(){
+		bird.resetCharacter();
+		mapPanel.resetMapPanel();
+	}
 }

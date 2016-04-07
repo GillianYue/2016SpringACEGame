@@ -11,12 +11,13 @@ public class CharacterPanel extends JPanel{
 	
 	private int pWidth, pHeight;
 	public Bird bird;
+	public int initialX=20, initialY=35;
 	
 	public CharacterPanel(int width, int height, ImageLoader il){
 		pWidth=width;
 		pHeight=height;
 		this.setOpaque(false);
-		bird= new Bird(20, 38, il);
+		bird= new Bird(initialX, initialY, il, this);
 	}
 	
 	public void paintComponent(Graphics g){

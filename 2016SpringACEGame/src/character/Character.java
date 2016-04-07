@@ -2,6 +2,7 @@ package character;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import mainPac.Game;
 import mainPac.ImageLoader;
 import map.MapPanel;
+import map.Unit;
 
 public class Character {
 	public int x, y; //this is where the bird is on the panel
@@ -22,11 +24,14 @@ public class Character {
 	int myStatus=0; //the total number of status depends on the individual character
 	int numOfWalkingStatus;
 	public int velocity=0;
-	public boolean falling;
+	public boolean falling=true;
+	public int individualWidth, individualHeight;
+	CharacterPanel characterPanel;
 	
-	public Character(int initialmapX, int initialmapY, ImageLoader il){
+	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
 		myMapY=initialmapY;
+		characterPanel=cp;
 		x=myMapX*10;
 		y=myMapY*10;
 		facingDirection=1; //Default facing right
@@ -94,5 +99,29 @@ public class Character {
 	
 	public void returnToOriginalStatus(){
 		myStatus=0;
+	}
+	
+	public Rectangle getMyBounds(){
+		return new Rectangle(x, y, individualWidth, individualHeight);
+	}
+	
+	public boolean checkCollision(Unit unit){
+		if (getMyBounds().intersects(unit.getBounds())){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public void resetCharacter(){
+		myMapX=characterPanel.initialX;
+		myMapY=characterPanel.initialY;
+		x=myMapX*10;
+		y=myMapY*10;
+		facingDirection=1;
+	}
+	
+	public void printMyCoordinates(){
+		System.out.println(characterName+" mx "+myMapX+" my "+myMapY+" sx "+x+" sy "+y);
 	}
 }

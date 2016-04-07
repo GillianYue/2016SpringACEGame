@@ -1,6 +1,7 @@
 package map;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import mainPac.ImageLoader;
@@ -12,11 +13,15 @@ public class Unit {
 	private int mapX, mapY;
 	int whatamI; 
 	BufferedImage myImage;
+	ImageLoader Il;
 	//0: nothing; 1: terrain; 2: terrainwithlayer; 
-	public Unit (int screenx, int screeny, int whatAmI, ImageLoader il) {
+	public Unit (int screenx, int screeny, int whatAmI, ImageLoader il, int MapX, int MapY) {
 		Screenx=screenx;
 		Screeny=screeny;
+		mapX=MapX;
+		mapY=MapY;
 		whatamI=whatAmI;
+		Il=il;
 		if(whatAmI==1){
 			myImage=il.terrainpiece;
 		}
@@ -34,4 +39,30 @@ public class Unit {
 	}
 	}
 
+	public void printMyCoordinates(){
+		System.out.println("mx "+mapX+" my "+mapY+" sx "+Screenx+" sy "+Screeny);
+	}
+
+	public void changeMyType(int whatAmI){
+		if(whatamI!=whatAmI){
+		whatamI=whatAmI;
+		if(whatAmI==1){
+			myImage=Il.terrainpiece;
+		}
+		if(whatAmI==2){
+			myImage=Il.terrainlayer;
+		}
+		}
+	}
+	public Rectangle getBounds(){
+		return new Rectangle(Screenx, Screeny, myImage.getWidth(), myImage.getHeight());
+	}
+	
+	public int getMapX(){
+		return mapX;
+	}
+	
+	public int getMapY(){
+		return mapY;
+	}
 }
