@@ -10,7 +10,7 @@ import mainPac.ImageLoader;
 public class CharacterPanel extends JPanel{
 	
 	private int pWidth, pHeight;
-	public Bird bird;
+	public Bird bird; public Frog frog;
 	public int initialX=20, initialY=35;
 	
 	public CharacterPanel(int width, int height, ImageLoader il){
@@ -18,10 +18,12 @@ public class CharacterPanel extends JPanel{
 		pHeight=height;
 		this.setOpaque(false);
 		bird= new Bird(initialX, initialY, il, this);
+		frog= new Frog(40, 35, il, this);
 	}
 	
 	public void paintComponent(Graphics g){
-		bird.drawCharacter(g); 
+		bird.drawCharacter(g);
+		frog.drawCharacter(g);
 	}
 
 
