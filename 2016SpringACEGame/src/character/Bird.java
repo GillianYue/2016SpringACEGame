@@ -3,6 +3,7 @@ package character;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import TempObjects.Note;
 import mainPac.ImageLoader;
 import map.MapPanel;
 
@@ -10,10 +11,14 @@ public class Bird extends Character{
 	//our protagonist for now..
 	//STATUS DATA:
 	//0 normal, 0-2 walking,3-5 blank, 6 attack, 7 jump, 8 fall
+	public boolean noteOn;
+	ImageLoader Il;
+	Note note;
 	
 	public Bird(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		super(initialmapX, initialmapY, il, cp);
 		myImage = il.tori;
+		Il=il;
 		characterName = "Chirpy";
 		numOfWalkingStatus=3; //0, 1, 2
 		individualWidth=15; 
@@ -31,18 +36,28 @@ public class Bird extends Character{
 					y+45, (myStatus%3)*45, (myStatus/3)*45,
 					(myStatus%3)*45+45, (myStatus/3)*45+45, null);
 		}
+		if(noteOn){
+			//draw the note and move the note!!
+			note.paintObject(g);
+		}else{
+			note=null;
+		}
 	}
 	
 	@Override
 	public void moveNStepRight(int steps){
+		if(onGround){
 		rotateWalkingStatus();
+		}
 		x+=10*steps;
 		myMapX+=1*steps; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
 	@Override
 	public void moveNStepLeft(int steps){
+		if(onGround){
 		rotateWalkingStatus();
+		}
 		x-=10*steps;
 		myMapX-=1*steps;
 	}
@@ -78,6 +93,18 @@ public class Bird extends Character{
 		}
 		if(!onGround){
 		velocity-=0.5*gravity;
+		}
+	}
+	
+	public void attack(){
+		if(!noteOn){
+		myStatus=6;
+		if(facingDirection==1){
+		note = new Note(myMapX+4, myMapY+2, Il, facingDirection, this, characterPanel);
+		}else{
+		note = new Note(myMapX-1, myMapY+2, Il, facingDirection, this, characterPanel);
+		}
+		noteOn=true;
 		}
 	}
 	

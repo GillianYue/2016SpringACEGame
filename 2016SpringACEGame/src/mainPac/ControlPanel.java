@@ -14,13 +14,14 @@ import background.BackgroundPanel;
 import background.MovingBackground;
 import character.Bird;
 import character.CharacterPanel;
+import character.Frog;
 import map.MapPanel;
 import map.Unit;
 
 public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	Set<Integer> pressedKeyCode = new HashSet<Integer>();
 	char pressedKeyChar;
-	Bird bird; MovingBackground BG;
+	Bird bird; Frog frog; MovingBackground BG;
 	int pwidth;
 	Timer t, t2;
 	double gravity=9.8; 
@@ -28,15 +29,18 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	boolean lost;
 	CharacterPanel characterPanel;
 	MapPanel mapPanel;
+	character.Character mainCharacter;
 	
 	public ControlPanel(MapPanel mp, BackgroundPanel bp, CharacterPanel character, ImageLoader il){
 		bird=character.bird;
+		frog=character.frog;
 		BG=bp.mountains;
 		characterPanel=character;
 		mapPanel=mp;
 		Il=il;
 		this.setFocusable(true);
 		addKeyListener(this);
+		mainCharacter=bird;
 		pwidth=bp.getWidth();
 		t = new Timer (40, this);
 		t.start();
@@ -143,6 +147,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		if(set.contains(KeyEvent.VK_SPACE)){
 			bird.jump();
 		}
+		if(set.contains(KeyEvent.VK_A)){
+			bird.attack();
+		}
 	}
 	}
 	
@@ -190,12 +197,30 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		bird.setScreeny(bird.getScreenY()-(int)(bird.velocity*0.3));
+		mainCharacterCombo (mainCharacter);
+		mainCharacterCombo (frog);
 		
+		bird.printMyCoordinates();
+		checkForLose();
+		if(lost){
+			restartLevel();
+			lost=false;
+		}
+		
+		
+}
+	
+	public void mainCharacterCombo (character.Character c){
+		gravity(c); 
+		coordinatesSync(c);
+		collisionDetection(c);
+	}
+	
+	public void gravity(character.Character c){
+		c.setScreeny(c.getScreenY()-(int)(c.velocity*0.3));
+	if(c.characterName.equals("Chirpy")){
 		bird.setScreenX(bird.getScreenX()-(int)(bird.hVelo));
-		bird.setMapX((bird.getScreenX()/10)+MapPanel.currmapMinX);
-		if(bird.hVelo!=0){
-			
+	if(bird.hVelo!=0){
 			if(bird.hVelo>0){
 				if(bird.hVelo>5){
 			 bird.hVelo-=2;
@@ -210,59 +235,85 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				}
 			}
 		}
-		
-		bird.setMapY(bird.getScreenY()/10);
-		
-		if(bird.falling){
-			bird.fall();
+	}
+	}
+	
+	public void coordinatesSync (character.Character c){
+		c.setMapX((c.getScreenX()/10)+MapPanel.currmapMinX);
+		c.setMapY(c.getScreenY()/10);
+	}
+	
+	public void collisionDetection(character.Character c){
+		if(c.falling){
+			c.fall();
 		}
-		checkForLose();
-		if(lost){
-			restartLevel();
-			lost=false;
-		}
-		
-		if(bird.getScreenX()%10<=5){
-		if(MapPanel.map[bird.getMapX()+1][bird.getMapY()+4]>0 ||
-				MapPanel.map[bird.getMapX()+1][bird.getMapY()+5]>0	){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[bird.getMapX()+1][bird.getMapY()+4]>0) ? 
- MapPanel.units[bird.getMapX()+1-MapPanel.currmapMinX][bird.getMapY()+4]:
-	 MapPanel.units[bird.getMapX()+1-MapPanel.currmapMinX][bird.getMapY()+5];
-			if(bird.collisionWithUnit(unitToTest)){ //check the unit
-	bird.setScreeny(bird.getScreenY() - (int)bird.recCollisionWithUnit(unitToTest).getHeight()); 
-	//pushes the character back to its desired position
-				bird.changeStatus(0);
-				bird.velocity=0;
-				bird.setOnGround(true);
-				}
-		}
-		}else if(bird.getScreenX()%10>5){
-			if(MapPanel.map[bird.getMapX()+2][bird.getMapY()+4]>0 ||
-					MapPanel.map[bird.getMapX()+2][bird.getMapY()+5]>0	){
+		if(c.getScreenX()%10<=5){
+			if(MapPanel.map[c.getMapX()+1][c.getMapY()+4]>0 ||
+					MapPanel.map[c.getMapX()+1][c.getMapY()+5]>0){
 				//if it's a terrain unit
-		Unit unitToTest = (MapPanel.map[bird.getMapX()+2][bird.getMapY()+4]>0) ? 
-	 MapPanel.units[bird.getMapX()+2-MapPanel.currmapMinX][bird.getMapY()+4]:
-		 MapPanel.units[bird.getMapX()+2-MapPanel.currmapMinX][bird.getMapY()+5];
-	 if(bird.collisionWithUnit(unitToTest)){ //check the unit
-bird.setScreeny(bird.getScreenY() - (int)bird.recCollisionWithUnit(unitToTest).getHeight()); 
-	//pushes the character back to its desired position
-			bird.changeStatus(0);
-			bird.velocity=0;
-			bird.setOnGround(true);
+		Unit unitToTest = (MapPanel.map[c.getMapX()+1][c.getMapY()+4]>0) ? 
+	 MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()+4]:
+		 MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()+5];
+				if(c.collisionWithUnit(unitToTest)){ //check the unit
+	c.setScreeny(c.getScreenY() - (int)c.recCollisionWithUnit(unitToTest).getHeight()); 
+		//pushes the character back to its desired position
+					c.changeStatus(0);
+					c.velocity=0;
+					c.setOnGround(true);
+					}
+			}	
+			if(MapPanel.map[c.getMapX()+1][c.getMapY()]>0 ||
+					MapPanel.map[c.getMapX()+1][c.getMapY()-1]>0	){
+				//check the upper units
+		Unit unitToTest2 = (MapPanel.map[c.getMapX()+1][c.getMapY()]>0) ? 
+	 MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()]:
+		 MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()-1];
+				if(c.collisionWithUnit(unitToTest2)){ //check the unit
+		c.setScreeny(c.getScreenY() + (int)c.recCollisionWithUnit(unitToTest2).getHeight()); 
+		//pushes the character back to its desired position
+					c.velocity=0;
+					c.changeStatus(0);
+					}
 			}
+			
+			}else if(c.getScreenX()%10>5){
+				if(MapPanel.map[c.getMapX()+2][c.getMapY()+4]>0 ||
+						MapPanel.map[c.getMapX()+2][c.getMapY()+5]>0	){
+					//if it's a terrain unit
+			Unit unitToTest = (MapPanel.map[c.getMapX()+2][c.getMapY()+4]>0) ? 
+		 MapPanel.units[c.getMapX()+2-MapPanel.currmapMinX][c.getMapY()+4]:
+			 MapPanel.units[c.getMapX()+2-MapPanel.currmapMinX][c.getMapY()+5];
+		 if(c.collisionWithUnit(unitToTest)){ //check the unit
+	c.setScreeny(c.getScreenY() - (int)c.recCollisionWithUnit(unitToTest).getHeight()); 
+		//pushes the character back to its desired position
+				c.changeStatus(0);
+				c.velocity=0;
+				c.setOnGround(true);
+				}
+				}
+				if(MapPanel.map[c.getMapX()+2][c.getMapY()]>0 ||
+						MapPanel.map[c.getMapX()+2][c.getMapY()-1]>0	){
+					//check the upper units
+			Unit unitToTest2 = (MapPanel.map[c.getMapX()+2][c.getMapY()]>0) ? 
+		 MapPanel.units[c.getMapX()+2-MapPanel.currmapMinX][c.getMapY()]:
+			 MapPanel.units[c.getMapX()+2-MapPanel.currmapMinX][c.getMapY()-1];
+					if(c.collisionWithUnit(unitToTest2)){ //check the unit
+			c.setScreeny(c.getScreenY() + (int)c.recCollisionWithUnit(unitToTest2).getHeight()); 
+			//pushes the character back to its desired position
+						c.velocity=0;
+						c.changeStatus(0);
+						}
+				}
 			}
-		}
-		if(MapPanel.map[bird.getMapX()+1][(int)((bird.getScreenY()+45)/10)]==0){
-			bird.setOnGround(false);
-		}else if(MapPanel.map[bird.getMapX()+1][(int)((bird.getScreenY()+45)/10)]>0){
-			bird.setOnGround(true);
-		}
-		//bird.printMyCoordinates();
-}
+			if(MapPanel.map[c.getMapX()+1][(int)((c.getScreenY()+45)/10)]==0){
+				c.setOnGround(false);
+			}else if(MapPanel.map[c.getMapX()+1][(int)((c.getScreenY()+45)/10)]>0){
+				c.setOnGround(true);
+			}
+	}
 	
 	public void checkForLose(){
-		if(bird.getMapY()>55){
+		if(mainCharacter.getMapY()>55){
 			System.out.println("you lose!!!!!");
 		   lost=true;
 		}

@@ -20,7 +20,7 @@ public class Character {
 	public double gravity=10;
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
-	String characterName;
+	public String characterName;
 	int myStatus=0; //the total number of status depends on the individual character
 	int numOfWalkingStatus;
 	public int velocity=0;
@@ -140,6 +140,12 @@ public class Character {
 			return getMyBounds().intersection(unit.getBounds());
 		}else{
 			return null;
+		}
+	}
+	
+	public void fall(){ //fall is called a lot
+		if(!onGround){
+		velocity-=0.5*gravity;
 		}
 	}
 	

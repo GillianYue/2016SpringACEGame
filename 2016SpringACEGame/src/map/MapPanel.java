@@ -46,15 +46,15 @@ public class MapPanel extends JPanel{
 		}
 		for(int s=35; s<45; s++){
 			if(s>36 && s<44){
-			map[s][27]=1;
+			map[s][37]=2;
+			map[s][38]=1;
 			}
-			map[s][28]=1;
 			
 		}
 		
 		for(int e=50; e<80; e++){
-			map[e][20]=2;
-			map[e][21]=1;
+			map[e][33]=2;
+			map[e][34]=1;
 		}
 		for(int ee=80; ee<100; ee++){
 		

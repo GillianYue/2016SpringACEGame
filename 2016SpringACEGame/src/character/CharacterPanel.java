@@ -18,7 +18,7 @@ public class CharacterPanel extends JPanel{
 		pHeight=height;
 		this.setOpaque(false);
 		bird= new Bird(initialX, initialY, il, this);
-		frog= new Frog(40, 35, il, this);
+		frog= new Frog(40, 38, il, this);
 	}
 	
 	public void paintComponent(Graphics g){
