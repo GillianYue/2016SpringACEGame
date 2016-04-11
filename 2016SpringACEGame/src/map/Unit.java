@@ -55,7 +55,12 @@ public class Unit {
 		}
 	}
 	public Rectangle getBounds(){
+		try{
 		return new Rectangle(Screenx, Screeny, myImage.getWidth(), myImage.getHeight());
+		}catch(Exception e){
+			System.out.println("getBounds did not work.");
+		return null;
+		}
 	}
 	
 	public int getMapX(){

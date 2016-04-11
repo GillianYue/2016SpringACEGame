@@ -38,7 +38,7 @@ public class MapPanel extends JPanel{
 				map[mapx][mapy]=0; //nothing
 			}
 		}
-		for(int tl=0; tl<35; tl++){
+		for(int tl=0; tl<80; tl++){
 			map[tl][43]=2;
 			for(int t=44; t<50; t++){
 			map[tl][t]=1; //terrain pieces	
@@ -46,9 +46,9 @@ public class MapPanel extends JPanel{
 		}
 		for(int s=35; s<45; s++){
 			if(s>36 && s<44){
-			map[s][33]=1;
+			map[s][27]=1;
 			}
-			map[s][34]=1;
+			map[s][28]=1;
 			
 		}
 		
@@ -57,10 +57,8 @@ public class MapPanel extends JPanel{
 			map[e][21]=1;
 		}
 		for(int ee=80; ee<100; ee++){
-			map[ee][35]=2;
-			map[ee][36]=1;
-			map[ee][37]=1;
-			map[ee][38]=1;
+		
+			map[ee][38]=2;
 			map[ee][39]=1;
 			map[ee][40]=1;
 		}
@@ -68,7 +66,7 @@ public class MapPanel extends JPanel{
 	
 	public void updateUnits (Graphics g){ //draws the part of the map that should be displayed on screen
 		for(int Umapx=currmapMinX; Umapx<currmapMaxX; Umapx++){
-			for(int Umapy=mapMinY; Umapy<mapMaxY; Umapy++){			
+			for(int Umapy=mapMinY; Umapy<mapMaxY; Umapy++){
 		units[Umapx-currmapMinX][Umapy-mapMinY] = new Unit (MapToScreenConverter(Umapx), Umapy*10, 
 						map[Umapx][Umapy], Il, Umapx, Umapy);
 		units[Umapx-currmapMinX][Umapy-mapMinY].drawUnit(g);

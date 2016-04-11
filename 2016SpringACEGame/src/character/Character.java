@@ -24,6 +24,7 @@ public class Character {
 	int myStatus=0; //the total number of status depends on the individual character
 	int numOfWalkingStatus;
 	public int velocity=0;
+	public double hVelo=0;
 	public boolean falling=true;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
@@ -61,14 +62,14 @@ public class Character {
 		facingDirection=-1;
 	}
 	
-	public void moveOneStepRight(){
-		x+=10;
-		myMapX+=1; //on the map it moved one unit to the right. one unit is 10 pixels
+	public void moveNStepRight(int steps){
+		x+=10*steps;
+		myMapX+=1*steps; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
-	public void moveOneStepLeft(){
-		x-=10;
-		myMapX-=1;
+	public void moveNStepLeft(int steps){
+		x-=10*steps;
+		myMapX-=1*steps;
 	}
 
 	public int getMapX(){
@@ -122,9 +123,20 @@ public class Character {
 		return new Rectangle(x, y, individualWidth, individualHeight);
 	}
 	
-	public Rectangle checkCollisionWithUnit(Unit unit){
+	public boolean collisionWithUnit(Unit unit){
+		try{
 		if (getMyBounds().intersects(unit.getBounds())){
-			getMyBounds().intersection(unit.getBounds());
+			return true;
+		}else{
+			return false;
+		}
+		}catch(Exception e){
+			return false;
+		}
+	}
+	
+	public Rectangle recCollisionWithUnit(Unit unit){
+		if (getMyBounds().intersects(unit.getBounds())){
 			return getMyBounds().intersection(unit.getBounds());
 		}else{
 			return null;
@@ -140,7 +152,8 @@ public class Character {
 	}
 	
 	public void printMyCoordinates(){
-		System.out.println(characterName+" mx "+myMapX+" my "+myMapY+" sx "+x+" sy "+y);
+		System.out.println(characterName+" mx "+myMapX+" my "+myMapY+" sx "+x+" sy "+y+" onG "
+				+onGround);
 	}
 	
 	public void setOnGround(boolean og){

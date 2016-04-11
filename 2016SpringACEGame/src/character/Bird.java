@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import mainPac.ImageLoader;
+import map.MapPanel;
 
 public class Bird extends Character{
 	//our protagonist for now..
@@ -33,17 +34,17 @@ public class Bird extends Character{
 	}
 	
 	@Override
-	public void moveOneStepRight(){
+	public void moveNStepRight(int steps){
 		rotateWalkingStatus();
-		x+=10;
-		myMapX+=1; //on the map it moved one unit to the right. one unit is 10 pixels
+		x+=10*steps;
+		myMapX+=1*steps; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
 	@Override
-	public void moveOneStepLeft(){
+	public void moveNStepLeft(int steps){
 		rotateWalkingStatus();
-		x-=10;
-		myMapX-=1;
+		x-=10*steps;
+		myMapX-=1*steps;
 	}
 	
 	public void jump(){ //jump once
@@ -54,6 +55,23 @@ public class Bird extends Character{
 		}
 	}
 	
+	public void rightJump(){
+		if(onGround ){
+			hVelo=-16;
+			velocity=40;
+			myStatus=7;
+			falling=true;
+			}
+	}
+	
+	public void leftJump(){
+		if(onGround){
+			hVelo=16;
+			velocity=40;
+			myStatus=7;
+			falling=true;
+			}
+	}
 	public void fall(){ //fall is called a lot
 		if(velocity<0 && !onGround){
 		myStatus=8;
