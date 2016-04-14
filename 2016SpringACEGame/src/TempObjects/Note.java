@@ -15,10 +15,10 @@ public class Note extends tempObject implements ActionListener{
 	int count=0; Bird myBird; CharacterPanel characterPanel;
 	public Note(int MX, int MY, ImageLoader il, int direction, Bird bird, CharacterPanel cp) {
 		super(MX, MY, il, direction);
-		myImage=il.note;
+		myImage=il.notes.getSubimage((int)(Math.random()/0.5)*10,(int)(Math.random()/0.5)*10, 10, 10);
 		characterPanel = cp;
 		myBird=bird;
-		myT = new Timer (80, this);
+		myT = new Timer (60, this);
 		myT.start();
 	}
 
@@ -31,7 +31,7 @@ public class Note extends tempObject implements ActionListener{
 		// TODO Auto-generated method stub
 		updatePos();
 		count+=1;
-		if(count>=5){
+		if(count>=6){
 			disappear();
 		}
 	}

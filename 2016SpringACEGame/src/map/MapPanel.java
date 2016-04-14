@@ -39,28 +39,33 @@ public class MapPanel extends JPanel{
 			}
 		}
 		for(int tl=0; tl<80; tl++){
-			map[tl][43]=2;
+			map[tl][43]=1;
 			for(int t=44; t<50; t++){
-			map[tl][t]=1; //terrain pieces	
+			map[tl][t]=2; //terrain pieces	
+			}
+			if(tl==30){
+				for(int y=39; y<=42; y++){
+				map[tl][y]=2;
+				}
 			}
 		}
 		for(int s=35; s<45; s++){
 			if(s>36 && s<44){
-			map[s][37]=2;
-			map[s][38]=1;
+			map[s][37]=1;
+			map[s][38]=2;
 			}
 			
 		}
 		
 		for(int e=50; e<80; e++){
-			map[e][33]=2;
-			map[e][34]=1;
+			map[e][33]=1;
+			map[e][34]=2;
 		}
 		for(int ee=80; ee<100; ee++){
 		
-			map[ee][38]=2;
-			map[ee][39]=1;
-			map[ee][40]=1;
+			map[ee][38]=1;
+			map[ee][39]=2;
+			map[ee][40]=2;
 		}
 	}
 	

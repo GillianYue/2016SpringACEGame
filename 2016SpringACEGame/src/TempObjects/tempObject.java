@@ -1,6 +1,7 @@
 package TempObjects;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
@@ -30,5 +31,17 @@ public class tempObject {
 	
 	public void paintObject(Graphics g){
 		g.drawImage(myImage, 10*(mx-MapPanel.currmapMinX), 10*my, null);
+	}
+	
+	public Rectangle getBounds(){
+	return new Rectangle(10*(mx-MapPanel.currmapMinX),10*my,myImage.getWidth(), myImage.getHeight());
+	}
+	
+	public boolean hitEnemy(character.Character enemy){
+		if (getBounds().intersects(enemy.getMyBounds())){
+			return true;
+		}else{
+			return false;
+		}
 	}
 }

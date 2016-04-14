@@ -21,14 +21,14 @@ public class Character {
 	BufferedImage myImage;
 	int facingDirection;	//1 is not flipped; -1 is flipped
 	public String characterName;
-	int myStatus=0; //the total number of status depends on the individual character
+	protected int myStatus=0; //the total number of status depends on the individual character
 	int numOfWalkingStatus;
 	public int velocity=0;
 	public double hVelo=0;
 	public boolean falling=true;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround;
+	public boolean onGround, walking, squat;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
@@ -96,6 +96,10 @@ public class Character {
 		myMapY=my;
 	}
 	
+	public int myDirection(){
+		return facingDirection;
+	}
+	
 	public void setScreenX(int sx){
 		x=sx;
 	}
@@ -117,6 +121,10 @@ public class Character {
 	
 	public void returnToOriginalStatus(){
 		myStatus=0;
+	}
+	
+	public int getStatus(){
+		return myStatus;
 	}
 	
 	public Rectangle getMyBounds(){

@@ -10,7 +10,7 @@ import map.MapPanel;
 public class Bird extends Character{
 	//our protagonist for now..
 	//STATUS DATA:
-	//0 normal, 0-2 walking,3-5 blank, 6 attack, 7 jump, 8 fall
+	//0 normal, 0-2 walking,3 squat, 4 sattack, 5 blank, 6 attack, 7 jump, 8 fall
 	public boolean noteOn;
 	ImageLoader Il;
 	Note note;
@@ -21,12 +21,13 @@ public class Bird extends Character{
 		Il=il;
 		characterName = "Chirpy";
 		numOfWalkingStatus=3; //0, 1, 2
-		individualWidth=15; 
+		individualWidth=35; 
 		individualHeight=40;
 	}
 	
 	@Override
 	public void drawCharacter(Graphics g){
+		
 		if(facingDirection==1){
 		g.drawImage(myImage, x, y, x+45,
 				y+45, (myStatus%3)*45, (myStatus/3)*45,
@@ -46,20 +47,18 @@ public class Bird extends Character{
 	
 	@Override
 	public void moveNStepRight(int steps){
-		if(onGround){
-		rotateWalkingStatus();
+		hVelo=-5*steps; //on the map it moved one unit to the right. one unit is 10 pixels
+		if(walking){
+			rotateWalkingStatus();
 		}
-		x+=10*steps;
-		myMapX+=1*steps; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
 	@Override
 	public void moveNStepLeft(int steps){
-		if(onGround){
-		rotateWalkingStatus();
+		hVelo=5*steps;
+		if(walking){
+			rotateWalkingStatus();
 		}
-		x-=10*steps;
-		myMapX-=1*steps;
 	}
 	
 	public void jump(){ //jump once
@@ -71,7 +70,7 @@ public class Bird extends Character{
 	}
 	
 	public void rightJump(){
-		if(onGround ){
+		if(onGround){
 			hVelo=-16;
 			velocity=40;
 			myStatus=7;
@@ -88,7 +87,7 @@ public class Bird extends Character{
 			}
 	}
 	public void fall(){ //fall is called a lot
-		if(velocity<0 && !onGround){
+		if(velocity<0 && !onGround && !walking){
 		myStatus=8;
 		}
 		if(!onGround){
@@ -96,11 +95,33 @@ public class Bird extends Character{
 		}
 	}
 	
+	@Override
+	public void returnToOriginalStatus(){
+		myStatus=0;
+		squat=false;
+		walking=false;
+	}
+	
+	public void squat(){
+		squat=true;
+		myStatus=3;
+	}
+	
+	public void squatAttack(){
+		myStatus=4;
+		if(facingDirection==1){
+			note = new Note(myMapX+5, myMapY+3, Il, facingDirection, this, characterPanel);
+			}else{
+			note = new Note(myMapX-1, myMapY+3, Il, facingDirection, this, characterPanel);
+			}
+			noteOn=true;
+	}
+	
 	public void attack(){
 		if(!noteOn){
 		myStatus=6;
 		if(facingDirection==1){
-		note = new Note(myMapX+4, myMapY+2, Il, facingDirection, this, characterPanel);
+		note = new Note(myMapX+5, myMapY+2, Il, facingDirection, this, characterPanel);
 		}else{
 		note = new Note(myMapX-1, myMapY+2, Il, facingDirection, this, characterPanel);
 		}
@@ -110,6 +131,6 @@ public class Bird extends Character{
 	
 	@Override
 	public Rectangle getMyBounds(){
-		return new Rectangle(x+15, y+5, individualWidth, individualHeight);
+		return new Rectangle(x+5, y+5, individualWidth, individualHeight);
 	}
 }
