@@ -19,7 +19,7 @@ public class MapPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private int pWidth, pHeight; 
 	
-	public static int[][] map; //gives the unit the whatamI data
+	public static int[][] map; //gives the unit the whatamI data: 1 layer, 2 terrain
 	public static Unit[][] units;
 	ImageLoader Il;
 	
@@ -67,6 +67,7 @@ public class MapPanel extends JPanel{
 			map[ee][39]=2;
 			map[ee][40]=2;
 		}
+		
 	}
 	
 	public void updateUnits (Graphics g){ //draws the part of the map that should be displayed on screen
@@ -78,7 +79,7 @@ public class MapPanel extends JPanel{
 			}
 		}
 	}
-	
+	@Override
 	public void paintComponent(Graphics g){
 		updateUnits(g);
 	}

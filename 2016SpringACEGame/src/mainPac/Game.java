@@ -29,15 +29,15 @@ public class Game {
 		ImageLoader imageLoader = new ImageLoader();
 		
 		JLayeredPane jlp = new JLayeredPane();
-	
-		MapPanel mapPanel = new MapPanel (fWidth, fHeight, imageLoader);
-		mapPanel.setSize(fWidth, fHeight);
 		
 		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight, imageLoader);
 		backgroundPanel.setSize(fWidth, fHeight);
 		
+		MapPanel mapPanel = new MapPanel (fWidth, fHeight, imageLoader);
+		mapPanel.setSize(fWidth, fHeight); mapPanel.setOpaque(false);
+		
 		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
-		characterPanel.setSize(fWidth, fHeight);
+		characterPanel.setSize(fWidth, fHeight); characterPanel.setOpaque(false);
 		
 		
 		jlp.add(backgroundPanel, Integer.valueOf(1));
@@ -51,11 +51,12 @@ public class Game {
 		ControlPanel controlPanel = new ControlPanel(mapPanel, backgroundPanel, characterPanel, imageLoader);
 		gameFrame.add(controlPanel);
 		
-		PanelUpdater pu = new PanelUpdater (characterPanel);
+		PanelUpdater pu = new PanelUpdater (jlp);
 		
 		gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		backgroundPanel.repaint();
 	}
 
 	public static void addIconImage(String icon, JFrame jframe){

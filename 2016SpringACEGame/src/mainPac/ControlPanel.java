@@ -1,6 +1,7 @@
 package mainPac;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -27,7 +28,6 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	double gravity=9.8; 
 	ImageLoader Il;
 	boolean lost;
-	CharacterPanel characterPanel;
 	MapPanel mapPanel;
 	character.Character mainCharacter;
 	
@@ -35,7 +35,6 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		bird=character.bird;
 		frog=character.frog;
 		BG=bp.mountains;
-		characterPanel=character;
 		mapPanel=mp;
 		Il=il;
 		this.setFocusable(true);
@@ -227,7 +226,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			restartLevel();
 			lost=false;
 		}
-		
+		bird.printMyCoordinates();
 		
 }
 	
@@ -310,7 +309,19 @@ c.setScreenX(c.getScreenX() - (int)c.recCollisionWithUnit(unitToTest).getWidth()
 			if(c.hVelo<0)
 				c.hVelo=0;
 				}
-		}	
+		}	else if(MapPanel.map[c.getMapX()+1][c.getMapY()+1]>0 ||
+				MapPanel.map[c.getMapX()+1][c.getMapY()+2]>0){
+			//if it's a terrain unit
+	Unit unitToTest = (MapPanel.map[c.getMapX()+1][c.getMapY()+1]>0) ? 
+ MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()+1]:
+	 MapPanel.units[c.getMapX()+1-MapPanel.currmapMinX][c.getMapY()+2];
+			if(c.collisionWithUnit(unitToTest)){ //check the unit
+c.setScreenX(c.getScreenX() - (int)c.recCollisionWithUnit(unitToTest).getWidth()); 
+	//pushes the character back to its desired position
+			if(c.hVelo<0)
+				c.hVelo=0;
+				}
+		}
 		//end of horizontal testing
 		}else{
 			//start horizontal testing:Left
@@ -406,7 +417,7 @@ c.setScreenX(c.getScreenX() - (int)c.recCollisionWithUnit(unitToTest).getWidth()
 		//pushes the character back to its desired position
 					c.velocity=0;
 					c.setOnGround(true);
-					check1=true;
+					c.changeStatus(0);
 					}
 			}	
 			
@@ -421,17 +432,18 @@ c.setScreenX(c.getScreenX() - (int)c.recCollisionWithUnit(unitToTest).getWidth()
 		//pushes the character back to its desired position
 				c.velocity=0;
 				c.setOnGround(true);
-				check2=true;
+				c.changeStatus(0);
 				}
 				}
 				//end of lower units check'
-				if(	MapPanel.map[c.getMapX()+2][c.getMapY()+5]==0){
+				if(	MapPanel.map[c.getMapX()+2][c.getMapY()+5]==0 &&
+						MapPanel.map[c.getMapX()+3][c.getMapY()+5]==0	){
 					c.setOnGround(false);
 	}
 	}
 	
 	public void checkForLose(){
-		if(mainCharacter.getMapY()>55){
+		if(mainCharacter.getMapY()>50){
 			System.out.println("you lose!!!!!");
 		   lost=true;
 		}

@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader {
 	public BufferedImage bird, icon, mountains, sun, terrainpiece, terrainlayer, tori, kero,
-	notes;
+	notes, flower;
 	
 	public ImageLoader(){
 		bird=loadImage("Pics/bird.png", bird);
@@ -20,6 +20,7 @@ public class ImageLoader {
 		tori=loadImage("Pics/tori.png", tori);
 		kero=loadImage("Pics/kero.png", kero);
 		notes=loadImage("Pics/notes.png", notes);
+		//flower=loadImage("Pics/flowermonsters.png", flower);
 	}
 	
 	public BufferedImage loadImage(String fileName, BufferedImage image){

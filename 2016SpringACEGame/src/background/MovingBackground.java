@@ -12,9 +12,9 @@ public class MovingBackground{
 	int pic1Loc, pic2Loc;
 	int PicWidth; double movingSpeed;
 	
-	public MovingBackground(double MovingSpeed, JPanel myPanel, ImageLoader il){
-		pic1 = il.mountains;
-		pic2 = il.mountains;
+	public MovingBackground(double MovingSpeed, JPanel myPanel, ImageLoader il, BufferedImage myPic){
+		pic1 = myPic;
+		pic2 = myPic;
 		PicWidth = pic1.getWidth();
 		//initializing the starting locations of pic1 & pic2
 		pic1Loc = 0;
@@ -24,7 +24,7 @@ public class MovingBackground{
 	
 	public void updateMovingBackground(Graphics g){
 
-		g.drawImage(pic1, pic1Loc, 0, null);
+	  g.drawImage(pic1, pic1Loc, 0, null);
 		g.drawImage(pic2, pic2Loc, 0, null);
 	}
 

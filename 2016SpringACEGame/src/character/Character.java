@@ -113,6 +113,7 @@ public class Character {
 			myStatus=0;
 		}
 		myStatus++;
+		
 	}
 	
 	public void changeStatus(int status){

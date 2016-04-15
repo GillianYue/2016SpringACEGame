@@ -17,8 +17,8 @@ import mainPac.ImageLoader;
 public class Background{
 	BufferedImage background;
 	
-	public Background(JPanel myPanel, ImageLoader il){
-		background = il.sun;
+	public Background(JPanel myPanel, ImageLoader il, BufferedImage myPic){
+		background = myPic;
 	}
 
 	public void setBackgroundSize(int width, int height, BufferedImage image){

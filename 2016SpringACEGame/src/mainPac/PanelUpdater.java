@@ -3,24 +3,25 @@ package mainPac;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class PanelUpdater implements ActionListener{
 	Timer t;
 	JPanel [] allPanels;
-	JPanel  tempCharacter; 
+	JPanel  temp; 
+	JLayeredPane jlp;
 	
-	public PanelUpdater(JPanel character){
-	    tempCharacter = character;
+	public PanelUpdater(JLayeredPane JLP){
+	    jlp=JLP;
 		t = new Timer (80, this);
 		t.start();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		tempCharacter.repaint();//somehow...this updates both of the panels...
+		jlp.repaint();
 	}
 
 }

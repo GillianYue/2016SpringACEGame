@@ -2,8 +2,6 @@ package background;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -12,28 +10,26 @@ import javax.swing.JPanel;
 import mainPac.ImageLoader;
 
 public class BackgroundPanel extends JPanel implements MouseListener{
-//TODO make keyListener work
 	private static final long serialVersionUID = 1L;
 	
 	Background forest; public MovingBackground mountains;
 	private int pWidth, pHeight; 
 	
 	public BackgroundPanel(int width, int height, ImageLoader il){
-		this.setBackground(Color.GRAY);
-		forest= new Background (this, il);
-		mountains = new MovingBackground (1.5 , this, il);
+		this.setBackground(Color.CYAN);
+		forest= new Background (this, il, il.sun);
+		mountains = new MovingBackground (1.5 , this, il, il.mountains);
 		pWidth=width; 
 		pHeight=height;
 		forest.setBackgroundSize(pWidth, pHeight, forest.getBackgroundImage());
-
 		addMouseListener(this);
 	}
 	
-	
+	@Override
 	public void paintComponent(Graphics g){
 		forest.drawBackground(g, 0, 0, null);
 		mountains.updateMovingBackground(g);
-
+		
 	}
 
 
