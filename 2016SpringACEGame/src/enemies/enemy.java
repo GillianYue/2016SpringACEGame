@@ -20,7 +20,6 @@ public class enemy extends character.Character{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		rotateWalkingStatus();
-		System.out.println("hello!");
 			}
 			
 		});

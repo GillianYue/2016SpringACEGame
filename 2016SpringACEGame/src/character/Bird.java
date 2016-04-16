@@ -63,6 +63,7 @@ public class Bird extends Character{
 	
 	public void jump(){ //jump once
 		if(onGround){
+		jumping=true;
 		myStatus=7;
 		velocity=40;
 		falling=true;

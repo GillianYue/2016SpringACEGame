@@ -74,6 +74,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				bird.changeStatus(0);
 			}
 		}else{
+			if(!bird.jumping)
 		bird.returnToOriginalStatus();	
 		}
 		
@@ -292,7 +293,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void coordinatesSync (character.Character e){
 		e.setMapX((e.getScreenX()/10)+MapPanel.currmapMinX);
 		e.setMapY(e.getScreenY()/10);
-		if(!e.walking && !e.squat){
+		if(!e.walking && !e.squat && !e.jumping){
 			e.changeStatus(0);
 		}
 	}

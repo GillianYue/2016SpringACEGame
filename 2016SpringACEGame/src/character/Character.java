@@ -28,7 +28,7 @@ public class Character {
 	public boolean falling=true;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround, walking, squat;
+	public boolean onGround, walking, squat, jumping;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
