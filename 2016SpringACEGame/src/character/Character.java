@@ -9,6 +9,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import enemies.enemy;
 import mainPac.Game;
 import mainPac.ImageLoader;
 import map.MapPanel;
@@ -143,12 +144,24 @@ public class Character {
 		}
 	}
 	
+	public boolean collisionWithEnemy(enemy e){
+		try{
+			if (getMyBounds().intersects(e.getMyBounds())){
+				return true;
+			}else{
+				return false;
+			}
+			}catch(Exception p){
+				return false;
+			}
+	}
+	
+	public Rectangle recCollisionWithEnemy(enemy e){
+		return getMyBounds().intersection(e.getMyBounds());
+	}
+	
 	public Rectangle recCollisionWithUnit(Unit unit){
-		if (getMyBounds().intersects(unit.getBounds())){
-			return getMyBounds().intersection(unit.getBounds());
-		}else{
-			return null;
-		}
+		return getMyBounds().intersection(unit.getBounds());
 	}
 	
 	public void fall(){ //fall is called a lot

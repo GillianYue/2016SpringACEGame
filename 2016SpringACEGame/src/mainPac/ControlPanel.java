@@ -424,21 +424,21 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	}
 		//end upper unit testing
 		
-		//start ground collision test: 
-//		if(MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0 ||
-//				MapPanel.map[e.getMapX()+1][e.getMapY()+5]>0){
-//			//if it's a terrain unit
-//	Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0) ? 
-// MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+4]:
-//	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+5];
-//			if(e.collisionWithUnit(unitToTest)){ //check the unit
-//			e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
-//	//pushes the character back to its desired position
-//				e.velocity=0;
-//				e.setOnGround(true);
-//				e.changeStatus(0);
-//				}
-//		}	
+	//	start ground collision test: 
+		if(MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0 ||
+				MapPanel.map[e.getMapX()+1][e.getMapY()+5]>0){
+			//if it's a terrain unit
+	Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0) ? 
+ MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+4]:
+	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+5];
+			if(e.collisionWithUnit(unitToTest)){ //check the unit
+			e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
+	//pushes the character back to its desired position
+				e.velocity=0;
+				e.setOnGround(true);
+				e.changeStatus(0);
+				}
+		}	
 		
 			if(MapPanel.map[e.getMapX()+2][e.getMapY()+4]>0 ||
 					MapPanel.map[e.getMapX()+2][e.getMapY()+5]>0){
@@ -471,7 +471,8 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				}
 				//end of lower units check'
 				if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
-						MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	){
+						MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	
+						&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0){
 					e.setOnGround(false);
 	}
 	}
@@ -480,6 +481,23 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 		if(mainCharacter.getMapY()>50){
 			System.out.println("you lose!!!!!");
 		   lost=true;
+		}else{
+		for(enemy e: CharacterPanel.enemies){
+			if(mainCharacter.collisionWithEnemy(e)){
+				System.out.println("you lose!!!!!");
+				lost=true;
+				mainCharacter.setScreenX(mainCharacter.getScreenX() - 
+		(int)mainCharacter.recCollisionWithEnemy(e).getWidth()); 
+							if(e.hVelo!=0)
+							mainCharacter.hVelo=0;
+							}
+			if(mainCharacter.collisionWithEnemy(e)){
+				mainCharacter.setScreeny(mainCharacter.getScreenY() - 
+						(int)mainCharacter.recCollisionWithEnemy(e).getHeight()); 
+				mainCharacter.velocity=0;
+			
+			}
+		}
 		}
 	}
 	
