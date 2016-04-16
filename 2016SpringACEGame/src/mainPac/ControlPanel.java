@@ -64,18 +64,18 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(pressedKeyCode.contains(e.getKeyCode()==KeyEvent.VK_DOWN)&&
-				pressedKeyCode.contains(e.getKeyCode()==KeyEvent.VK_A)){
-		bird.returnToOriginalStatus();
+		if(pressedKeyCode.contains(KeyEvent.VK_DOWN)){
+		bird.squat=false;
 		}else if(e.getKeyCode()==KeyEvent.VK_A){
 			if(bird.squat){
 		bird.changeStatus(3);
 			}else{
 				bird.changeStatus(0);
 			}
-		}else{
-			if(!bird.jumping)
-		bird.returnToOriginalStatus();	
+		}
+		if(pressedKeyCode.contains(KeyEvent.VK_RIGHT) || 
+				pressedKeyCode.contains(KeyEvent.VK_LEFT)){
+		bird.walking=false;
 		}
 		
 		pressedKeyCode.remove(e.getKeyCode());
@@ -270,6 +270,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	
 	public void gravityMainCharacter(character.Character e){
 		e.setScreeny(e.getScreenY()-(int)(e.velocity*0.3));
+		e.fall();
 	if(e.characterName.equals("Chirpy")){
 		bird.setScreenX(bird.getScreenX()-(int)(bird.hVelo));
 	if(bird.hVelo!=0){
@@ -300,9 +301,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	
 	public void collisionDetection(character.Character e){
 	
-		if(e.falling){
-			e.fall();
-		}	
+			
 		if(e.myDirection()==1){
 		//start horizontal testing: Right
 		if(MapPanel.map[e.getMapX()+4][e.getMapY()+1]>0 ||
@@ -436,7 +435,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	//pushes the character back to its desired position
 				e.velocity=0;
 				e.setOnGround(true);
-				e.changeStatus(0);
+				e.jumping=false;
 				}
 		}	
 		
@@ -451,7 +450,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 		//pushes the character back to its desired position
 					e.velocity=0;
 					e.setOnGround(true);
-					e.changeStatus(0);
+					e.jumping=false;
 					}
 			}	
 			
@@ -466,7 +465,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 		//pushes the character back to its desired position
 				e.velocity=0;
 				e.setOnGround(true);
-				e.changeStatus(0);
+				e.jumping=false;
 				}
 				}
 				//end of lower units check'

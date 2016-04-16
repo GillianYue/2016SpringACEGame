@@ -26,10 +26,10 @@ public class Character {
 	protected int numOfWalkingStatus;
 	public int velocity=0;
 	public double hVelo=0;
-	public boolean falling=true;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
 	public boolean onGround, walking, squat, jumping;
+	public int HP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
@@ -38,6 +38,7 @@ public class Character {
 		x=myMapX*10;
 		y=myMapY*10;
 		facingDirection=1; //Default facing right
+		
 		//myImage is not loaded in this class. Load the image in its child classes
 	}
 	
@@ -109,7 +110,7 @@ public class Character {
 	}
 	
 	public void rotateWalkingStatus(){
-		if(myStatus==numOfWalkingStatus-1){
+		if(myStatus>=numOfWalkingStatus-1){
 			myStatus=0;
 		}else{
 		myStatus++;

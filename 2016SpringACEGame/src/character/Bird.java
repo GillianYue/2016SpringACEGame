@@ -3,6 +3,7 @@ package character;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import TempObjects.Hearts;
 import TempObjects.Note;
 import mainPac.ImageLoader;
 import map.MapPanel;
@@ -14,11 +15,14 @@ public class Bird extends Character{
 	public boolean noteOn;
 	ImageLoader Il;
 	Note note;
+	Hearts hearts;
 	
 	public Bird(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		super(initialmapX, initialmapY, il, cp);
 		myImage = il.tori;
 		Il=il;
+		HP=3;
+		hearts= new Hearts(0, 0, il, 1, HP);
 		characterName = "Chirpy";
 		numOfWalkingStatus=3; //0, 1, 2
 		individualWidth=35; 
@@ -27,7 +31,8 @@ public class Bird extends Character{
 	
 	@Override
 	public void drawCharacter(Graphics g){
-		
+		hearts.drawHearts(g);
+		printMyStatus();
 		if(facingDirection==1){
 		g.drawImage(myImage, x, y, x+45,
 				y+45, (myStatus%3)*45, (myStatus/3)*45,
@@ -48,7 +53,7 @@ public class Bird extends Character{
 	@Override
 	public void moveNStepRight(int steps){
 		hVelo=-5*steps; //on the map it moved one unit to the right. one unit is 10 pixels
-		if(walking){
+		if(walking && onGround && !jumping){
 			rotateWalkingStatus();
 		}
 	}
@@ -56,7 +61,7 @@ public class Bird extends Character{
 	@Override
 	public void moveNStepLeft(int steps){
 		hVelo=5*steps;
-		if(walking){
+		if(walking && onGround && !jumping){
 			rotateWalkingStatus();
 		}
 	}
@@ -66,7 +71,6 @@ public class Bird extends Character{
 		jumping=true;
 		myStatus=7;
 		velocity=40;
-		falling=true;
 		}
 	}
 	
@@ -75,7 +79,6 @@ public class Bird extends Character{
 			hVelo=-16;
 			velocity=40;
 			myStatus=7;
-			falling=true;
 			}
 	}
 	
@@ -84,11 +87,10 @@ public class Bird extends Character{
 			hVelo=16;
 			velocity=40;
 			myStatus=7;
-			falling=true;
 			}
 	}
 	public void fall(){ //fall is called a lot
-		if(velocity<0 && !onGround && !walking){
+		if(velocity<0 && !onGround ){
 		myStatus=8;
 		}
 		if(!onGround){
@@ -101,6 +103,7 @@ public class Bird extends Character{
 		myStatus=0;
 		squat=false;
 		walking=false;
+		jumping=false;
 	}
 	
 	public void squat(){
@@ -128,6 +131,11 @@ public class Bird extends Character{
 		}
 		noteOn=true;
 		}
+	}
+	
+	public void printMyStatus(){
+System.out.println("OnGround: "+onGround+" status: "+
+	myStatus+" walkin: "+walking+" jumpin: "+jumping+" squattin: "+squat);
 	}
 	
 	@Override
