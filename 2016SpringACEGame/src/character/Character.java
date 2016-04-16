@@ -18,11 +18,11 @@ public class Character {
 	protected int x, y; //this is where the bird is on the panel
 	protected int myMapX, myMapY; //the character's coordinates on the actual map
 	public double gravity=10;
-	BufferedImage myImage;
-	int facingDirection;	//1 is not flipped; -1 is flipped
+	protected BufferedImage myImage;
+	protected int facingDirection=1;	//1 is not flipped; -1 is flipped
 	public String characterName;
 	protected int myStatus=0; //the total number of status depends on the individual character
-	int numOfWalkingStatus;
+	protected int numOfWalkingStatus;
 	public int velocity=0;
 	public double hVelo=0;
 	public boolean falling=true;
@@ -51,6 +51,7 @@ public class Character {
 					y+	myImage.getHeight(),
 					0, 0, myImage.getWidth(), myImage.getHeight(), null);
 		}
+		
 	}
 	
 	
@@ -63,13 +64,11 @@ public class Character {
 	}
 	
 	public void moveNStepRight(int steps){
-		x+=10*steps;
-		myMapX+=1*steps; //on the map it moved one unit to the right. one unit is 10 pixels
+		hVelo=-5*steps; //on the map it moved one unit to the right. one unit is 10 pixels
 	}
 	
 	public void moveNStepLeft(int steps){
-		x-=10*steps;
-		myMapX-=1*steps;
+		hVelo=5*steps;
 	}
 
 	public int getMapX(){
@@ -111,9 +110,9 @@ public class Character {
 	public void rotateWalkingStatus(){
 		if(myStatus==numOfWalkingStatus-1){
 			myStatus=0;
-		}
+		}else{
 		myStatus++;
-		
+		}
 	}
 	
 	public void changeStatus(int status){

@@ -20,7 +20,7 @@ public class ImageLoader {
 		tori=loadImage("Pics/tori.png", tori);
 		kero=loadImage("Pics/kero.png", kero);
 		notes=loadImage("Pics/notes.png", notes);
-		//flower=loadImage("Pics/flowermonsters.png", flower);
+		flower=loadImage("Pics/flowermonsters.png", flower);
 	}
 	
 	public BufferedImage loadImage(String fileName, BufferedImage image){
