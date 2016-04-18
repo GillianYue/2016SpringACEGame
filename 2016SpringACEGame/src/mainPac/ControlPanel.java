@@ -32,7 +32,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	boolean lost;
 	MapPanel mapPanel;
 	character.Character mainCharacter;
-	
+	/*
+	 * in coordinates sync the character's status is constantly reset
+	 */
 	public ControlPanel(MapPanel mp, BackgroundPanel bp, CharacterPanel character, ImageLoader il){
 		bird=character.bird;
 		frog=character.frog;
@@ -294,7 +296,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void coordinatesSync (character.Character e){
 		e.setMapX((e.getScreenX()/10)+MapPanel.currmapMinX);
 		e.setMapY(e.getScreenY()/10);
-		if(!e.walking && !e.squat && !e.jumping){
+		if(!e.walking && !e.squat && !e.jumping && !e.injured){
 			e.changeStatus(0);
 		}
 	}
@@ -482,20 +484,41 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 		   lost=true;
 		}else{
 		for(enemy e: CharacterPanel.enemies){
-			if(mainCharacter.collisionWithEnemy(e)){
-				System.out.println("you lose!!!!!");
-				lost=true;
-				mainCharacter.setScreenX(mainCharacter.getScreenX() - 
-		(int)mainCharacter.recCollisionWithEnemy(e).getWidth()); 
-							if(e.hVelo!=0)
-							mainCharacter.hVelo=0;
-							}
-			if(mainCharacter.collisionWithEnemy(e)){
-				mainCharacter.setScreeny(mainCharacter.getScreenY() - 
-						(int)mainCharacter.recCollisionWithEnemy(e).getHeight()); 
+			if(e.enemyOnScreen() && mainCharacter.collisionWithEnemy(e)){
+	int cWidth=(int)mainCharacter.recCollisionWithEnemy(e).getWidth();
+	int cHeight=(int)mainCharacter.recCollisionWithEnemy(e).getHeight();
+		if(cWidth>cHeight){
+			e.HP-=1;
+			System.out.println(e.characterName+" is injured!!!");
+			mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
+		}else if(cWidth<=cHeight){
+				System.out.println("tori is injured!!!!");
+				mainCharacter.HP-=1;
+				mainCharacter.injured=true;
+				mainCharacter.changeStatus(5);//bird's status 5 is injured
+				mainCharacter.hVelo=mainCharacter.myDirection()*10;
+				Timer tempT = new Timer (1000, new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						mainCharacter.injured=false;
+					}
+				});
+				tempT.setRepeats(false);
+				tempT.start();
+//				mainCharacter.setScreenX(mainCharacter.getScreenX() - 
+//		(int)mainCharacter.recCollisionWithEnemy(e).getWidth()); 
+//							if(e.hVelo!=0)
+//							mainCharacter.hVelo=0;
+//				mainCharacter.setScreeny(mainCharacter.getScreenY() - 
+//						(int)mainCharacter.recCollisionWithEnemy(e).getHeight()); 
 				mainCharacter.velocity=0;
+		}
 			
 			}
+		}
+		if(mainCharacter.HP==0){
+			System.out.println("you lose!!!");
+			lost=true;
 		}
 		}
 	}

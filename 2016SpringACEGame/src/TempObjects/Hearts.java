@@ -7,16 +7,18 @@ import mainPac.ImageLoader;
 
 public class Hearts extends tempObject{
 	BufferedImage full, half, none;
-	int hp;
-	public Hearts(int MX, int MY, ImageLoader il, int direction, int HP) {
+	int hp; character.Character myC;
+	public Hearts(int MX, int MY, ImageLoader il, int direction, character.Character myCharacter) {
 		super(MX, MY, il, direction);
-		hp=HP;
+		myC=myCharacter;
+		hp=myC.HP;
 		full=il.hearts.getSubimage(0, 0, 45, 45);
 		half=il.hearts.getSubimage(0, 45, 45, 45);
 		none=il.hearts.getSubimage(0, 90, 45, 45);
 	}
 
 	public void drawHearts(Graphics g){
+		hp=myC.HP;
 		if(hp-2>=0){
 			g.drawImage(full, 0, 0, null);
 		}else if(hp-2==-1){

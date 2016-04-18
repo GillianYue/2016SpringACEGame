@@ -28,7 +28,7 @@ public class Character {
 	public double hVelo=0;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround, walking, squat, jumping;
+	public boolean onGround, walking, squat, jumping, injured;
 	public int HP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){

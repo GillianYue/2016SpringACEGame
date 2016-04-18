@@ -48,7 +48,9 @@ public class CharacterPanel extends JPanel{
 		}
 	for(enemy e:enemies){
 		if(e.getMapX()<MapPanel.currmapMinX || e.getMapX()>MapPanel.currmapMaxX){
-			enemies.remove(e);
+			e.setDisplay(false);
+		}else{
+			e.setDisplay(true);
 		}
 		e.drawCharacter(g);
 	}

@@ -11,7 +11,7 @@ import map.MapPanel;
 public class Bird extends Character{
 	//our protagonist for now..
 	//STATUS DATA:
-	//0 normal, 0-2 walking,3 squat, 4 sattack, 5 blank, 6 attack, 7 jump, 8 fall
+	//0 normal, 0-2 walking,3 squat, 4 sattack, 5 injured, 6 attack, 7 jump, 8 fall
 	public boolean noteOn;
 	ImageLoader Il;
 	Note note;
@@ -21,8 +21,8 @@ public class Bird extends Character{
 		super(initialmapX, initialmapY, il, cp);
 		myImage = il.tori;
 		Il=il;
-		HP=3;
-		hearts= new Hearts(0, 0, il, 1, HP);
+		HP=6;
+		hearts= new Hearts(0, 0, il, 1, this);
 		characterName = "Chirpy";
 		numOfWalkingStatus=3; //0, 1, 2
 		individualWidth=35; 
@@ -32,7 +32,6 @@ public class Bird extends Character{
 	@Override
 	public void drawCharacter(Graphics g){
 		hearts.drawHearts(g);
-		printMyStatus();
 		if(facingDirection==1){
 		g.drawImage(myImage, x, y, x+45,
 				y+45, (myStatus%3)*45, (myStatus/3)*45,
@@ -134,8 +133,8 @@ public class Bird extends Character{
 	}
 	
 	public void printMyStatus(){
-System.out.println("OnGround: "+onGround+" status: "+
-	myStatus+" walkin: "+walking+" jumpin: "+jumping+" squattin: "+squat);
+		System.out.println("HP: "+HP+"; OnGround: "+onGround+"; status: "+
+	myStatus+"; walkin: "+walking+"; jumpin: "+jumping+"; squattin: "+squat);
 	}
 	
 	@Override
