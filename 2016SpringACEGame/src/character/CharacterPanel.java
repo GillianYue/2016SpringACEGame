@@ -18,13 +18,14 @@ public class CharacterPanel extends JPanel{
 	public int[][] enemiesData;
 	public int initialX=20, initialY=35;
 	ImageLoader Il;
-	public static ArrayList<enemy> enemies;
+	public static ArrayList<enemy> enemies, garbage;
 	
 	public CharacterPanel(int width, int height, ImageLoader il){
 		pWidth=width;
 		pHeight=height;
 		Il=il;
 		enemies = new ArrayList<enemy>();
+		garbage = new ArrayList<enemy>();
 		enemiesData= new int [MapPanel.mapMaxX][MapPanel.mapMaxY];
 		enemiesData[50][36]=1;//flower monster
 		bird= new Bird(initialX, initialY, il, this);
@@ -54,6 +55,10 @@ public class CharacterPanel extends JPanel{
 		}
 		e.drawCharacter(g);
 	}
+	for (enemy e:garbage) {
+		enemies.remove(e);
+	}
+	garbage.clear();
 	}//end paint
 
 

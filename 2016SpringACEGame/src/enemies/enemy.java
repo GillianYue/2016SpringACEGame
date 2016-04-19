@@ -41,7 +41,8 @@ public class enemy extends character.Character{
 					(myStatus%3)*45+45, (myStatus/3)*45+45, null);
 		}
 		}else if(!checkAlive()){
-			CharacterPanel.enemies.remove(this);
+			//CharacterPanel.enemies.remove(this);
+			CharacterPanel.garbage.add(this);
 		}
 	}
 	

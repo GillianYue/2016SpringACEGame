@@ -505,15 +505,8 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				});
 				tempT.setRepeats(false);
 				tempT.start();
-//				mainCharacter.setScreenX(mainCharacter.getScreenX() - 
-//		(int)mainCharacter.recCollisionWithEnemy(e).getWidth()); 
-//							if(e.hVelo!=0)
-//							mainCharacter.hVelo=0;
-//				mainCharacter.setScreeny(mainCharacter.getScreenY() - 
-//						(int)mainCharacter.recCollisionWithEnemy(e).getHeight()); 
 				mainCharacter.velocity=0;
 		}
-			
 			}
 		}
 		if(mainCharacter.HP==0){
@@ -524,91 +517,40 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	}
 	
 	public void restartLevel(){
-		bird.resetCharacter();
+		mainCharacter.resetCharacter();
 		mapPanel.resetMapPanel();
+	    lost=false;
 	}
 	
-	public void collisionDetectionForEnemy(enemy e){
-		
-		if(!e.onGround){
-			e.fall();
-		}	
-		if(e.myDirection()==1){
-		//start horizontal testing: Right
-		if(MapPanel.map[e.getMapX()+4][e.getMapY()+1]>0 ||
-				MapPanel.map[e.getMapX()+4][e.getMapY()+3]>0){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[e.getMapX()+4][e.getMapY()+1]>0) ? 
- MapPanel.units[e.getMapX()+4-MapPanel.currmapMinX][e.getMapY()+1]:
-	 MapPanel.units[e.getMapX()+4-MapPanel.currmapMinX][e.getMapY()+3];
-			if(e.collisionWithUnit(unitToTest)){ //check the unit
-e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-	//pushes the character back to its desired position
-				if(e.hVelo<0)
-				e.hVelo=0;
-				}
-		}else if(MapPanel.map[e.getMapX()+3][e.getMapY()+1]>0 ||
-				MapPanel.map[e.getMapX()+3][e.getMapY()+3]>0){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[e.getMapX()+3][e.getMapY()+1]>0) ? 
- MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+1]:
-	 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+3];
-			if(e.collisionWithUnit(unitToTest)){ //check the unit
-e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-	//pushes the character back to its desired position
-			if(e.hVelo<0)
-				e.hVelo=0;
-				}
-		}else if(MapPanel.map[e.getMapX()+2][e.getMapY()+1]>0 ||
-				MapPanel.map[e.getMapX()+2][e.getMapY()+2]>0){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[e.getMapX()+2][e.getMapY()+1]>0) ? 
- MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+1]:
-	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+2];
-			if(e.collisionWithUnit(unitToTest)){ //check the unit
-e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-	//pushes the character back to its desired position
-			if(e.hVelo<0)
-				e.hVelo=0;
-				}
-		}	else if(MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0 ||
-				MapPanel.map[e.getMapX()+1][e.getMapY()+2]>0){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0) ? 
- MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+1]:
-	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+2];
-			if(e.collisionWithUnit(unitToTest)){ //check the unit
-e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-	//pushes the character back to its desired position
-			if(e.hVelo<0)
-				e.hVelo=0;
-				}
-		}
-		//end of horizontal testing
-		}else{
-			//start horizontal testing:Left
-			if(MapPanel.map[e.getMapX()][e.getMapY()+1]>0 ||
-					MapPanel.map[e.getMapX()][e.getMapY()+3]>0){
+		public void collisionDetectionForEnemy(enemy e){
+			
+			if(!e.onGround){
+				e.fall();
+			}	
+			if(e.myDirection()==1){
+			//start horizontal testing: Right
+			if(MapPanel.map[e.getMapX()+4][e.getMapY()+1]>0 ||
+					MapPanel.map[e.getMapX()+4][e.getMapY()+3]>0){
 				//if it's a terrain unit
-		Unit unitToTest = (MapPanel.map[e.getMapX()][e.getMapY()+1]>0) ? 
-	 MapPanel.units[e.getMapX()-MapPanel.currmapMinX][e.getMapY()+1]:
-		 MapPanel.units[e.getMapX()-MapPanel.currmapMinX][e.getMapY()+3];
+		Unit unitToTest = (MapPanel.map[e.getMapX()+4][e.getMapY()+1]>0) ? 
+	 MapPanel.units[e.getMapX()+4-MapPanel.currmapMinX][e.getMapY()+1]:
+		 MapPanel.units[e.getMapX()+4-MapPanel.currmapMinX][e.getMapY()+3];
 				if(e.collisionWithUnit(unitToTest)){ //check the unit
-	e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+	e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
 		//pushes the character back to its desired position
-				if(e.hVelo>0)
+					if(e.hVelo<0)
 					e.hVelo=0;
 					}
-			}else if(MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0 ||
-					MapPanel.map[e.getMapX()+1][e.getMapY()+3]>0){
+			}else if(MapPanel.map[e.getMapX()+3][e.getMapY()+1]>0 ||
+					MapPanel.map[e.getMapX()+3][e.getMapY()+3]>0){
 				//if it's a terrain unit
-		Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0) ? 
-	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+1]:
-		 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+3];
+		Unit unitToTest = (MapPanel.map[e.getMapX()+3][e.getMapY()+1]>0) ? 
+	 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+1]:
+		 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+3];
 				if(e.collisionWithUnit(unitToTest)){ //check the unit
-	e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+	e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
 		//pushes the character back to its desired position
-				if(e.hVelo>0)
+				if(e.hVelo<0)
 					e.hVelo=0;
 					}
 			}else if(MapPanel.map[e.getMapX()+2][e.getMapY()+1]>0 ||
@@ -618,78 +560,115 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+1]:
 		 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+2];
 				if(e.collisionWithUnit(unitToTest)){ //check the unit
-	e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+	e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
 		//pushes the character back to its desired position
-				if(e.hVelo>0)
+				if(e.hVelo<0)
 					e.hVelo=0;
 					}
-			}	
-			//end of horizontal testing
-		}
-//		
-//		//start upper unit testing
-//		if(MapPanel.map[e.getMapX()+1][e.getMapY()]>0 ||
-//				MapPanel.map[e.getMapX()+1][e.getMapY()-1]>0	){
-//			//check the upper units
-//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+1][e.getMapY()]>0) ? 
-// MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()]:
-//	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()-1];
-//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-//	//pushes the character back to its desired position
-//				e.velocity=0;
-//				}
-//		}
-//		if(MapPanel.map[e.getMapX()+2][e.getMapY()]>0 ||
-//				MapPanel.map[e.getMapX()+2][e.getMapY()-1]>0	){
-//			//check the upper units
-//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+2][e.getMapY()]>0) ? 
-// MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()]:
-//	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()-1];
-//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-//	//pushes the character back to its desired position
-//				e.velocity=0;
-//				}
-//		}
-//		if(MapPanel.map[e.getMapX()+3][e.getMapY()]>0 ||
-//				MapPanel.map[e.getMapX()+3][e.getMapY()-1]>0	){
-//			//check the upper units
-//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+3][e.getMapY()]>0) ? 
-// MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()]:
-//	 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()-1];
-//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-//	//pushes the character back to its desired position
-//				e.velocity=0;
-//				}
-//	}
-//		//end upper unit testing
-//		
-		//start ground collision test: 
-		if(MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0 ||
-				MapPanel.map[e.getMapX()+1][e.getMapY()+5]>0){
-			//if it's a terrain unit
-	Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0) ? 
- MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+4]:
-	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+5];
-			if(e.collisionWithUnit(unitToTest)){ //check the unit
-		e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
-	//pushes the character back to its desired position
-				e.velocity=0;
-				e.setOnGround(true);
-				e.changeStatus(0);
-				}
-		}	
-		
-			if(MapPanel.map[e.getMapX()+2][e.getMapY()+4]>0 ||
-					MapPanel.map[e.getMapX()+2][e.getMapY()+5]>0){
+			}	else if(MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0 ||
+					MapPanel.map[e.getMapX()+1][e.getMapY()+2]>0){
 				//if it's a terrain unit
-		Unit unitToTest = (MapPanel.map[e.getMapX()+2][e.getMapY()+4]>0) ? 
-	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+4]:
-		 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+5];
+		Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0) ? 
+	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+1]:
+		 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+2];
 				if(e.collisionWithUnit(unitToTest)){ //check the unit
-		e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
+	e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+		//pushes the character back to its desired position
+				if(e.hVelo<0)
+					e.hVelo=0;
+					}
+			}
+			//end of horizontal testing
+			}else{
+				//start horizontal testing:Left
+				if(MapPanel.map[e.getMapX()][e.getMapY()+1]>0 ||
+						MapPanel.map[e.getMapX()][e.getMapY()+3]>0){
+					//if it's a terrain unit
+			Unit unitToTest = (MapPanel.map[e.getMapX()][e.getMapY()+1]>0) ? 
+		 MapPanel.units[e.getMapX()-MapPanel.currmapMinX][e.getMapY()+1]:
+			 MapPanel.units[e.getMapX()-MapPanel.currmapMinX][e.getMapY()+3];
+					if(e.collisionWithUnit(unitToTest)){ //check the unit
+		e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+			//pushes the character back to its desired position
+					if(e.hVelo>0)
+						e.hVelo=0;
+						}
+				}else if(MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0 ||
+						MapPanel.map[e.getMapX()+1][e.getMapY()+3]>0){
+					//if it's a terrain unit
+			Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+1]>0) ? 
+		 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+1]:
+			 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+3];
+					if(e.collisionWithUnit(unitToTest)){ //check the unit
+		e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+			//pushes the character back to its desired position
+					if(e.hVelo>0)
+						e.hVelo=0;
+						}
+				}else if(MapPanel.map[e.getMapX()+2][e.getMapY()+1]>0 ||
+						MapPanel.map[e.getMapX()+2][e.getMapY()+2]>0){
+					//if it's a terrain unit
+			Unit unitToTest = (MapPanel.map[e.getMapX()+2][e.getMapY()+1]>0) ? 
+		 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+1]:
+			 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+2];
+					if(e.collisionWithUnit(unitToTest)){ //check the unit
+		e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
+			//pushes the character back to its desired position
+					if(e.hVelo>0)
+						e.hVelo=0;
+						}
+				}	
+				//end of horizontal testing
+			}
+	//		
+	//		//start upper unit testing
+	//		if(MapPanel.map[e.getMapX()+1][e.getMapY()]>0 ||
+	//				MapPanel.map[e.getMapX()+1][e.getMapY()-1]>0	){
+	//			//check the upper units
+	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+1][e.getMapY()]>0) ? 
+	// MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()]:
+	//	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()-1];
+	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
+	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
+	//	//pushes the character back to its desired position
+	//				e.velocity=0;
+	//				}
+	//		}
+	//		if(MapPanel.map[e.getMapX()+2][e.getMapY()]>0 ||
+	//				MapPanel.map[e.getMapX()+2][e.getMapY()-1]>0	){
+	//			//check the upper units
+	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+2][e.getMapY()]>0) ? 
+	// MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()]:
+	//	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()-1];
+	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
+	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
+	//	//pushes the character back to its desired position
+	//				e.velocity=0;
+	//				}
+	//		}
+	//		if(MapPanel.map[e.getMapX()+3][e.getMapY()]>0 ||
+	//				MapPanel.map[e.getMapX()+3][e.getMapY()-1]>0	){
+	//			//check the upper units
+	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+3][e.getMapY()]>0) ? 
+	// MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()]:
+	//	 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()-1];
+	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
+	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
+	//	//pushes the character back to its desired position
+	//				e.velocity=0;
+	//				}
+	//	}
+	//		//end upper unit testing
+	//		
+			//start ground collision test: 
+			if(MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0 ||
+					MapPanel.map[e.getMapX()+1][e.getMapY()+5]>0){
+				//if it's a terrain unit
+		Unit unitToTest = (MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0) ? 
+	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+4]:
+		 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()+5];
+				if(e.collisionWithUnit(unitToTest)){ //check the unit
+			e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
 		//pushes the character back to its desired position
 					e.velocity=0;
 					e.setOnGround(true);
@@ -697,24 +676,39 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 					}
 			}	
 			
-				if(MapPanel.map[e.getMapX()+3][e.getMapY()+4]>0 ||
-						MapPanel.map[e.getMapX()+3][e.getMapY()+5]>0	){
+				if(MapPanel.map[e.getMapX()+2][e.getMapY()+4]>0 ||
+						MapPanel.map[e.getMapX()+2][e.getMapY()+5]>0){
 					//if it's a terrain unit
-			Unit unitToTest = (MapPanel.map[e.getMapX()+3][e.getMapY()+4]>0) ? 
-		 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+4]:
-			 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+5];
-		 if(e.collisionWithUnit(unitToTest)){ //check the unit
-		e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
-		//pushes the character back to its desired position
-				e.velocity=0;
-				e.setOnGround(true);
-				e.changeStatus(0);
-				}
-				}
-				//end of lower units check'
-				if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
-						MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	){
-					e.setOnGround(false);
-	}
-	}
+			Unit unitToTest = (MapPanel.map[e.getMapX()+2][e.getMapY()+4]>0) ? 
+		 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+4]:
+			 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()+5];
+					if(e.collisionWithUnit(unitToTest)){ //check the unit
+			e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
+			//pushes the character back to its desired position
+						e.velocity=0;
+						e.setOnGround(true);
+						e.changeStatus(0);
+						}
+				}	
+				
+					if(MapPanel.map[e.getMapX()+3][e.getMapY()+4]>0 ||
+							MapPanel.map[e.getMapX()+3][e.getMapY()+5]>0	){
+						//if it's a terrain unit
+				Unit unitToTest = (MapPanel.map[e.getMapX()+3][e.getMapY()+4]>0) ? 
+			 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+4]:
+				 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()+5];
+			 if(e.collisionWithUnit(unitToTest)){ //check the unit
+			e.setScreeny(e.getScreenY() - (int)e.recCollisionWithUnit(unitToTest).getHeight()); 
+			//pushes the character back to its desired position
+					e.velocity=0;
+					e.setOnGround(true);
+					e.changeStatus(0);
+					}
+					}
+					//end of lower units check'
+					if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
+							MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	){
+						e.setOnGround(false);
+		}
+		}
 }
