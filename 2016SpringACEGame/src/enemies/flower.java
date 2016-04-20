@@ -13,7 +13,7 @@ public class flower extends enemy{
 		myImage=il.flower.getSubimage(
 				0,(int)(Math.random()/0.34)*45, 90, 45
 				);
-		HP=1;
+		HP=2;
 		characterName="Pansy";
 		picWidth=45;
 		picHeight=45;

@@ -42,7 +42,7 @@ public class enemy extends character.Character{
 		}
 		}else if(!checkAlive()){
 			//CharacterPanel.enemies.remove(this);
-			CharacterPanel.garbage.add(this);
+			CharacterPanel.enemiesGarbage.add(this);
 		}
 	}
 	

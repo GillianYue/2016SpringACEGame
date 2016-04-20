@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import TempObjects.tempObject;
 import background.BackgroundPanel;
 import background.MovingBackground;
 import character.Bird;
@@ -67,17 +68,17 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		if(pressedKeyCode.contains(KeyEvent.VK_DOWN)){
-		bird.squat=false;
+		mainCharacter.squat=false;
 		}else if(e.getKeyCode()==KeyEvent.VK_A){
-			if(bird.squat){
-		bird.changeStatus(3);
+			if(mainCharacter.squat){
+		mainCharacter.changeStatus(3);
 			}else{
-				bird.changeStatus(0);
+				mainCharacter.changeStatus(0);
 			}
 		}
 		if(pressedKeyCode.contains(KeyEvent.VK_RIGHT) || 
 				pressedKeyCode.contains(KeyEvent.VK_LEFT)){
-		bird.walking=false;
+		mainCharacter.walking=false;
 		}
 		
 		pressedKeyCode.remove(e.getKeyCode());
@@ -87,121 +88,141 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void moveTheBird(Set<Integer> set){
 		if(set.size()>1){
 			if(set.contains(KeyEvent.VK_RIGHT)&& set.contains(KeyEvent.VK_SPACE)){
-				if(bird.getScreenX()<pwidth-50){
-					bird.faceRight();
-					if(bird.getScreenX() < 500){//if it's in the middle of the panel
-					bird.rightJump();
+				if(mainCharacter.getScreenX()<pwidth-50){
+					mainCharacter.faceRight();
+					if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
+					mainCharacter.rightJump();
 					}else if((MapPanel.currmapMaxX+8> MapPanel.mapMaxX)
-						&& (bird.getScreenX() >= 500)){
-							bird.rightJump();
+						&& (mainCharacter.getScreenX() >= 500)){
+							mainCharacter.rightJump();
 						}
 					}
 			
 			}else if(set.contains(KeyEvent.VK_LEFT)&&set.contains(KeyEvent.VK_SPACE)){
-				if(bird.getScreenX()>5){
-					bird.faceLeft();
-					if(bird.getScreenX()>200){//if it's in the middle of the panel
-					bird.leftJump();
+				if(mainCharacter.getScreenX()>5){
+					mainCharacter.faceLeft();
+					if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
+					mainCharacter.leftJump();
 					}else if((MapPanel.currmapMinX -8< MapPanel.mapMinX)
-							&& (bird.getScreenX() <= 200)){
-						bird.leftJump();
+							&& (mainCharacter.getScreenX() <= 200)){
+						mainCharacter.leftJump();
 					}
 					}
 			}else if(set.contains(KeyEvent.VK_SHIFT)&&set.contains(KeyEvent.VK_LEFT)){
-				if(bird.getScreenX()>5){
-					bird.faceLeft();
-					if(bird.getScreenX()>200){//if it's in the middle of the panel
-					bird.moveNStepLeft(2);
-					bird.walking=true;
+				if(mainCharacter.getScreenX()>5){
+					mainCharacter.faceLeft();
+					if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
+					mainCharacter.moveNStepLeft(2);
+					mainCharacter.walking=true;
 					}else if((MapPanel.currmapMinX == MapPanel.mapMinX)
-							&& (bird.getScreenX() <= 200)){
-						bird.moveNStepLeft(2);
-						bird.walking=true;
+							&& (mainCharacter.getScreenX() <= 200)){
+						mainCharacter.moveNStepLeft(2);
+						mainCharacter.walking=true;
 					}
 					}
 			}else if(set.contains(KeyEvent.VK_SHIFT) &&set.contains(KeyEvent.VK_RIGHT)){
-				if(bird.getScreenX()<pwidth-50){
-					bird.faceRight();
-					if(bird.getScreenX() < 500){//if it's in the middle of the panel
-					bird.moveNStepRight(2);
-					bird.walking=true;
+				if(mainCharacter.getScreenX()<pwidth-50){
+					mainCharacter.faceRight();
+					if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
+					mainCharacter.moveNStepRight(2);
+					mainCharacter.walking=true;
 					}else if((MapPanel.currmapMaxX == MapPanel.mapMaxX)
-						&& (bird.getScreenX() >= 500)){
-							bird.moveNStepRight(2);
-							bird.walking=true;
+						&& (mainCharacter.getScreenX() >= 500)){
+							mainCharacter.moveNStepRight(2);
+							mainCharacter.walking=true;
 						}
 					}
 			}  if(set.contains(KeyEvent.VK_DOWN) && set.contains(KeyEvent.VK_A)){
+				if(mainCharacter.equals(bird)){
 				bird.squatAttack();
+				}
+				Timer tempT = new Timer (1000, new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						mainCharacter.attacking=false;
+					}
+				});
+				tempT.setRepeats(false);
+				tempT.start();
 			}
 			
 		}else{
 		if(set.contains(KeyEvent.VK_RIGHT)){
-			if(bird.getScreenX()<pwidth-50){
-			bird.faceRight();
-			if(bird.getScreenX() < 500){//if it's in the middle of the panel
-			bird.moveNStepRight(1);
-			bird.walking=true;
+			if(mainCharacter.getScreenX()<pwidth-50){
+			mainCharacter.faceRight();
+			if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
+			mainCharacter.moveNStepRight(1);
+			mainCharacter.walking=true;
 			}else if((MapPanel.currmapMaxX == MapPanel.mapMaxX)
-				&& (bird.getScreenX() >= 500)){
-					bird.moveNStepRight(1);
-					bird.walking=true;
+				&& (mainCharacter.getScreenX() >= 500)){
+					mainCharacter.moveNStepRight(1);
+					mainCharacter.walking=true;
 				}
 			}
 		}
 		if(set.contains(KeyEvent.VK_LEFT)){
-			if(bird.getScreenX()>5){
-			bird.faceLeft();
-			if(bird.getScreenX()>200){//if it's in the middle of the panel
-			bird.moveNStepLeft(1);
-			bird.walking=true;
+			if(mainCharacter.getScreenX()>5){
+			mainCharacter.faceLeft();
+			if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
+			mainCharacter.moveNStepLeft(1);
+			mainCharacter.walking=true;
 			}else if((MapPanel.currmapMinX == MapPanel.mapMinX)
-					&& (bird.getScreenX() <= 200)){
-				bird.moveNStepLeft(1);
-				bird.walking=true;
+					&& (mainCharacter.getScreenX() <= 200)){
+				mainCharacter.moveNStepLeft(1);
+				mainCharacter.walking=true;
 			}
 			}
 		}
 		if(set.contains(KeyEvent.VK_DOWN)){
+			if(mainCharacter.equals(bird)){
 			bird.squat();
+			}
 		}
 		if(set.contains(KeyEvent.VK_SPACE)){
-			bird.jump();
+			mainCharacter.jump();
 		}
 		if(set.contains(KeyEvent.VK_A)){
-			bird.attack();
+			mainCharacter.attack();
+			Timer tempT = new Timer (1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					mainCharacter.attacking=false;
+				}
+			});
+			tempT.setRepeats(false);
+			tempT.start();
 		}
 	}
 	}
 	
 	public void moveTheBackground(Set<Integer> set){
 //since this is the background, it moves the opposite way of the character's moving direction
-		if(bird.hVelo==0){
+		if(mainCharacter.hVelo==0){
 		if((set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
-				&& (bird.getScreenX() >= 500)){
+				&& (mainCharacter.getScreenX() >= 500)){
 			BG.moveBackground("left");
 		}
 		if((set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
-				&& (bird.getScreenX() <= 200)){
+				&& (mainCharacter.getScreenX() <= 200)){
 			BG.moveBackground("right");
 		}
 		}
 	}
 	
 	public void updateMapInterval(Set<Integer> set){
-		if(bird.hVelo==0){
+		if(mainCharacter.hVelo==0){
 		if((set.contains(KeyEvent.VK_RIGHT)) && (set.contains(KeyEvent.VK_SPACE)) &&
- (bird.getScreenX() >= 500)	&& (MapPanel.currmapMaxX+8 <=MapPanel.mapMaxX)){
+ (mainCharacter.getScreenX() >= 500)	&& (MapPanel.currmapMaxX+8 <=MapPanel.mapMaxX)){
 	
-			bird.jump();
+			mainCharacter.jump();
 			MapPanel.currmapMinX+=8;
 			MapPanel.currmapMaxX+=8;
 			for(enemy e:CharacterPanel.enemies){
 				e.setScreenX(e.getScreenX()-80);
 			}
 		}else if((set.contains(KeyEvent.VK_LEFT)) && (set.contains(KeyEvent.VK_SPACE)) &&
-	 (bird.getScreenX() <=200)	 && (MapPanel.currmapMinX-8 >=MapPanel.mapMinX)){
-			bird.jump();
+	 (mainCharacter.getScreenX() <=200)	 && (MapPanel.currmapMinX-8 >=MapPanel.mapMinX)){
+			mainCharacter.jump();
 			MapPanel.currmapMinX-=8;
 			MapPanel.currmapMaxX-=8;
 			for(enemy e:CharacterPanel.enemies){
@@ -210,8 +231,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}	else{ 
 		}
 			if((set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
-				&& (bird.getScreenX() >= 500)){
-			bird.rotateWalkingStatus();
+				&& (mainCharacter.getScreenX() >= 500)){
+			mainCharacter.rotateWalkingStatus();
 			MapPanel.currmapMinX+=1;
 			MapPanel.currmapMaxX+=1;
 			for(enemy e:CharacterPanel.enemies){
@@ -220,8 +241,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}
 			
 		if((set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
-				&& (bird.getScreenX() <= 200)){
-			bird.rotateWalkingStatus();
+				&& (mainCharacter.getScreenX() <= 200)){
+			mainCharacter.rotateWalkingStatus();
 			MapPanel.currmapMinX-=1;
 			MapPanel.currmapMaxX-=1;
 			for(enemy e:CharacterPanel.enemies){
@@ -274,19 +295,19 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		e.setScreeny(e.getScreenY()-(int)(e.velocity*0.3));
 		e.fall();
 	if(e.characterName.equals("Chirpy")){
-		bird.setScreenX(bird.getScreenX()-(int)(bird.hVelo));
-	if(bird.hVelo!=0){
-			if(bird.hVelo>0){
-				if(bird.hVelo>5){
-			 bird.hVelo-=2;
+		e.setScreenX(e.getScreenX()-(int)(e.hVelo));
+	if(e.hVelo!=0){
+			if(e.hVelo>0){
+				if(e.hVelo>5){
+			 e.hVelo-=2;
 				}else{
-					bird.hVelo-=1;
+				e.hVelo-=1;
 				}
 			}else{
-				if(bird.hVelo<-5){
-			bird.hVelo+=2;
+				if(e.hVelo<-5){
+			e.hVelo+=2;
 				}else{
-					bird.hVelo+=1;
+					e.hVelo+=1;
 				}
 			}
 		}
@@ -296,7 +317,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void coordinatesSync (character.Character e){
 		e.setMapX((e.getScreenX()/10)+MapPanel.currmapMinX);
 		e.setMapY(e.getScreenY()/10);
-		if(!e.walking && !e.squat && !e.jumping && !e.injured){
+		if(!e.walking && !e.squat && !e.jumping && !e.injured && !e.attacking){
 			e.changeStatus(0);
 		}
 	}
@@ -489,8 +510,10 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	int cHeight=(int)mainCharacter.recCollisionWithEnemy(e).getHeight();
 		if(cWidth>cHeight){
 			e.HP-=1;
-			System.out.println(e.characterName+" is injured!!!");
 			mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
+			mainCharacter.velocity=40;
+			System.out.println(e.characterName+" is injured!!!");
+			
 		}else if(cWidth<=cHeight){
 				System.out.println("tori is injured!!!!");
 				mainCharacter.HP-=1;
@@ -508,7 +531,21 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				mainCharacter.velocity=0;
 		}
 			}
+		}//end check collision with enemy
+		for(tempObject o: MapPanel.objects){
+			if( mainCharacter.collisionWithObject(o)){
+	int cWidth=(int)mainCharacter.recCollisionWithObj(o).getWidth();
+	int cHeight=(int)mainCharacter.recCollisionWithObj(o).getHeight();
+		if(cWidth>cHeight){
+			mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
+			mainCharacter.velocity=0;
+			mainCharacter.setOnGround(true);
+			mainCharacter.jumping=false;
+		}else if(cWidth<=cHeight){
+			mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
 		}
+			}
+		}//end check collision with objects
 		if(mainCharacter.HP==0){
 			System.out.println("you lose!!!");
 			lost=true;
@@ -517,9 +554,11 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 	}
 	
 	public void restartLevel(){
+		mainCharacter.HP=mainCharacter.maxHP;
 		mainCharacter.resetCharacter();
 		mapPanel.resetMapPanel();
 	    lost=false;
+	    System.out.println("hello!!!!"+mainCharacter.HP);
 	}
 	
 		public void collisionDetectionForEnemy(enemy e){
@@ -620,46 +659,6 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				}	
 				//end of horizontal testing
 			}
-	//		
-	//		//start upper unit testing
-	//		if(MapPanel.map[e.getMapX()+1][e.getMapY()]>0 ||
-	//				MapPanel.map[e.getMapX()+1][e.getMapY()-1]>0	){
-	//			//check the upper units
-	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+1][e.getMapY()]>0) ? 
-	// MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()]:
-	//	 MapPanel.units[e.getMapX()+1-MapPanel.currmapMinX][e.getMapY()-1];
-	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-	//	//pushes the character back to its desired position
-	//				e.velocity=0;
-	//				}
-	//		}
-	//		if(MapPanel.map[e.getMapX()+2][e.getMapY()]>0 ||
-	//				MapPanel.map[e.getMapX()+2][e.getMapY()-1]>0	){
-	//			//check the upper units
-	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+2][e.getMapY()]>0) ? 
-	// MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()]:
-	//	 MapPanel.units[e.getMapX()+2-MapPanel.currmapMinX][e.getMapY()-1];
-	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-	//	//pushes the character back to its desired position
-	//				e.velocity=0;
-	//				}
-	//		}
-	//		if(MapPanel.map[e.getMapX()+3][e.getMapY()]>0 ||
-	//				MapPanel.map[e.getMapX()+3][e.getMapY()-1]>0	){
-	//			//check the upper units
-	//	Unit unitToTest2 = (MapPanel.map[e.getMapX()+3][e.getMapY()]>0) ? 
-	// MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()]:
-	//	 MapPanel.units[e.getMapX()+3-MapPanel.currmapMinX][e.getMapY()-1];
-	//			if(e.collisionWithUnit(unitToTest2)){ //check the unit
-	//	e.setScreeny(e.getScreenY() + (int)e.recCollisionWithUnit(unitToTest2).getHeight()); 
-	//	//pushes the character back to its desired position
-	//				e.velocity=0;
-	//				}
-	//	}
-	//		//end upper unit testing
-	//		
 			//start ground collision test: 
 			if(MapPanel.map[e.getMapX()+1][e.getMapY()+4]>0 ||
 					MapPanel.map[e.getMapX()+1][e.getMapY()+5]>0){
@@ -706,6 +705,21 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 					}
 					}
 					//end of lower units check'
+					//start check collision with objects
+					for(tempObject o: MapPanel.objects){
+						if( e.collisionWithObject(o)){
+				int cWidth=(int)e.recCollisionWithObj(o).getWidth();
+				int cHeight=(int)e.recCollisionWithObj(o).getHeight();
+					if(cWidth>cHeight){
+						e.setScreeny(e.getScreenY() - cHeight); 
+						e.velocity=0;
+						e.setOnGround(true);
+						e.jumping=false;
+					}else if(cWidth<=cHeight){
+						e.setScreenX(e.getScreenX() - e.myDirection()*cWidth);
+					}
+						}
+					}//end check collision with objects
 					if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
 							MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	){
 						e.setOnGround(false);

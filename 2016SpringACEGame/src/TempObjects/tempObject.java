@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
+import enemies.enemy;
 import mainPac.ImageLoader;
 import map.MapPanel;
 
@@ -33,11 +34,19 @@ public class tempObject {
 		g.drawImage(myImage, 10*(mx-MapPanel.currmapMinX), 10*my, null);
 	}
 	
+	public int getObjMX(){
+		return mx;
+	}
+	
+	public int getObjMY(){
+		return my;
+	}
+	
 	public Rectangle getBounds(){
 	return new Rectangle(10*(mx-MapPanel.currmapMinX),10*my,myImage.getWidth(), myImage.getHeight());
 	}
 	
-	public boolean hitEnemy(character.Character enemy){
+	public boolean collideEnemy(enemy enemy){
 		if (getBounds().intersects(enemy.getMyBounds())){
 			return true;
 		}else{

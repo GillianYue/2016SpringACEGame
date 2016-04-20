@@ -8,6 +8,7 @@ import javax.swing.Timer;
 
 import character.Bird;
 import character.CharacterPanel;
+import enemies.enemy;
 import mainPac.ImageLoader;
 
 public class Note extends tempObject implements ActionListener{
@@ -30,6 +31,16 @@ public class Note extends tempObject implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		updatePos();
+		for(enemy E: CharacterPanel.enemies){
+			if(collideEnemy(E)){
+				E.HP-=1;
+				System.out.println(E.characterName+" is injured!!!");
+				disappear();
+				if(E.checkAlive()){
+				E.moveScreen(E.myDirection()*-1, 2);
+				}
+			}
+		}
 		count+=1;
 		if(count>=6){
 			disappear();

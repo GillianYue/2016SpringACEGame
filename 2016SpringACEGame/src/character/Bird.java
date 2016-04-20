@@ -2,6 +2,10 @@ package character;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
 
 import TempObjects.Hearts;
 import TempObjects.Note;
@@ -21,7 +25,7 @@ public class Bird extends Character{
 		super(initialmapX, initialmapY, il, cp);
 		myImage = il.tori;
 		Il=il;
-		HP=6;
+		HP=6; maxHP=6;
 		hearts= new Hearts(0, 0, il, 1, this);
 		characterName = "Chirpy";
 		numOfWalkingStatus=3; //0, 1, 2
@@ -118,6 +122,7 @@ public class Bird extends Character{
 			note = new Note(myMapX-1, myMapY+3, Il, facingDirection, this, characterPanel);
 			}
 			noteOn=true;
+		attacking=true;
 	}
 	
 	public void attack(){
@@ -130,6 +135,8 @@ public class Bird extends Character{
 		}
 		noteOn=true;
 		}
+		attacking=true;
+		
 	}
 	
 	public void printMyStatus(){

@@ -9,6 +9,7 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import TempObjects.tempObject;
 import enemies.enemy;
 import mainPac.Game;
 import mainPac.ImageLoader;
@@ -28,8 +29,8 @@ public class Character {
 	public double hVelo=0;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround, walking, squat, jumping, injured;
-	public int HP;
+	public boolean onGround, walking, squat, jumping, injured, attacking;
+	public int HP, maxHP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
 		myMapX=initialmapX;
@@ -38,7 +39,6 @@ public class Character {
 		x=myMapX*10;
 		y=myMapY*10;
 		facingDirection=1; //Default facing right
-		
 		//myImage is not loaded in this class. Load the image in its child classes
 	}
 	
@@ -73,6 +73,36 @@ public class Character {
 		hVelo=5*steps;
 	}
 
+	public void rightJump(){
+		if(onGround){
+			hVelo=-16;
+			velocity=40;
+			}
+	}
+	
+	public void leftJump(){
+		if(onGround){
+			hVelo=16;
+			velocity=40;
+			}
+	}
+	
+	public void jump(){ //jump once
+		if(onGround){
+		jumping=true;
+		velocity=40;
+		}
+	}
+	
+	public void attack(){
+		//placeholder. The characters should have varied attacks
+	}
+	
+	public void moveScreen(int direction, int steps){
+		x+=direction*steps*10;
+	}
+	
+	
 	public int getMapX(){
 		return myMapX;
 	}
@@ -164,6 +194,23 @@ public class Character {
 	public Rectangle recCollisionWithUnit(Unit unit){
 		return getMyBounds().intersection(unit.getBounds());
 	}
+	
+	public boolean collisionWithObject(tempObject o){
+		try{
+			if (getMyBounds().intersects(o.getBounds())){
+				return true;
+			}else{
+				return false;
+			}
+			}catch(Exception p){
+				return false;
+			}
+	}
+	
+	public Rectangle recCollisionWithObj(tempObject o){
+		return getMyBounds().intersection(o.getBounds());
+	}
+	
 	
 	public void fall(){ //fall is called a lot
 		if(!onGround){
