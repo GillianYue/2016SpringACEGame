@@ -19,6 +19,7 @@ public class CharacterPanel extends JPanel{
 	public int initialX=20, initialY=35;
 	ImageLoader Il;
 	public static ArrayList<enemy> enemies, enemiesGarbage;
+	public static character.Character mainCharacter;
 	
 	public CharacterPanel(int width, int height, ImageLoader il){
 		pWidth=width;
@@ -29,6 +30,7 @@ public class CharacterPanel extends JPanel{
 		enemiesData= new int [MapPanel.mapMaxX][MapPanel.mapMaxY];
 		enemiesData[50][36]=1;//flower monster
 		bird= new Bird(initialX, initialY, il, this);
+		mainCharacter=bird;
 	}
 	
 

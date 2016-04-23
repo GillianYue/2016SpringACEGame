@@ -12,6 +12,7 @@ public class Unit {
 	private int Screenx, Screeny;
 	private int mapX, mapY;
 	int whatamI; 
+	private int myBlank, myPicWidth;
 	BufferedImage myImage;
 	ImageLoader Il;
 	//0: nothing; 1: terrain; 2: terrainwithlayer; 
@@ -22,11 +23,25 @@ public class Unit {
 		mapY=MapY;
 		whatamI=whatAmI;
 		Il=il;
-		if(whatAmI==1){
-			myImage=il.terrainpiece;
-		}
 		if(whatAmI==2){
+			myImage=il.terrainpiece;
+			myPicWidth=myImage.getWidth();
+		}
+		if(whatAmI==1){
 			myImage=il.terrainlayer;
+			myPicWidth=myImage.getWidth();
+		}
+//		if(whatAmI==3){
+//			myImage=il.terrainlayeredge;
+//			myBlank=8;
+//			myPicWidth=2;
+//		}
+//		if(whatAmI==4){
+//			myImage=il.terrainpieceedge;
+//		}
+		if(whatAmI==5){
+			myImage=il.stone;
+			myPicWidth=myImage.getWidth();
 		}
 	}
 	
@@ -56,7 +71,7 @@ public class Unit {
 	}
 	public Rectangle getBounds(){
 		try{
-		return new Rectangle(Screenx, Screeny, myImage.getWidth(), myImage.getHeight());
+		return new Rectangle(Screenx+myBlank, Screeny, myPicWidth, myImage.getHeight());
 		}catch(Exception e){
 			System.out.println("getBounds did not work.");
 		return null;

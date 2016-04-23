@@ -36,6 +36,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	/*
 	 * in coordinates sync the character's status is constantly reset
 	 */
+	
 	public ControlPanel(MapPanel mp, BackgroundPanel bp, CharacterPanel character, ImageLoader il){
 		bird=character.bird;
 		frog=character.frog;
@@ -44,11 +45,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		Il=il;
 		this.setFocusable(true);
 		addKeyListener(this);
-		mainCharacter=bird;
+		mainCharacter=character.mainCharacter;
 		pwidth=bp.getWidth();
 		t = new Timer (40, this);
 		t.start();
-		
 		}
 
 	@Override
@@ -494,7 +494,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				//end of lower units check'
 				if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
 						MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	
-						&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0){
+						&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0 && !e.onObj){
 					e.setOnGround(false);
 	}
 	}
@@ -541,9 +541,12 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 			mainCharacter.velocity=0;
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
+			mainCharacter.onObj=true;
 		}else if(cWidth<=cHeight){
 			mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
 		}
+			}else{
+				mainCharacter.onObj=false;
 			}
 		}//end check collision with objects
 		if(mainCharacter.HP==0){
@@ -721,7 +724,8 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 						}
 					}//end check collision with objects
 					if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
-							MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	){
+							MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	
+							&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0){
 						e.setOnGround(false);
 		}
 		}

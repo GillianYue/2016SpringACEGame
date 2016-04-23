@@ -70,7 +70,7 @@ public class Bird extends Character{
 	}
 	
 	public void jump(){ //jump once
-		if(onGround){
+		if(onGround || onObj){
 		jumping=true;
 		myStatus=7;
 		velocity=40;
@@ -141,7 +141,7 @@ public class Bird extends Character{
 	
 	public void printMyStatus(){
 		System.out.println("HP: "+HP+"; OnGround: "+onGround+"; status: "+
-	myStatus+"; walkin: "+walking+"; jumpin: "+jumping+"; squattin: "+squat);
+	myStatus+"; walkin: "+walking+"; jumpin: "+jumping+"; squattin: "+squat+" onObj: "+onObj);
 	}
 	
 	@Override

@@ -37,7 +37,7 @@ public class Note extends tempObject implements ActionListener{
 				System.out.println(E.characterName+" is injured!!!");
 				disappear();
 				if(E.checkAlive()){
-				E.moveScreen(E.myDirection()*-1, 2);
+				E.moveScreen(characterPanel.mainCharacter.myDirection(), 2);
 				}
 			}
 		}

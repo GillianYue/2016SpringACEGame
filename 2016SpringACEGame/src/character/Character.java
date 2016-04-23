@@ -29,7 +29,7 @@ public class Character {
 	public double hVelo=0;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround, walking, squat, jumping, injured, attacking;
+	public boolean onGround, walking, squat, jumping, injured, attacking, onObj;
 	public int HP, maxHP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
@@ -88,7 +88,7 @@ public class Character {
 	}
 	
 	public void jump(){ //jump once
-		if(onGround){
+		if(onGround || onObj){
 		jumping=true;
 		velocity=40;
 		}

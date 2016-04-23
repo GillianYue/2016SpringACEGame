@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import TempObjects.oak;
 import TempObjects.pine;
 import TempObjects.tempObject;
 import mainPac.ImageLoader;
@@ -55,11 +56,10 @@ public class MapPanel extends JPanel{
 		}
 		for(int s=35; s<45; s++){
 			if(s>36 && s<44){
-			map[s][37]=1;
-			map[s][38]=2;
+//			map[s][37]=5;
 			}
-			
 		}
+
 		
 		for(int e=50; e<80; e++){
 			map[e][33]=1;
@@ -73,6 +73,8 @@ public class MapPanel extends JPanel{
 		//end making the terrain
 		//start making the objects
 		objData[30][39]=1;//pine
+		objData[35][39]=2;//oak
+		objData[37][37]=3;//log
 		//end making the objects
 	}
 	
@@ -86,6 +88,19 @@ public class MapPanel extends JPanel{
 		if(objNum>0){
 			if(objNum==1){
 				objects.add(new pine(Umapx, Umapy, Il, 1));
+				for(int p=0; p<=3; p++){
+					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
+				}
+			}else if(objNum==2){
+				objects.add(new oak(Umapx, Umapy, Il, 1));
+				for(int p=0; p<=3; p++){
+					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
+				}
+			}else if(objNum==3){
+				objects.add(new TempObjects.log(Umapx, Umapy, Il, 1));
+				for(int p=0; p<=4; p++){
+					map[Umapx+p][Umapy+1]=100;//a placeholder in mapData to inform there's an object
+				}
 			}
 			objData [Umapx][Umapy] *=-1;
 		}
