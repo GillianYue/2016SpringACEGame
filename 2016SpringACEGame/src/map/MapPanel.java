@@ -46,31 +46,7 @@ public class MapPanel extends JPanel{
 				map[mapx][mapy]=0; //nothing
 			}
 		}
-		//start making the terrain
-		for(int tl=0; tl<80; tl++){
-			map[tl][43]=1;
-			for(int t=44; t<50; t++){
-			map[tl][t]=2; //terrain pieces	
-			}
-			
-		}
-		for(int s=35; s<45; s++){
-			if(s>36 && s<44){
-//			map[s][37]=5;
-			}
-		}
-
-		
-		for(int e=50; e<80; e++){
-			map[e][33]=1;
-			map[e][34]=2;
-		}
-		for(int ee=80; ee<100; ee++){
-			map[ee][38]=1;
-			map[ee][39]=2;
-			map[ee][40]=2;
-		}
-		//end making the terrain
+	
 		//start making the objects
 		objData[30][39]=1;//pine
 		objData[35][39]=2;//oak
@@ -87,12 +63,12 @@ public class MapPanel extends JPanel{
 		int objNum = objData [Umapx][Umapy];
 		if(objNum>0){
 			if(objNum==1){
-				objects.add(new pine(Umapx, Umapy, Il, 1));
+		objects.add(new pine(Umapx, Umapy, Il, 1));
 				for(int p=0; p<=3; p++){
 					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
 				}
 			}else if(objNum==2){
-				objects.add(new oak(Umapx, Umapy, Il, 1));
+		objects.add(new oak(Umapx, Umapy, Il, 1));
 				for(int p=0; p<=3; p++){
 					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
 				}

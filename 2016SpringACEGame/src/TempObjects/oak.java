@@ -10,6 +10,7 @@ public class oak extends tree{
 	public oak(int MX, int MY, ImageLoader il, int direction) {
 		super(MX, MY, il, direction);
 		myImage=il.oak;
+	
 	}
 
 	public Rectangle getBounds(){

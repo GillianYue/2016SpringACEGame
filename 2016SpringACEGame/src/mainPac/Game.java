@@ -39,6 +39,7 @@ public class Game {
 		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
 		characterPanel.setSize(fWidth, fHeight); characterPanel.setOpaque(false);
 		
+		XMLReader xmlReader = new XMLReader(mapPanel, characterPanel);
 		
 		jlp.add(backgroundPanel, Integer.valueOf(1));
 		jlp.add(characterPanel, Integer.valueOf(2));
