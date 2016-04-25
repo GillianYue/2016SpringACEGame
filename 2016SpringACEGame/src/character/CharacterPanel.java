@@ -28,7 +28,6 @@ public class CharacterPanel extends JPanel{
 		enemies = new ArrayList<enemy>();
 		enemiesGarbage = new ArrayList<enemy>();
 		enemiesData= new int [MapPanel.mapMaxX][MapPanel.mapMaxY];
-		enemiesData[50][36]=1;//flower monster
 		bird= new Bird(initialX, initialY, il, this);
 		mainCharacter=bird;
 	}

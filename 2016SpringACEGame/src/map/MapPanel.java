@@ -47,11 +47,7 @@ public class MapPanel extends JPanel{
 			}
 		}
 	
-		//start making the objects
-		objData[30][39]=1;//pine
-		objData[35][39]=2;//oak
-		objData[37][37]=3;//log
-		//end making the objects
+
 	}
 	
 	public void updateMap (Graphics g){ //draws the part of the map that should be displayed on screen

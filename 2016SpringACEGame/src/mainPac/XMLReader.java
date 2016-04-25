@@ -24,7 +24,7 @@ public class XMLReader {
 	         //
 	         System.out.println("Root element :" 
 	            + doc.getDocumentElement().getNodeName());
-	         //
+	         //load units data
 	         NodeList nList = doc.getElementsByTagName("units");
 	         for (int temp = 0; temp < nList.getLength(); temp++) {
 	        	    org.w3c.dom.Node nNode = nList.item(temp);
@@ -39,7 +39,6 @@ public class XMLReader {
 	        	    	xStartValue = Integer.parseInt(a.substring(1, a.indexOf('-')));
 	        	    	xEndValue = Integer.parseInt(a.substring(a.indexOf('-')+1, a.length()));
 	        	    		System.out.println("x-: "+xStartValue+" "+xEndValue);
-	        	    	
 	        	    		}else{
 	        	    			xStartValue = Integer.parseInt(a.substring(1));
 	        	    			xEndValue = xStartValue;
@@ -73,6 +72,53 @@ public class XMLReader {
 	        	    }//end of scanning of this node
 	        	    System.out.println("change node");
 	         }
+	         //load objects data
+	         NodeList nList2 = doc.getElementsByTagName("objects");
+	         for (int temp = 0; temp < nList2.getLength(); temp++) {
+	        	  org.w3c.dom.Node nNode2 = nList2.item(temp);
+	        	    Scanner sc = new Scanner(nNode2.getTextContent());
+	        	    boolean makingPair=false;
+	        	    int xValue=-1, yValue=-1;
+	        	    while(sc.hasNext()){
+	        	    	String a = sc.next();
+	        	    	if(a.charAt(0)=='X' && !makingPair){
+	        	    	    xValue=Integer.parseInt(a.substring(1, a.length()));
+	        	    		makingPair=true;
+	        	    	}else if(a.charAt(0)=='Y' && makingPair){
+	        	    		yValue=Integer.parseInt(a.substring(1, a.length()));
+	        	    		makingPair=false;
+	        	    	}else{
+	        	    		System.out.println("check XML: can't read unit data!!");
+	        	    	}
+	        	    	if(makingPair==false){
+	    mp.objData[xValue][yValue]=Integer.parseInt(nNode2.getAttributes().item(0).getNodeValue());
+	        	    	}
+	        	    }
+	         }//end object loop
+	         
+	         //load enemies data
+	         NodeList nList3 = doc.getElementsByTagName("enemies");
+	         for (int temp = 0; temp < nList3.getLength(); temp++) {
+	        	  org.w3c.dom.Node nNode3 = nList3.item(temp);
+	        	    Scanner sc = new Scanner(nNode3.getTextContent());
+	        	    boolean makingPair=false;
+	        	    int xValue=-1, yValue=-1;
+	        	    while(sc.hasNext()){
+	        	    	String a = sc.next();
+	        	    	if(a.charAt(0)=='X' && !makingPair){
+	        	    	    xValue=Integer.parseInt(a.substring(1, a.length()));
+	        	    		makingPair=true;
+	        	    	}else if(a.charAt(0)=='Y' && makingPair){
+	        	    		yValue=Integer.parseInt(a.substring(1, a.length()));
+	        	    		makingPair=false;
+	        	    	}else{
+	        	    		System.out.println("check XML: can't read unit data!!");
+	        	    	}
+	        	    	if(makingPair==false){
+	  cp.enemiesData[xValue][yValue]=Integer.parseInt(nNode3.getAttributes().item(0).getNodeValue());
+	        	    	}
+	        	    }
+	         }//end enemy loop
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      }

@@ -57,7 +57,6 @@ public class Game {
 		gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		backgroundPanel.repaint();
 	}
 
 	public static void addIconImage(String icon, JFrame jframe){
