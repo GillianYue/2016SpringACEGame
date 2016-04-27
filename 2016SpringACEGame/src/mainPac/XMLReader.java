@@ -70,7 +70,6 @@ public class XMLReader {
 	        	    		}
 	        	    	}
 	        	    }//end of scanning of this node
-	        	    System.out.println("change node");
 	         }
 	         //load objects data
 	         NodeList nList2 = doc.getElementsByTagName("objects");

@@ -34,7 +34,7 @@ public class MapPanel extends JPanel{
 		pHeight = height;
 		Il=il;
 		mapMinX=0;  mapMinY=0; 
-		mapMaxX=100;  mapMaxY=60; //sets the overall max and min for the map
+		mapMaxX=1000;  mapMaxY=60; //sets the overall max and min for the map
 		currmapMinX=0; currmapMaxX=pWidth/10; 
 		map = new int [mapMaxX][mapMaxY];
 		objData = new int [mapMaxX][mapMaxY];

@@ -82,6 +82,15 @@ public class Bird extends Character{
 			hVelo=-16;
 			velocity=40;
 			myStatus=7;
+			diagJumping=true;
+			Timer temp = new Timer(1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					diagJumping=false;
+				}
+			});
+			temp.setRepeats(false);
+			temp.start();
 			}
 	}
 	
@@ -90,6 +99,15 @@ public class Bird extends Character{
 			hVelo=16;
 			velocity=40;
 			myStatus=7;
+			diagJumping=true;
+			Timer temp = new Timer(1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					diagJumping=false;
+				}
+			});
+			temp.setRepeats(false);
+			temp.start();
 			}
 	}
 	public void fall(){ //fall is called a lot

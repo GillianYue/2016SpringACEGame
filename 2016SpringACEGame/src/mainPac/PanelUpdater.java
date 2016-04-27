@@ -15,7 +15,7 @@ public class PanelUpdater implements ActionListener{
 	
 	public PanelUpdater(JLayeredPane JLP){
 	    jlp=JLP;
-		t = new Timer (80, this);
+		t = new Timer (50, this);
 		t.start();
 	}
 	

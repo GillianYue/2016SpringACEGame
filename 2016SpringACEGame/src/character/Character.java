@@ -3,11 +3,14 @@ package character;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
+import javax.swing.Timer;
 
 import TempObjects.tempObject;
 import enemies.enemy;
@@ -29,7 +32,7 @@ public class Character {
 	public double hVelo=0;
 	public int individualWidth, individualHeight;
 	CharacterPanel characterPanel;
-	public boolean onGround, walking, squat, jumping, injured, attacking;
+	public boolean onGround, walking, squat, jumping, injured, attacking, diagJumping;
 	public int HP, maxHP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
@@ -74,9 +77,18 @@ public class Character {
 	}
 
 	public void rightJump(){
-		if(onGround){
+		if(onGround && !diagJumping){
 			hVelo=-16;
 			velocity=40;
+			diagJumping=true;
+			Timer temp = new Timer(1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					diagJumping=false;
+				}
+			});
+			temp.setRepeats(false);
+			temp.start();
 			}
 	}
 	
@@ -84,6 +96,15 @@ public class Character {
 		if(onGround){
 			hVelo=16;
 			velocity=40;
+			diagJumping=true;
+			Timer temp = new Timer(1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					diagJumping=false;
+				}
+			});
+			temp.setRepeats(false);
+			temp.start();
 			}
 	}
 	

@@ -3,15 +3,13 @@
 
 <level1>
 <units unitNum="1"> <!-- layer -->
-X0-79 Y43
+X0-150 Y43
 X60-69 Y33
-X80-99 Y38
 </units>
 
 <units unitNum="2"> <!-- terrain -->
-X0-79 Y44-50
+X0-150 Y44-50
 X60-69 Y34
-X80-99 Y39-40
 </units>
 
 <objects objNum="1"> <!-- pine tree -->

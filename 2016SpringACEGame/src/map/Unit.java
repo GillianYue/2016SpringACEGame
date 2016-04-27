@@ -73,7 +73,7 @@ public class Unit {
 		try{
 		return new Rectangle(Screenx+myBlank, Screeny, myPicWidth, myImage.getHeight());
 		}catch(Exception e){
-			System.out.println("getBounds did not work."+mapX+" "+mapY);
+		//	System.out.println("getBounds did not work."+mapX+" "+mapY);
 		return null;
 		}
 	}

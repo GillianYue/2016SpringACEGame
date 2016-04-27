@@ -47,7 +47,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		addKeyListener(this);
 		mainCharacter=character.mainCharacter;
 		pwidth=bp.getWidth();
-		t = new Timer (40, this);
+		t = new Timer (50, this);
 		t.start();
 		}
 
@@ -198,11 +198,13 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void moveTheBackground(Set<Integer> set){
 //since this is the background, it moves the opposite way of the character's moving direction
 		if(mainCharacter.hVelo==0){
-		if((set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
+		if(mainCharacter.onGround &&
+				(set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
 				&& (mainCharacter.getScreenX() >= 500)){
 			BG.moveBackground("left");
 		}
-		if((set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
+		if(mainCharacter.onGround &&
+				(set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
 				&& (mainCharacter.getScreenX() <= 200)){
 			BG.moveBackground("right");
 		}
@@ -211,8 +213,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	
 	public void updateMapInterval(Set<Integer> set){
 		if(mainCharacter.hVelo==0){
-		if((set.contains(KeyEvent.VK_RIGHT)) && (set.contains(KeyEvent.VK_SPACE)) &&
- (mainCharacter.getScreenX() >= 500)	&& (MapPanel.currmapMaxX+8 <=MapPanel.mapMaxX)){
+		if(mainCharacter.onGround && (set.contains(KeyEvent.VK_RIGHT)) && (set.contains(KeyEvent.VK_SPACE)) &&
+ (mainCharacter.getScreenX() >= 500)&& (MapPanel.currmapMaxX+8 <=MapPanel.mapMaxX) && 
+ !mainCharacter.diagJumping){
 	
 			mainCharacter.jump();
 			MapPanel.currmapMinX+=8;
@@ -220,8 +223,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			for(enemy e:CharacterPanel.enemies){
 				e.setScreenX(e.getScreenX()-80);
 			}
-		}else if((set.contains(KeyEvent.VK_LEFT)) && (set.contains(KeyEvent.VK_SPACE)) &&
-	 (mainCharacter.getScreenX() <=200)	 && (MapPanel.currmapMinX-8 >=MapPanel.mapMinX)){
+		}else if(mainCharacter.onGround && 
+				(set.contains(KeyEvent.VK_LEFT)) && (set.contains(KeyEvent.VK_SPACE)) &&
+	 (mainCharacter.getScreenX() <=200)	 && (MapPanel.currmapMinX-8 >=MapPanel.mapMinX) &&
+	 !mainCharacter.diagJumping){
 			mainCharacter.jump();
 			MapPanel.currmapMinX-=8;
 			MapPanel.currmapMaxX-=8;
@@ -230,8 +235,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}	else{ 
 		}
-			if((set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
+			if(mainCharacter.onGround && 
+					(set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
 				&& (mainCharacter.getScreenX() >= 500)){
+			mainCharacter.walking=true;
 			mainCharacter.rotateWalkingStatus();
 			MapPanel.currmapMinX+=1;
 			MapPanel.currmapMaxX+=1;
@@ -240,8 +247,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 			
-		if((set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
+		if(mainCharacter.onGround && 
+				(set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
 				&& (mainCharacter.getScreenX() <= 200)){
+			mainCharacter.walking=true;
 			mainCharacter.rotateWalkingStatus();
 			MapPanel.currmapMinX-=1;
 			MapPanel.currmapMaxX-=1;
@@ -256,7 +265,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		mainCharacterCombo (mainCharacter);
-		enemyCombo(CharacterPanel.enemies);
+		enemyCombo();
 		bird.printMyStatus();
 		checkForLose();
 		if(lost){
@@ -272,8 +281,17 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		collisionDetection(mc);
 	}
 	
-	public void enemyCombo(ArrayList<enemy> eList){
-		for(enemy e: eList){
+	public void enemyCombo(){
+		for(enemy e: CharacterPanel.enemies){
+			e.addGarbage();
+		}
+		if(CharacterPanel.enemiesGarbage.size()>0){
+			for (enemy e:CharacterPanel.enemiesGarbage) {
+				CharacterPanel.enemies.remove(e);
+			}
+			CharacterPanel.enemiesGarbage.clear();
+			}
+		for(enemy e: CharacterPanel.enemies){
 			if(e.walking){
 				e.startWalkingTimer();
 			}else{
@@ -544,7 +562,11 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
 		}else if(cWidth<=cHeight){
-			mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
+			if(mainCharacter.myDirection()==-1 && mainCharacter.getMapX()>=o.getObjMX()){
+	mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
+	}else if(mainCharacter.myDirection()==1 && mainCharacter.getMapX()<=o.getObjMX()){
+	mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
+				}
 		}
 			}
 		}//end check collision with objects
@@ -560,11 +582,10 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 		mainCharacter.resetCharacter();
 		mapPanel.resetMapPanel();
 	    lost=false;
-	    System.out.println("hello!!!!"+mainCharacter.HP);
 	}
 	
 		public void collisionDetectionForEnemy(enemy e){
-			
+		try{
 			if(!e.onGround){
 				e.fall();
 			}	
@@ -730,6 +751,9 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 							MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	
 							&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0){
 						e.setOnGround(false);
+		}
+		}catch(Exception p){
+			System.out.println("something's wrong.");
 		}
 		}
 }

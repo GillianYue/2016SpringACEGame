@@ -40,8 +40,11 @@ public class enemy extends character.Character{
 					y+45, (myStatus%3)*45, (myStatus/3)*45,
 					(myStatus%3)*45+45, (myStatus/3)*45+45, null);
 		}
-		}else if(!checkAlive()){
-			//CharacterPanel.enemies.remove(this);
+		}
+	}
+	
+	public void addGarbage(){
+		if(!checkAlive() || !display){
 			CharacterPanel.enemiesGarbage.add(this);
 		}
 	}
@@ -64,7 +67,7 @@ public class enemy extends character.Character{
 	}
 	
 	public boolean checkAlive(){
-		if(HP>0){
+		if(HP>0 && display){
 		return true;
 		}else{
 			return false;

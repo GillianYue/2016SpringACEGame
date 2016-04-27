@@ -56,10 +56,6 @@ public class CharacterPanel extends JPanel{
 		}
 		e.drawCharacter(g);
 	}
-	for (enemy e:enemiesGarbage) {
-		enemies.remove(e);
-	}
-	enemiesGarbage.clear();
 	}//end paint
 
 
