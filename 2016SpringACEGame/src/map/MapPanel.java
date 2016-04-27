@@ -60,19 +60,10 @@ public class MapPanel extends JPanel{
 		if(objNum>0){
 			if(objNum==1){
 		objects.add(new pine(Umapx, Umapy, Il, 1));
-				for(int p=0; p<=3; p++){
-					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
-				}
 			}else if(objNum==2){
 		objects.add(new oak(Umapx, Umapy, Il, 1));
-				for(int p=0; p<=3; p++){
-					map[Umapx+1][Umapy+p]=100;//a placeholder in mapData to inform there's an object
-				}
 			}else if(objNum==3){
 				objects.add(new TempObjects.log(Umapx, Umapy, Il, 1));
-				for(int p=0; p<=4; p++){
-					map[Umapx+p][Umapy+1]=100;//a placeholder in mapData to inform there's an object
-				}
 			}
 			objData [Umapx][Umapy] *=-1;
 		}

@@ -257,6 +257,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		mainCharacterCombo (mainCharacter);
 		enemyCombo(CharacterPanel.enemies);
+		bird.printMyStatus();
 		checkForLose();
 		if(lost){
 			restartLevel();
@@ -494,7 +495,8 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 				//end of lower units check'
 				if(	MapPanel.map[e.getMapX()+2][e.getMapY()+5]==0 &&
 						MapPanel.map[e.getMapX()+3][e.getMapY()+5]==0	
-						&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0 && !e.onObj){
+						&& MapPanel.map[e.getMapX()+1][e.getMapY()+5]==0 &&
+						MapPanel.map[e.getMapX()+2][e.getMapY()+4]==0){
 					e.setOnGround(false);
 	}
 	}
@@ -541,12 +543,9 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 			mainCharacter.velocity=0;
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
-			mainCharacter.onObj=true;
 		}else if(cWidth<=cHeight){
 			mainCharacter.setScreenX(mainCharacter.getScreenX() - mainCharacter.myDirection()*cWidth);
 		}
-			}else{
-				mainCharacter.onObj=false;
 			}
 		}//end check collision with objects
 		if(mainCharacter.HP==0){
@@ -710,7 +709,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 					//end of lower units check'
 					//start check collision with objects
 					for(tempObject o: MapPanel.objects){
-						if( e.collisionWithObject(o)){
+						if(e.collisionWithObject(o)){
 				int cWidth=(int)e.recCollisionWithObj(o).getWidth();
 				int cHeight=(int)e.recCollisionWithObj(o).getHeight();
 					if(cWidth>cHeight){
@@ -719,7 +718,11 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 						e.setOnGround(true);
 						e.jumping=false;
 					}else if(cWidth<=cHeight){
+						if(e.myDirection()==-1 && e.getMapX()>=o.getObjMX()){
 						e.setScreenX(e.getScreenX() - e.myDirection()*cWidth);
+						}else if(e.myDirection()==1 && e.getMapX()<=o.getObjMX()){
+						e.setScreenX(e.getScreenX() - e.myDirection()*cWidth);
+						}
 					}
 						}
 					}//end check collision with objects

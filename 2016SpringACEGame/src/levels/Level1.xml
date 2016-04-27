@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map>
 
+<level1>
 <units unitNum="1"> <!-- layer -->
 X0-79 Y43
-X50-69 Y33
+X60-69 Y33
 X80-99 Y38
 </units>
 
 <units unitNum="2"> <!-- terrain -->
 X0-79 Y44-50
-X50-69 Y34
+X60-69 Y34
 X80-99 Y39-40
 </units>
 
 <objects objNum="1"> <!-- pine tree -->
-X30 Y39
+X30 Y38
 </objects>
 
 <objects objNum="2"> <!-- oak tree -->
-X40 Y39
+X52 Y38
 </objects>
 
 <objects objNum="3"> <!-- log -->
 X37 Y37
+X45 Y34
 </objects>
 
 <enemies enemyNum="1"> <!-- pansy -->
 X50 Y36
 </enemies>
+</level1>
 
 </map>
