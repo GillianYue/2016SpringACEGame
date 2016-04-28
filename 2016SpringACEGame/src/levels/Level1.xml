@@ -17,7 +17,7 @@ X30 Y38
 </objects>
 
 <objects objNum="2"> <!-- oak tree -->
-X52 Y38
+X56 Y38
 </objects>
 
 <objects objNum="3"> <!-- log -->
@@ -25,9 +25,16 @@ X37 Y37
 X45 Y34
 </objects>
 
+<objects enemyNum="4"> <!-- mushroom -->
+X47 Y40
+</objects>
+
 <enemies enemyNum="1"> <!-- pansy -->
 X50 Y36
 </enemies>
+
+
+
 </level1>
 
 </map>

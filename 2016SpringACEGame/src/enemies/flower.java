@@ -20,7 +20,7 @@ public class flower extends enemy{
 		individualWidth=25;
 		individualHeight=30;
 		numOfWalkingStatus=2;
-		hVelo=5;
+		hVelo=5*facing*-1;
 		walking=true;
 	}
 

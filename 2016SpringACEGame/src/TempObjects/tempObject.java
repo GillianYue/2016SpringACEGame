@@ -16,6 +16,7 @@ public class tempObject {
 	protected int Direction;
 	protected BufferedImage myImage;
 	private int secondsILast;
+	protected int objWidth, objHeight;
 	
 	Timer myT;
 	

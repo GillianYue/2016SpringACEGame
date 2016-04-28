@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import TempObjects.mushroom;
 import TempObjects.oak;
 import TempObjects.pine;
 import TempObjects.tempObject;
@@ -64,6 +65,8 @@ public class MapPanel extends JPanel{
 		objects.add(new oak(Umapx, Umapy, Il, 1));
 			}else if(objNum==3){
 				objects.add(new TempObjects.log(Umapx, Umapy, Il, 1));
+			}else if(objNum==4){
+				objects.add(new mushroom(Umapx, Umapy, Il, 1));
 			}
 			objData [Umapx][Umapy] *=-1;
 		}

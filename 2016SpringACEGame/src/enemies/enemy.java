@@ -33,12 +33,12 @@ public class enemy extends character.Character{
 		if(checkAlive() && display){
 		if(facingDirection==1){
 		g.drawImage(myImage, x, y, x+picWidth,
-				y+picHeight, (myStatus%3)*45, (myStatus/3)*45,
-				(myStatus%3)*45+45, (myStatus/3)*45+45, null);
+				y+picHeight, (myStatus%3)*picWidth, (myStatus/3)*picHeight,
+				(myStatus%3)*picWidth+picWidth, (myStatus/3)*picHeight+picHeight, null);
 		}else if(facingDirection==-1){
-			g.drawImage(myImage, x+45, y, x,
-					y+45, (myStatus%3)*45, (myStatus/3)*45,
-					(myStatus%3)*45+45, (myStatus/3)*45+45, null);
+			g.drawImage(myImage, x+picWidth, y, x,
+					y+picHeight, (myStatus%3)*picWidth, (myStatus/3)*picHeight,
+					(myStatus%3)*picWidth+picWidth, (myStatus/3)*picHeight+picHeight, null);
 		}
 		}
 	}

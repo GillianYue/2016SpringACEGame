@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import TempObjects.mushroom;
 import enemies.enemy;
 import enemies.flower;
 import mainPac.ImageLoader;
@@ -34,16 +35,17 @@ public class CharacterPanel extends JPanel{
 	
 
 	public void paintComponent(Graphics g){
-		bird.drawCharacter(g);
+		mainCharacter.drawCharacter(g);
 		for(int Umapx=MapPanel.currmapMinX; Umapx<MapPanel.currmapMaxX; Umapx++){
 			for(int Umapy=MapPanel.mapMinY; Umapy<MapPanel.mapMaxY; Umapy++){
 				int enemyNum = enemiesData[Umapx][Umapy];
 	if(enemyNum>0){//start of making the enemy
 		if(enemyNum==1){//flower
-			enemies.add(new flower(Umapx, Umapy, Il, this,-1));
-			enemiesData[Umapx][Umapy]=enemyNum*-1;
-			//make enemy and set the int to negative so it isnt made again	
+			enemies.add(new flower(Umapx, Umapy, Il, this, (Math.random()>0.5)? 1:-1 ));
 		}
+		
+		enemiesData[Umapx][Umapy]=enemyNum*-1;
+		//make enemy and set the int to negative so it isnt made again	
 	}//end of making the enemy
 	
 			}
@@ -54,6 +56,7 @@ public class CharacterPanel extends JPanel{
 		}else{
 			e.setDisplay(true);
 		}
+		
 		e.drawCharacter(g);
 	}
 	}//end paint

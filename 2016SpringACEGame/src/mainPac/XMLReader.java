@@ -38,22 +38,18 @@ public class XMLReader {
 	        	    		if(a.contains("-")){
 	        	    	xStartValue = Integer.parseInt(a.substring(1, a.indexOf('-')));
 	        	    	xEndValue = Integer.parseInt(a.substring(a.indexOf('-')+1, a.length()));
-	        	    		System.out.println("x-: "+xStartValue+" "+xEndValue);
 	        	    		}else{
 	        	    			xStartValue = Integer.parseInt(a.substring(1));
 	        	    			xEndValue = xStartValue;
-	        	    			System.out.println("x: "+xEndValue);
 	        	    		}
 	        	    		makingPair=true;
 	        	    	}else if(a.charAt(0)=='Y' && makingPair){
 	        	    		if(a.contains("-")){
 		        	 	yStartValue = Integer.parseInt(a.substring(1, a.indexOf('-')));
 		        	    yEndValue = Integer.parseInt(a.substring(a.indexOf('-')+1, a.length()));
-		        	    		System.out.println("y-: "+yStartValue+" "+yEndValue);
 		        	    		}else{
 		        	    			yStartValue = Integer.parseInt(a.substring(1));
 		        	    			yEndValue = yStartValue;
-		        	    			System.out.println("y: "+yEndValue);
 		        	    		}
 	        	    		
 	        	    		makingPair=false;

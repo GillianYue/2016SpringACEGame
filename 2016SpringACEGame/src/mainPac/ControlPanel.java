@@ -266,7 +266,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		mainCharacterCombo (mainCharacter);
 		enemyCombo();
-		bird.printMyStatus();
+		//bird.printMyStatus();
 		checkForLose();
 		if(lost){
 			restartLevel();
@@ -741,8 +741,10 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 					}else if(cWidth<=cHeight){
 						if(e.myDirection()==-1 && e.getMapX()>=o.getObjMX()){
 						e.setScreenX(e.getScreenX() - e.myDirection()*cWidth);
+						System.out.println("1 "+e.myDirection()+" "+cWidth);
 						}else if(e.myDirection()==1 && e.getMapX()<=o.getObjMX()){
 						e.setScreenX(e.getScreenX() - e.myDirection()*cWidth);
+						System.out.println("2 "+e.myDirection()+" "+cWidth);
 						}
 					}
 						}
