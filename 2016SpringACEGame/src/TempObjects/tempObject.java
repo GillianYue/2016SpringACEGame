@@ -11,7 +11,7 @@ import mainPac.ImageLoader;
 import map.MapPanel;
 
 public class tempObject {
-
+//objects are based on mx and my
 	protected int mx, my;
 	protected int Direction;
 	protected BufferedImage myImage;
@@ -27,7 +27,7 @@ public class tempObject {
 	}
 	
 	public void disappear(){
-		myImage.flush();
+		
 		myT.stop();
 	}
 	

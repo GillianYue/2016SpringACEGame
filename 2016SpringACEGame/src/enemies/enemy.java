@@ -11,7 +11,7 @@ import mainPac.ImageLoader;
 import map.MapPanel;
 
 public class enemy extends character.Character{
-	Timer walkTimer; int picWidth, picHeight;
+	Timer walkTimer; public int picWidth, picHeight;
 	boolean display;
 	//enemies that are defeated are removed from the enemies list
 	//enemies that go beyond the screen's bounds are just not drawn and not processed
@@ -20,13 +20,12 @@ public class enemy extends character.Character{
 		facingDirection=facing;
 		display=true;
 		walkTimer = new Timer (300, new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 		rotateWalkingStatus();
 			}
-			
 		});
+	
 	}
 
 	public void drawCharacter(Graphics g){
@@ -43,8 +42,12 @@ public class enemy extends character.Character{
 		}
 	}
 	
+	public boolean gravityApplies(){
+	return true;	
+	}
+	
 	public void addGarbage(){
-		if(!checkAlive() || !display){
+		if(!checkAlive()){
 			CharacterPanel.enemiesGarbage.add(this);
 		}
 	}
@@ -52,6 +55,10 @@ public class enemy extends character.Character{
 	public void coordinatesSyncMapToScreen (){
 		myMapX=(x/10+MapPanel.currmapMinX);
 		myMapY=y/10;
+	}
+	
+	public boolean injurable(){
+		return true;
 	}
 	
 	public void startWalkingTimer(){
@@ -67,7 +74,7 @@ public class enemy extends character.Character{
 	}
 	
 	public boolean checkAlive(){
-		if(HP>0 && display){
+		if(HP>0){
 		return true;
 		}else{
 			return false;
@@ -78,5 +85,8 @@ public class enemy extends character.Character{
 		return display;
 	}
 	
+	public boolean damageColliding(){
+		return true;
+	}
 
 }

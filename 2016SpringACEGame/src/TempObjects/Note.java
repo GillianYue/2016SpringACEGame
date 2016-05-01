@@ -33,11 +33,13 @@ public class Note extends tempObject implements ActionListener{
 		updatePos();
 		for(enemy E: CharacterPanel.enemies){
 			if(collideEnemy(E)){
+				if(E.injurable()){
 				E.HP-=1;
 				System.out.println(E.characterName+" is injured!!!");
 				disappear();
 				if(E.checkAlive()){
 				E.moveScreen(characterPanel.mainCharacter.myDirection(), 2);
+				}
 				}
 			}
 		}

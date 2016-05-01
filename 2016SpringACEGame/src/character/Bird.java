@@ -83,7 +83,7 @@ public class Bird extends Character{
 			velocity=40;
 			myStatus=7;
 			diagJumping=true;
-			Timer temp = new Timer(1000, new ActionListener(){
+			Timer temp = new Timer(500, new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					diagJumping=false;
@@ -100,7 +100,7 @@ public class Bird extends Character{
 			velocity=40;
 			myStatus=7;
 			diagJumping=true;
-			Timer temp = new Timer(1000, new ActionListener(){
+			Timer temp = new Timer(500, new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					diagJumping=false;
@@ -111,7 +111,7 @@ public class Bird extends Character{
 			}
 	}
 	public void fall(){ //fall is called a lot
-		if(velocity<0 && !onGround ){
+		if(velocity<0){
 		myStatus=8;
 		}
 		if(!onGround){

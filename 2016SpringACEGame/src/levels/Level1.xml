@@ -4,12 +4,10 @@
 <level1>
 <units unitNum="1"> <!-- layer -->
 X0-150 Y43
-X60-69 Y33
 </units>
 
 <units unitNum="2"> <!-- terrain -->
 X0-150 Y44-50
-X60-69 Y34
 </units>
 
 <objects objNum="1"> <!-- pine tree -->
@@ -25,9 +23,9 @@ X37 Y37
 X45 Y34
 </objects>
 
-<objects enemyNum="4"> <!-- mushroom -->
-X47 Y40
-</objects>
+<enemies enemyNum="2"> <!-- mushroom -->
+X67 Y40
+</enemies>
 
 <enemies enemyNum="1"> <!-- pansy -->
 X50 Y36

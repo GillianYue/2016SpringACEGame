@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import TempObjects.mushroom;
 import enemies.enemy;
 import enemies.flower;
+import enemies.mushroom;
 import mainPac.ImageLoader;
 import map.MapPanel;
 import map.Unit;
@@ -42,6 +42,8 @@ public class CharacterPanel extends JPanel{
 	if(enemyNum>0){//start of making the enemy
 		if(enemyNum==1){//flower
 			enemies.add(new flower(Umapx, Umapy, Il, this, (Math.random()>0.5)? 1:-1 ));
+		}else if(enemyNum==2){
+			enemies.add(new mushroom(Umapx, Umapy, Il, this, 1));
 		}
 		
 		enemiesData[Umapx][Umapy]=enemyNum*-1;
