@@ -34,9 +34,9 @@ public class mushroom extends enemy{
 		sporeTimer = new Timer (2500, new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			mySpores[0]=new spore (0, myMapX+1, myMapY-1, me, il, mushroomNum, 0, -1);
-			mySpores[1]=new spore (1, myMapX-1, myMapY, me,  il, mushroomNum, -1, 0);
-			mySpores[2]=new spore (2, myMapX+4, myMapY, me, il, mushroomNum, 1, 0);
+			mySpores[0]=new spore (0, myMapX+1, myMapY-1, me, il, mushroomNum, 0, -1, cp.mainCharacter);
+			mySpores[1]=new spore (1, myMapX-1, myMapY, me,  il, mushroomNum, -1, 0, cp.mainCharacter);
+			mySpores[2]=new spore (2, myMapX+4, myMapY, me, il, mushroomNum, 1, 0, cp.mainCharacter);
 			}
 			
 		});

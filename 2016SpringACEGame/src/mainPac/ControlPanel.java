@@ -32,7 +32,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	ImageLoader Il;
 	boolean lost;
 	MapPanel mapPanel;
-	character.Character mainCharacter;
+	public character.Character mainCharacter;
 	/*
 	 * in coordinates sync the character's status is constantly reset
 	 */
@@ -540,7 +540,7 @@ e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()
 			
 		}else if(cWidth<=cHeight){
 			mainCharacter.hVelo=mainCharacter.myDirection()*10;
-				if(e.damageColliding()){
+				if(e.damageColliding() && !mainCharacter.injured){
 				System.out.println("tori is injured!!!!");
 				mainCharacter.HP-=1;
 				mainCharacter.injured=true;
