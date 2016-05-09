@@ -3,15 +3,24 @@
 
 <level1>
 <units unitNum="1"> <!-- layer -->
-X0-150 Y43
+X0-70 Y43
+X85-90 Y31
+X91-100 Y38
+X101-130 Y43
+X145-150 Y31
 </units>
 
 <units unitNum="2"> <!-- terrain -->
-X0-150 Y44-50
+X0-70 Y44-50
+X85-90 Y32-50
+X91-100 Y39-50
+X101-130 Y44-50
+X145-150 Y32-50
 </units>
 
 <objects objNum="1"> <!-- pine tree -->
 X30 Y38
+X107 Y38
 </objects>
 
 <objects objNum="2"> <!-- oak tree -->
@@ -19,12 +28,16 @@ X56 Y38
 </objects>
 
 <objects objNum="3"> <!-- log -->
-X37 Y37
-X45 Y34
+X66 Y37
+X75 Y34
+X120 Y36
+X129 Y32
+X136 Y34
 </objects>
 
 <enemies enemyNum="2"> <!-- mushroom -->
-X67 Y40
+X64 Y40
+X96 Y35
 </enemies>
 
 <enemies enemyNum="1"> <!-- pansy -->

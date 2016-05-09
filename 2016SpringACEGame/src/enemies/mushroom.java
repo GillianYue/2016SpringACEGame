@@ -49,9 +49,6 @@ public class mushroom extends enemy{
 		if(checkAlive() && display){
 		g.drawImage(myImage.getSubimage(myStatus*30, 0, picWidth, picHeight),
 				x, y, null);
-//		if(!sporeTimer.isRunning()){
-//			sporeTimer.start();
-//		}
 		for(int i=0; i<=2; i++){
 			if(mySpores[i]!=null)
 			mySpores[i].paintObject(g);

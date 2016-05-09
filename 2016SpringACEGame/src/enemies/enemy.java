@@ -89,4 +89,7 @@ public class enemy extends character.Character{
 		return true;
 	}
 
+	public boolean onDisplay(){
+		return display;
+	}
 }

@@ -36,7 +36,7 @@ public class Character {
 	public int HP, maxHP;
 	
 	public Character(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
-		myMapX=initialmapX;
+		myMapX=initialmapX-MapPanel.currmapMinX;
 		myMapY=initialmapY;
 		characterPanel=cp;
 		x=myMapX*10;
@@ -249,7 +249,7 @@ public class Character {
 	
 	public void printMyCoordinates(){
 		System.out.println(characterName+" mx "+myMapX+" my "+myMapY+" sx "+x+" sy "+y+" onG "
-				+onGround);
+				+onGround+" v "+velocity+" hv "+hVelo);
 	}
 	
 	public void setOnGround(boolean og){

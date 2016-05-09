@@ -12,8 +12,13 @@ import character.CharacterPanel;
 import map.MapPanel;
 
 public class XMLReader {
-
-	public XMLReader(MapPanel mp, CharacterPanel cp){
+MapPanel mp; CharacterPanel cp;
+	public XMLReader(MapPanel Mp, CharacterPanel Cp){
+		mp=Mp; cp=Cp;
+		loadLevel1();
+	}//end of constructor
+	
+	public void loadLevel1(){
 		try {	
 	         File inputFile = new File("src/levels/Level1.xml");
 	         DocumentBuilderFactory dbFactory 
@@ -117,8 +122,6 @@ public class XMLReader {
 	      } catch (Exception e) {
 	         e.printStackTrace();
 	      }
-	}//end of constructor
-	
-	
+	}
 	
 }

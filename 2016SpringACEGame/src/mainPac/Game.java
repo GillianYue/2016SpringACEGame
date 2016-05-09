@@ -49,7 +49,8 @@ public class Game {
 		gameFrame.add(jlp);
 		gameFrame.setVisible(true);
 		
-		ControlPanel controlPanel = new ControlPanel(mapPanel, backgroundPanel, characterPanel, imageLoader);
+		ControlPanel controlPanel = new ControlPanel(mapPanel, backgroundPanel, characterPanel,
+				imageLoader, xmlReader);
 		gameFrame.add(controlPanel);
 		
 		PanelUpdater pu = new PanelUpdater (jlp);
