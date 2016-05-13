@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import enemies.enemy;
 import enemies.flower;
 import enemies.mushroom;
+import enemies.treeMonster;
 import mainPac.ImageLoader;
 import map.MapPanel;
 import map.Unit;
@@ -44,6 +45,8 @@ public class CharacterPanel extends JPanel{
 			enemies.add(new flower(Umapx, Umapy, Il, this, (Math.random()>0.5)? 1:-1 ));
 		}else if(enemyNum==2){
 			enemies.add(new mushroom(Umapx, Umapy, Il, this, 1));
+		}else if(enemyNum==3){
+			enemies.add(new treeMonster(Umapx, Umapy, Il, this, 1));
 		}
 		
 		enemiesData[Umapx][Umapy]=enemyNum*-1;

@@ -26,21 +26,25 @@ public class Unit {
 		if(whatAmI==2){
 			myImage=il.terrainpiece;
 			myPicWidth=myImage.getWidth();
-		}
+		}else
 		if(whatAmI==1){
 			myImage=il.terrainlayer;
 			myPicWidth=myImage.getWidth();
-		}
-//		if(whatAmI==3){
-//			myImage=il.terrainlayeredge;
-//			myBlank=8;
-//			myPicWidth=2;
-//		}
-//		if(whatAmI==4){
-//			myImage=il.terrainpieceedge;
-//		}
+		}else
+		if(whatAmI==3){
+			myImage=il.stone.getSubimage(0, 0, 10, 10);
+			myPicWidth=myImage.getWidth();
+		}else
+		if(whatAmI==4){
+			myImage=il.stone.getSubimage(10, 0, 10, 10);
+			myPicWidth=myImage.getWidth();
+		}else
 		if(whatAmI==5){
-			myImage=il.stone;
+			myImage=il.stone.getSubimage(0, 10, 10, 10);
+			myPicWidth=myImage.getWidth();
+		}else
+		if(whatAmI==6){
+			myImage=il.stone.getSubimage(10, 10, 10, 10);
 			myPicWidth=myImage.getWidth();
 		}
 	}

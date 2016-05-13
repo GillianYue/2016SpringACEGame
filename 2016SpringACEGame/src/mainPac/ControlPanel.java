@@ -47,6 +47,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		mapPanel=mp;
 		Il=il;
 		this.setFocusable(true);
+		this.requestFocus();
 		addKeyListener(this);
 		mainCharacter=character.mainCharacter;
 		pwidth=bp.getWidth();
@@ -270,7 +271,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		mainCharacterCombo (mainCharacter);
 		enemyCombo();
 		//bird.printMyStatus();
-		bird.printMyCoordinates();
+		//bird.printMyCoordinates();
+		
 		checkForLose();
 		if(lost){
 			restartLevel();
@@ -314,13 +316,27 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		if(e.onDisplay()){
 		e.setScreeny(e.getScreenY()-(int)(e.velocity*0.3));
 		e.setScreenX(e.getScreenX()-(int)(e.hVelo*0.3));
+		if(e.hVelo!=0){
+			if(e.hVelo>0){
+				if(e.hVelo>5){
+			 e.hVelo-=2;
+				}else{
+				e.hVelo-=1;
+				}
+			}else{
+				if(e.hVelo<-5){
+			e.hVelo+=2;
+				}else{
+					e.hVelo+=1;
+				}
+			}
+		}
 		}
 	}
 	
 	public void gravityMainCharacter(character.Character e){
 		e.setScreeny(e.getScreenY()-(int)(e.velocity*0.3));
 		e.fall();
-	if(e.characterName.equals("Chirpy")){
 		e.setScreenX(e.getScreenX()-(int)(e.hVelo));
 	if(e.hVelo!=0){
 			if(e.hVelo>0){
@@ -338,7 +354,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			}
 		}
 	}
-	}
+	
 	
 	public void coordinatesSync (character.Character e){
 		e.setMapX((e.getScreenX()/10)+MapPanel.currmapMinX);
@@ -447,10 +463,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 						//check the unit
 						if(e.hVelo>0){
 							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("1.1");
 										}else if(e.hVelo<0){
-							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("1.2");}
+							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); }
 			//pushes the character back to its desired position
 						if(e.hVelo!=0)
 						e.hVelo=0;
@@ -465,10 +479,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 					//check the unit
 						if(e.hVelo>0){
 							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("2.1");	
 							}else if(e.hVelo<0){
-							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("2.2");	}
+							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); }
 			//pushes the character back to its desired position
 					if(e.hVelo!=0)
 						e.hVelo=0;
@@ -483,11 +495,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 					if(e.collisionWithUnit(unitToTest)){ 
 					//check the unit
 						if(e.hVelo>0){
-							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("3.1");		
+							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 		
 							}else if(e.hVelo<0){
 							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("3.2");			}
+		}
 			//pushes the character back to its desired position
 					if(e.hVelo!=0)
 						e.hVelo=0;
@@ -501,11 +512,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 					if(e.collisionWithUnit(unitToTest)){ 
 					//check the unit
 						if(e.hVelo>0){
-							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("4.1");				
+							e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 			
 							}else if(e.hVelo<0){	
 							e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-							System.out.println("4.2 "+e.getScreenX());			}
+			}
 			//pushes the character back to its desired position
 					if(e.hVelo!=0)
 						e.hVelo=0;
@@ -522,10 +532,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 					//check the unit
 						if(e.hVelo>0){
 			e.setScreenX(e.getScreenX() + (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-			System.out.println("5.1");	
 			}else if(e.hVelo<0){
 			e.setScreenX(e.getScreenX() - (int)e.recCollisionWithUnit(unitToTest).getWidth()); 
-			System.out.println("5.2");	}
+	
+			}
 				//pushes the character back to its desired position
 						if(e.hVelo!=0)
 							e.hVelo=0;

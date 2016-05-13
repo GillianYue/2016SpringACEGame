@@ -6,28 +6,49 @@ import java.awt.Rectangle;
 import character.CharacterPanel;
 import mainPac.ImageLoader;
 
-public class flower extends enemy{
+public class treeMonster extends enemy{
 
-	public flower(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp, int facing) {
+	public treeMonster(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp, int facing) {
 		super(initialmapX, initialmapY, il, cp, facing);
-		myImage=il.flower.getSubimage(
-				0,(int)(Math.random()/0.34)*45, 90, 45
+		myImage=il.treeMonster.getSubimage(
+				0,(int)(Math.random()/0.34)*60, 90, 60
 				);
-		HP=2;
-		characterName="Pansy";
+		HP=4;
+		characterName="tree";
 		picWidth=45;
-		picHeight=45;
-		individualWidth=25;
-		individualHeight=30;
+		picHeight=60;
+		individualWidth=30;
+		individualHeight=50;
 		numOfWalkingStatus=2;
-		hVelo=5*facing*-1;
-		walking=true;
 	}
 
+	
+	public void hVeloRandomizer(){
+		if(hVelo==0){
+		double random=Math.random();
+		if(random<0.1){
+			facingDirection=1;
+		hVelo=8;
+		walking=true;
+		}else if(random>0.9){
+			facingDirection=-1;
+			hVelo=-8;
+			walking=true;
+		}else{
+			walking=false;
+		}
+		}
+	}
+	
+	@Override
+	public Rectangle getMyBounds(){
+		return new Rectangle(x+7, y+10, individualWidth, individualHeight);
+	}
+	
 	@Override
 	public void drawCharacter(Graphics g){
 		if(checkAlive() && display){
-			hVelo=5*facingDirection*-1;
+			hVeloRandomizer();
 		if(facingDirection==1){
 		g.drawImage(myImage, x, y, x+picWidth,
 				y+picHeight, (myStatus%3)*picWidth, (myStatus/3)*picHeight,
@@ -38,10 +59,5 @@ public class flower extends enemy{
 					(myStatus%3)*picWidth+picWidth, (myStatus/3)*picHeight+picHeight, null);
 		}
 		}
-	}
-	
-	@Override
-	public Rectangle getMyBounds(){
-		return new Rectangle(x+10, y+15, individualWidth, individualHeight);
 	}
 }

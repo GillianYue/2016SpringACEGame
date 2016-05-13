@@ -8,6 +8,9 @@ X85-90 Y31
 X91-100 Y38
 X101-130 Y43
 X145-150 Y31
+X158-164 Y36
+X171-190 Y40
+X200-230 Y43
 </units>
 
 <units unitNum="2"> <!-- terrain -->
@@ -16,6 +19,45 @@ X85-90 Y32-50
 X91-100 Y39-50
 X101-130 Y44-50
 X145-150 Y32-50
+X158-164 Y37-39
+X171-190 Y41-43
+X200-230 Y44-50
+</units>
+
+<units unitNum= "3"> <!-- stone1 -->
+X205 Y41
+X207 Y39
+X209 Y37
+X211 Y37
+X213 Y39
+X215 Y41
+</units>
+
+<units unitNum= "4"> <!-- stone2 -->
+X206 Y41
+X208 Y39
+X210 Y37
+X212 Y37
+X214 Y39
+X216 Y41
+</units>
+
+<units unitNum= "5"> <!-- stone3 -->
+X205 Y42
+X207 Y40
+X209 Y38
+X211 Y38
+X213 Y40
+X215 Y42
+</units>
+
+<units unitNum= "6"> <!-- stone4 -->
+X206 Y42
+X208 Y40
+X210 Y38
+X212 Y38
+X214 Y40
+X216 Y42
 </units>
 
 <objects objNum="1"> <!-- pine tree -->
@@ -33,18 +75,23 @@ X75 Y34
 X120 Y36
 X129 Y32
 X136 Y34
+X193 Y36
 </objects>
 
 <enemies enemyNum="2"> <!-- mushroom -->
 X64 Y40
 X96 Y35
+X210 Y40
 </enemies>
 
 <enemies enemyNum="1"> <!-- pansy -->
 X50 Y36
 </enemies>
 
-
+<enemies enemyNum="3"> <!-- treeMonster -->
+X12 Y36
+X180 Y34
+</enemies>
 
 </level1>
 

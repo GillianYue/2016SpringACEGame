@@ -13,6 +13,7 @@ public class oak extends tree{
 	for(int h=0; h<=4; h++){
 		MapPanel.map[MX+1][MY+h]=100;
 		MapPanel.map[MX+2][MY+h]=100;
+		MapPanel.map[MX+3][MY+h]=100;
 	}
 	}
 
