@@ -11,7 +11,7 @@ public class log extends tempObject{
 		super(MX, MY, il, direction);
 		myImage=il.log;
 		for(int l=0; l<=5; l++){
-		MapPanel.map[MX+l][MY]=100;
+		MapPanel.map[MX+l][MY]=99;//don't want collision detection to actually work
 		}
 	}
 

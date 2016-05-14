@@ -12,7 +12,7 @@ public class Unit {
 	private int Screenx, Screeny;
 	private int mapX, mapY;
 	int whatamI; 
-	private int myBlank, myPicWidth;
+	private int myBlank, myPicWidth, myPicHeight;
 	BufferedImage myImage;
 	ImageLoader Il;
 	//0: nothing; 1: terrain; 2: terrainwithlayer; 
@@ -26,26 +26,39 @@ public class Unit {
 		if(whatAmI==2){
 			myImage=il.terrainpiece;
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
 		if(whatAmI==1){
 			myImage=il.terrainlayer;
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
 		if(whatAmI==3){
 			myImage=il.stone.getSubimage(0, 0, 10, 10);
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
 		if(whatAmI==4){
 			myImage=il.stone.getSubimage(10, 0, 10, 10);
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
 		if(whatAmI==5){
 			myImage=il.stone.getSubimage(0, 10, 10, 10);
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
 		if(whatAmI==6){
 			myImage=il.stone.getSubimage(10, 10, 10, 10);
 			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
+		}else
+		if(whatAmI==100){
+			myPicWidth=10;
+			myPicHeight=10;
+		}else
+		if(whatAmI==99){
+			//fake unit; no collision detection needed
 		}
 	}
 	
@@ -75,7 +88,7 @@ public class Unit {
 	}
 	public Rectangle getBounds(){
 		try{
-		return new Rectangle(Screenx+myBlank, Screeny, myPicWidth, myImage.getHeight());
+		return new Rectangle(Screenx+myBlank, Screeny, myPicWidth, myPicHeight);
 		}catch(Exception e){
 		//	System.out.println("getBounds did not work."+mapX+" "+mapY);
 		return null;
