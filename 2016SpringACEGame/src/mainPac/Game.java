@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.WindowConstants;
 
+import audio.BGMPlayer;
 import background.BackgroundPanel;
 import character.CharacterPanel;
 import map.MapPanel;
@@ -46,15 +47,19 @@ public class Game {
 		jlp.add(mapPanel, Integer.valueOf(3));
 		jlp.setVisible(true);
 
+		BGMPlayer bgm = new BGMPlayer();
+		
 		gameFrame.add(jlp);
 		gameFrame.setVisible(true);
 		
-		ControlPanel controlPanel = new ControlPanel(mapPanel, backgroundPanel, characterPanel,
-				imageLoader, xmlReader);
-		gameFrame.add(controlPanel);
-		
 		PanelUpdater pu = new PanelUpdater (jlp);
 		
+		ControlPanel controlPanel = new ControlPanel(mapPanel, backgroundPanel, characterPanel,
+				imageLoader, xmlReader, bgm, pu);
+		gameFrame.add(controlPanel);
+		
+		
+		controlPanel.requestFocus();
 		gameFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

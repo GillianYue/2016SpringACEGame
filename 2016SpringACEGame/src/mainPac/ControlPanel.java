@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import TempObjects.tempObject;
+import audio.BGMPlayer;
 import background.BackgroundPanel;
 import background.MovingBackground;
 import character.Bird;
@@ -23,6 +24,7 @@ import map.MapPanel;
 import map.Unit;
 
 public class ControlPanel extends JPanel implements KeyListener, ActionListener{
+	public static int CurrentLevel;
 	Set<Integer> pressedKeyCode = new HashSet<Integer>();
 	char pressedKeyChar;
 	Bird bird; Frog frog; MovingBackground BG;
@@ -34,18 +36,23 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	MapPanel mapPanel;
 	public character.Character mainCharacter;
 	XMLReader xml;
+	BGMPlayer bgm;
+	PanelUpdater panelDraw;
 	/*
 	 * in coordinates sync the character's status is constantly reset
 	 */
 	
 	public ControlPanel(MapPanel mp, BackgroundPanel bp, CharacterPanel character, ImageLoader il,
-			XMLReader XML){
+			XMLReader XML, BGMPlayer BGMplayer, PanelUpdater pu){
 		bird=character.bird;
 		frog=character.frog;
 		xml=XML;
 		BG=bp.mountains;
 		mapPanel=mp;
 		Il=il;
+		CurrentLevel=1;
+		bgm=BGMplayer;
+		panelDraw=pu;
 		this.setFocusable(true);
 		this.requestFocus();
 		addKeyListener(this);
@@ -63,9 +70,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		pressedKeyCode.add(e.getKeyCode());
-			updateMapInterval(pressedKeyCode);
 			moveTheBird(pressedKeyCode);
-			moveTheBackground(pressedKeyCode);
 		}
 	
 
@@ -92,50 +97,23 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void moveTheBird(Set<Integer> set){
 		if(set.size()>1){
 			if(set.contains(KeyEvent.VK_RIGHT)&& set.contains(KeyEvent.VK_SPACE)){
-				if(mainCharacter.getScreenX()<pwidth-50){
 					mainCharacter.faceRight();
-					if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
 					mainCharacter.rightJump();
-					}else if((MapPanel.currmapMaxX+8> MapPanel.mapMaxX)
-						&& (mainCharacter.getScreenX() >= 500)){
-							mainCharacter.rightJump();
-						}
-					}
-			
+					
 			}else if(set.contains(KeyEvent.VK_LEFT)&&set.contains(KeyEvent.VK_SPACE)){
-				if(mainCharacter.getScreenX()>5){
 					mainCharacter.faceLeft();
-					if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
 					mainCharacter.leftJump();
-					}else if((MapPanel.currmapMinX -8< MapPanel.mapMinX)
-							&& (mainCharacter.getScreenX() <= 200)){
-						mainCharacter.leftJump();
-					}
-					}
+				
 			}else if(set.contains(KeyEvent.VK_SHIFT)&&set.contains(KeyEvent.VK_LEFT)){
-				if(mainCharacter.getScreenX()>5){
 					mainCharacter.faceLeft();
-					if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
 					mainCharacter.moveNStepLeft(2);
 					mainCharacter.walking=true;
-					}else if((MapPanel.currmapMinX == MapPanel.mapMinX)
-							&& (mainCharacter.getScreenX() <= 200)){
-						mainCharacter.moveNStepLeft(2);
-						mainCharacter.walking=true;
-					}
-					}
+					
 			}else if(set.contains(KeyEvent.VK_SHIFT) &&set.contains(KeyEvent.VK_RIGHT)){
-				if(mainCharacter.getScreenX()<pwidth-50){
 					mainCharacter.faceRight();
-					if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
 					mainCharacter.moveNStepRight(2);
 					mainCharacter.walking=true;
-					}else if((MapPanel.currmapMaxX == MapPanel.mapMaxX)
-						&& (mainCharacter.getScreenX() >= 500)){
-							mainCharacter.moveNStepRight(2);
-							mainCharacter.walking=true;
-						}
-					}
+
 			}  if(set.contains(KeyEvent.VK_DOWN) && set.contains(KeyEvent.VK_A)){
 				if(mainCharacter.equals(bird)){
 				bird.squatAttack();
@@ -152,30 +130,16 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			
 		}else{
 		if(set.contains(KeyEvent.VK_RIGHT)){
-			if(mainCharacter.getScreenX()<pwidth-50){
 			mainCharacter.faceRight();
-			if(mainCharacter.getScreenX() < 500){//if it's in the middle of the panel
 			mainCharacter.moveNStepRight(1);
 			mainCharacter.walking=true;
-			}else if((MapPanel.currmapMaxX == MapPanel.mapMaxX)
-				&& (mainCharacter.getScreenX() >= 500)){
-					mainCharacter.moveNStepRight(1);
-					mainCharacter.walking=true;
-				}
-			}
+			
 		}
 		if(set.contains(KeyEvent.VK_LEFT)){
-			if(mainCharacter.getScreenX()>5){
 			mainCharacter.faceLeft();
-			if(mainCharacter.getScreenX()>200){//if it's in the middle of the panel
 			mainCharacter.moveNStepLeft(1);
 			mainCharacter.walking=true;
-			}else if((MapPanel.currmapMinX == MapPanel.mapMinX)
-					&& (mainCharacter.getScreenX() <= 200)){
-				mainCharacter.moveNStepLeft(1);
-				mainCharacter.walking=true;
-			}
-			}
+ 
 		}
 		if(set.contains(KeyEvent.VK_DOWN)){
 			if(mainCharacter.equals(bird)){
@@ -199,80 +163,40 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	}
 	}
 	
-	public void moveTheBackground(Set<Integer> set){
-//since this is the background, it moves the opposite way of the character's moving direction
-		if(mainCharacter.hVelo==0){
-		if(mainCharacter.onGround &&
-				(set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
-				&& (mainCharacter.getScreenX() >= 500)){
-			BG.moveBackground("left");
-		}
-		if(mainCharacter.onGround &&
-				(set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
-				&& (mainCharacter.getScreenX() <= 200)){
-			BG.moveBackground("right");
-		}
-		}
+	public void moveTheBackground(){
+			BG.moveBackground(-1);
 	}
 	
-	public void updateMapInterval(Set<Integer> set){
-		if(mainCharacter.hVelo==0){
-		if(mainCharacter.onGround && (set.contains(KeyEvent.VK_RIGHT)) && (set.contains(KeyEvent.VK_SPACE)) &&
- (mainCharacter.getScreenX() >= 500)&& (MapPanel.currmapMaxX+8 <=MapPanel.mapMaxX) && 
- !mainCharacter.diagJumping){
-			MapPanel.currmapMinX+=8;
-			MapPanel.currmapMaxX+=8;
-			mainCharacter.setScreenX(mainCharacter.getScreenX()-80);
-			mainCharacter.rightJump();
-			for(enemy e:CharacterPanel.enemies){
-				e.setScreenX(e.getScreenX()-80);
+	public void updateMapInterval(){
+			if(mainCharacter.getScreenX()>600){
+				MapPanel.currmapMinX+=45;
+				MapPanel.currmapMaxX+=45;
+				mainCharacter.setScreenX(mainCharacter.getScreenX()-450);
+			for(enemy e: CharacterPanel.enemies){
+				e.setScreenX(e.getScreenX()-450);
 			}
-		}else if(mainCharacter.onGround && 
-				(set.contains(KeyEvent.VK_LEFT)) && (set.contains(KeyEvent.VK_SPACE)) &&
-	 (mainCharacter.getScreenX() <=200)	 && (MapPanel.currmapMinX-8 >=MapPanel.mapMinX) &&
-	 !mainCharacter.diagJumping){
-			mainCharacter.jump();
-			MapPanel.currmapMinX-=8;
-			MapPanel.currmapMaxX-=8;
-			for(enemy e:CharacterPanel.enemies){
-				e.setScreenX(e.getScreenX()+80);
-			}
-		}	else{ 
-		}
-			if(mainCharacter.onGround && 
-					(set.contains(KeyEvent.VK_RIGHT)) && (MapPanel.currmapMaxX < MapPanel.mapMaxX)
-				&& (mainCharacter.getScreenX() >= 500)){
-			mainCharacter.walking=true;
-			mainCharacter.rotateWalkingStatus();
-			MapPanel.currmapMinX+=1;
-			MapPanel.currmapMaxX+=1;
-			for(enemy e:CharacterPanel.enemies){
-				e.setScreenX(e.getScreenX()-10);
-			}
-		}
 			
-		if(mainCharacter.onGround && 
-				(set.contains(KeyEvent.VK_LEFT)) && (MapPanel.currmapMinX > MapPanel.mapMinX)
-				&& (mainCharacter.getScreenX() <= 200)){
-			mainCharacter.walking=true;
-			mainCharacter.rotateWalkingStatus();
-			MapPanel.currmapMinX-=1;
-			MapPanel.currmapMaxX-=1;
-			for(enemy e:CharacterPanel.enemies){
-				e.setScreenX(e.getScreenX()+10);
+			}else
+			if(mainCharacter.getScreenX()<100){
+				MapPanel.currmapMinX-=45;
+				MapPanel.currmapMaxX-=45;
+				mainCharacter.setScreenX(mainCharacter.getScreenX()+450);
 			}
 		}
-		}
-		}
+		
+	
+		
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		mainCharacterCombo (mainCharacter);
 		enemyCombo();
+		updateMapInterval();
+		moveTheBackground();
 		//bird.printMyStatus();
 		//bird.printMyCoordinates();
-		
+		panelDraw.paintPanels();
 		checkForLose();
 		if(lost){
 			restartLevel();
@@ -339,18 +263,20 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		e.fall();
 		e.setScreenX(e.getScreenX()-(int)(e.hVelo));
 	if(e.hVelo!=0){
-			if(e.hVelo>0){
+			if(e.hVelo>1){
 				if(e.hVelo>5){
 			 e.hVelo-=2;
 				}else{
 				e.hVelo-=1;
 				}
-			}else{
+			}else if(e.hVelo<-1){
 				if(e.hVelo<-5){
 			e.hVelo+=2;
 				}else{
 					e.hVelo+=1;
 				}
+			}else{
+				e.hVelo=0;
 			}
 		}
 	}
@@ -598,6 +524,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
 		}else if(cWidth<=cHeight){
+			System.out.println("bumpin into obj!!!");
 			if(mainCharacter.hVelo>0){
 	mainCharacter.setScreenX(mainCharacter.getScreenX() + cWidth);
 	}else if(mainCharacter.hVelo<0){

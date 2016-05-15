@@ -61,12 +61,12 @@ X216 Y42
 </units>
 
 <objects objNum="1"> <!-- pine tree -->
-X30 Y38
+X56 Y38
 X107 Y38
 </objects>
 
 <objects objNum="2"> <!-- oak tree -->
-X56 Y38
+X30 Y38
 </objects>
 
 <objects objNum="3"> <!-- log -->

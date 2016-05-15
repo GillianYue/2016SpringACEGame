@@ -32,19 +32,19 @@ public class MovingBackground{
 		return movingSpeed;
 	}
 	
-	public void moveBackground(String leftOrRight){
-		if (leftOrRight.equals("left")){
-		pic1Loc -= 20 * movingSpeed;
-		pic2Loc -= 20 * movingSpeed;
+	public void moveBackground(int leftOrRight){
+		if (leftOrRight==-1){
+		pic1Loc -= movingSpeed;
+		pic2Loc -= movingSpeed;
 		if(PicWidth*-1 - pic1Loc >=0){
 			pic1Loc = PicWidth - (PicWidth*-1 - pic1Loc);
 		}
 		if(PicWidth*-1 - pic2Loc >=0){
 			pic2Loc = PicWidth - (PicWidth*-1 - pic2Loc);
 		}
-		}else if(leftOrRight.equals("right")){
-		pic1Loc += 20 * movingSpeed;
-		pic2Loc += 20 * movingSpeed;
+		}else if(leftOrRight==1){
+		pic1Loc += movingSpeed;
+		pic2Loc += movingSpeed;
 		if(pic1Loc - PicWidth>=0){
 			pic1Loc =  -1*PicWidth + (pic1Loc - PicWidth);
 		}

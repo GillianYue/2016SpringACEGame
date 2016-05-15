@@ -7,20 +7,16 @@ import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class PanelUpdater implements ActionListener{
-	Timer t;
-	JPanel [] allPanels;
-	JPanel  temp; 
+public class PanelUpdater{
+	
 	JLayeredPane jlp;
 	
 	public PanelUpdater(JLayeredPane JLP){
 	    jlp=JLP;
-		t = new Timer (50, this);
-		t.start();
+		
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void paintPanels(){
 		jlp.repaint();
 	}
 

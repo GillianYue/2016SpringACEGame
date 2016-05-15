@@ -18,7 +18,7 @@ public class BackgroundPanel extends JPanel implements MouseListener{
 	public BackgroundPanel(int width, int height, ImageLoader il){
 		this.setBackground(Color.CYAN);
 		forest= new Background (this, il, il.sun);
-		mountains = new MovingBackground (1.5 , this, il, il.mountains);
+		mountains = new MovingBackground (1, this, il, il.mountains);
 		pWidth=width; 
 		pHeight=height;
 		forest.setBackgroundSize(pWidth, pHeight, forest.getBackgroundImage());

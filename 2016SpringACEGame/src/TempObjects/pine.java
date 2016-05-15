@@ -11,9 +11,11 @@ public class pine extends tree{
 		super(MX, MY, il, direction);
 		myImage=il.pine;
 		for(int h=0; h<=3; h++){
-			MapPanel.map[MX+1][MY+h]=100;//want collision detection to work
-			MapPanel.map[MX+2][MY+h]=100;
+			if(h!=0){
+			MapPanel.map[MX+1][MY+h]=100;
 			MapPanel.map[MX+3][MY+h]=100;
+			}//want collision detection to work
+			MapPanel.map[MX+2][MY+h]=100;
 		}
 	}
 	
