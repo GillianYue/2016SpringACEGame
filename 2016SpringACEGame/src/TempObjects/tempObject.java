@@ -17,7 +17,7 @@ public class tempObject {
 	protected BufferedImage myImage;
 	private int secondsILast;
 	protected int objWidth, objHeight;
-	
+	protected int status;
 	Timer myT;
 	
 	public tempObject(int MX, int MY, ImageLoader il, int direction){
@@ -41,6 +41,10 @@ public class tempObject {
 	
 	public int getObjMY(){
 		return my;
+	}
+	
+	public void changeStatus(int n){
+		status=n;
 	}
 	
 	public Rectangle getBounds(){

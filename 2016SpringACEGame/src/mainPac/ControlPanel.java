@@ -10,8 +10,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.JPanel;
+import javax.swing.Spring;
 import javax.swing.Timer;
 
+import TempObjects.spring;
 import TempObjects.tempObject;
 import audio.BGMPlayer;
 import background.BackgroundPanel;
@@ -519,10 +521,24 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	int cWidth=(int)mainCharacter.recCollisionWithObj(o).getWidth();
 	int cHeight=(int)mainCharacter.recCollisionWithObj(o).getHeight();
 		if(cWidth>cHeight){
+			if(o.getClass()!=spring.class){
 			mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
 			mainCharacter.velocity=0;
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
+			}else{
+				mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
+				mainCharacter.velocity=100;
+				o.changeStatus(1);
+				Timer tempT = new Timer (1000, new ActionListener(){
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						o.changeStatus(0);
+					}
+				});
+				tempT.setRepeats(false);
+				tempT.start();
+			}
 		}else if(cWidth<=cHeight){
 			System.out.println("bumpin into obj!!!");
 			if(mainCharacter.hVelo>0){
