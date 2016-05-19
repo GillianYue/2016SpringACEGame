@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import TempObjects.leafPile;
 import TempObjects.oak;
 import TempObjects.pine;
 import TempObjects.spring;
@@ -44,9 +45,10 @@ public class MapPanel extends JPanel{
 		objGarbage = new ArrayList<tempObject>();
 		units = new Unit [currmapMaxX][mapMaxY]; 
 		for(int mapx=mapMinX; mapx<mapMaxX; mapx++){
-			for(int mapy=mapMinY; mapy<mapMaxY; mapy++){//coordinates on map
+			for(int mapy=mapMinY+1; mapy<mapMaxY; mapy++){//coordinates on map
 				map[mapx][mapy]=0; //nothing
 			}
+			map[mapx][0]=100;
 		}
 	
 
@@ -68,6 +70,8 @@ public class MapPanel extends JPanel{
 				objects.add(new TempObjects.log(Umapx, Umapy, Il, 1));
 			}else if(objNum==4){
 				objects.add(new spring(Umapx, Umapy, Il, 1));
+			}else if(objNum==5){
+				objects.add(new leafPile(Umapx, Umapy, Il, 1));
 			}
 			objData [Umapx][Umapy] *=-1;
 		}

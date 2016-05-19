@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader {
 	public BufferedImage bird, icon, mountains, sun, terrainpiece, terrainlayer, tori, kero,
-	notes, flower, hearts, pine, oak, stone, log, mushroom, spore, treeMonster, spring;
+	notes, flower, hearts, pine, oak, stone, log, mushroom, spore, treeMonster, spring, leafPile;
 	
 	public ImageLoader(){
 		bird=loadImage("Pics/bird.png", bird);
@@ -30,6 +30,7 @@ public class ImageLoader {
 		spore=loadImage("Pics/spore.png", spore);
 		treeMonster=loadImage("Pics/treeMonster.png", treeMonster);
 		spring=loadImage("Pics/spring.png",spring);
+		leafPile=loadImage("Pics/pileLeaf.png",leafPile);
 	}
 	
 	public BufferedImage loadImage(String fileName, BufferedImage image){

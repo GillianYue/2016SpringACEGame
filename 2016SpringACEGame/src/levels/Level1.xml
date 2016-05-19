@@ -82,6 +82,11 @@ X193 Y36
 X220 Y40
 </objects>
 
+<objects objNum="5"> <!-- leaf pile -->
+X220 Y10
+
+</objects>
+
 <enemies enemyNum="2"> <!-- mushroom -->
 X64 Y40
 X96 Y35

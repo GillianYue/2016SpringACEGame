@@ -261,7 +261,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	}
 	
 	public void gravityMainCharacter(character.Character e){
+		if(e.getScreenY()-(int)(e.velocity*0.3)>0){
 		e.setScreeny(e.getScreenY()-(int)(e.velocity*0.3));
+		}
 		e.fall();
 		e.setScreenX(e.getScreenX()-(int)(e.hVelo));
 	if(e.hVelo!=0){
