@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import TempObjects.fruit;
 import TempObjects.leafPile;
 import TempObjects.oak;
 import TempObjects.pine;
@@ -72,6 +73,8 @@ public class MapPanel extends JPanel{
 				objects.add(new spring(Umapx, Umapy, Il, 1));
 			}else if(objNum==5){
 				objects.add(new leafPile(Umapx, Umapy, Il, 1));
+			}else if(objNum==6){
+				objects.add(new fruit(Umapx, Umapy, Il, 1));
 			}
 			objData [Umapx][Umapy] *=-1;
 		}

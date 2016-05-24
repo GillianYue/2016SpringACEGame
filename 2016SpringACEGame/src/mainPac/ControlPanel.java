@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.Spring;
 import javax.swing.Timer;
 
+import TempObjects.fruit;
 import TempObjects.spring;
 import TempObjects.tempObject;
 import audio.BGMPlayer;
@@ -183,6 +184,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				MapPanel.currmapMinX-=45;
 				MapPanel.currmapMaxX-=45;
 				mainCharacter.setScreenX(mainCharacter.getScreenX()+450);
+				for(enemy e: CharacterPanel.enemies){
+					e.setScreenX(e.getScreenX()+450);
+				}
 			}
 		}
 		
@@ -523,12 +527,12 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	int cWidth=(int)mainCharacter.recCollisionWithObj(o).getWidth();
 	int cHeight=(int)mainCharacter.recCollisionWithObj(o).getHeight();
 		if(cWidth>cHeight){
-			if(o.getClass()!=spring.class){
+			if(o.getClass()!=spring.class && o.getClass()!=fruit.class){
 			mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
 			mainCharacter.velocity=0;
 			mainCharacter.setOnGround(true);
 			mainCharacter.jumping=false;
-			}else{
+			}else if(o.getClass()==spring.class){
 				mainCharacter.setScreeny(mainCharacter.getScreenY() - cHeight); 
 				mainCharacter.velocity=100;
 				o.changeStatus(1);
@@ -540,6 +544,10 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				});
 				tempT.setRepeats(false);
 				tempT.start();
+			}else if(o.getClass()==fruit.class){
+				MapPanel.objGarbage.add(o);
+				mainCharacter.HP +=1;
+				MapPanel.objData[o.getObjMX()][o.getObjMY()]=0;
 			}
 		}else if(cWidth<=cHeight){
 			System.out.println("bumpin into obj!!!");

@@ -84,7 +84,14 @@ X220 Y40
 
 <objects objNum="5"> <!-- leaf pile -->
 X220 Y10
+X230 Y18
+X239 Y14
+</objects>
 
+<objects objNum="6"> <!-- fruit -->
+X77 Y32
+X122 Y34
+X222 Y8
 </objects>
 
 <enemies enemyNum="2"> <!-- mushroom -->
