@@ -81,15 +81,18 @@ public class enemy extends character.Character{
 		}
 	}
 	
-	public boolean enemyOnScreen(){
-		return display;
-	}
-	
 	public boolean damageColliding(){
 		return true;
 	}
 
 	public boolean onDisplay(){
 		return display;
+	}
+	
+	public boolean canJumpOnTop(){
+		return true;
+	}
+	
+	public void individualMoving(){
 	}
 }

@@ -11,6 +11,7 @@ X145-150 Y31
 X158-164 Y36
 X171-190 Y40
 X200-230 Y43
+X270-280 Y30
 </units>
 
 <units unitNum="2"> <!-- terrain -->
@@ -22,6 +23,16 @@ X145-150 Y32-50
 X158-164 Y37-39
 X171-190 Y41-43
 X200-230 Y44-50
+X270-280 Y31-33
+X300-350 Y44-50
+</units>
+
+<units unitNum="7"> <!-- Blayer -->
+X300-385 Y43
+</units>
+
+<units unitNum="8"> <!-- Bterrain -->
+X300-385 Y44-50
 </units>
 
 <units unitNum= "3"> <!-- stone1 -->
@@ -76,22 +87,31 @@ X120 Y36
 X129 Y32
 X136 Y34
 X193 Y36
+X254 Y40
+X287 Y25
 </objects>
 
 <objects objNum="4"> <!-- snake spring -->
 X220 Y40
+X255 Y38
 </objects>
 
 <objects objNum="5"> <!-- leaf pile -->
 X220 Y10
 X230 Y18
 X239 Y14
+X247 Y12
+X260 Y10
 </objects>
 
 <objects objNum="6"> <!-- fruit -->
 X77 Y32
 X122 Y34
 X222 Y8
+</objects>
+
+<objects objNum="7"> <!-- bossSign -->
+X305 Y38
 </objects>
 
 <enemies enemyNum="2"> <!-- mushroom -->
@@ -107,6 +127,16 @@ X50 Y36
 <enemies enemyNum="3"> <!-- treeMonster -->
 X12 Y36
 X180 Y34
+</enemies>
+
+<enemies enemyNum="4"> <!-- treeBoss -->
+X12 Y20
+</enemies>
+
+<enemies enemyNum="5"> <!-- bug -->
+X129 Y35
+X220 Y26
+X245 Y26
 </enemies>
 
 </level1>

@@ -15,7 +15,7 @@ public class Unit {
 	private int myBlank, myPicWidth, myPicHeight;
 	BufferedImage myImage;
 	ImageLoader Il;
-	//0: nothing; 1: terrain; 2: terrainwithlayer; 
+	
 	public Unit (int screenx, int screeny, int whatAmI, ImageLoader il, int MapX, int MapY) {
 		Screenx=screenx;
 		Screeny=screeny;
@@ -52,7 +52,18 @@ public class Unit {
 			myImage=il.stone.getSubimage(10, 10, 10, 10);
 			myPicWidth=myImage.getWidth();
 			myPicHeight=myImage.getHeight();
+		}else 
+		if(whatAmI==7){
+			myImage=il.bTerrainlayer;
+			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
 		}else
+		if(whatAmI==8){
+			myImage=il.bTerrainpiece;
+			myPicWidth=myImage.getWidth();
+			myPicHeight=myImage.getHeight();
+		}
+		else
 		if(whatAmI==100){
 			myPicWidth=10;
 			myPicHeight=10;

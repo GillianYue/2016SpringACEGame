@@ -5,9 +5,11 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import enemies.bug;
 import enemies.enemy;
 import enemies.flower;
 import enemies.mushroom;
+import enemies.treeBoss;
 import enemies.treeMonster;
 import mainPac.ImageLoader;
 import map.MapPanel;
@@ -47,6 +49,10 @@ public class CharacterPanel extends JPanel{
 			enemies.add(new mushroom(Umapx, Umapy, Il, this, 1));
 		}else if(enemyNum==3){
 			enemies.add(new treeMonster(Umapx, Umapy, Il, this, 1));
+		}else if(enemyNum==4){
+			enemies.add(new treeBoss(Umapx, Umapy, Il, this, 1));
+		}else if(enemyNum==5){
+			enemies.add(new bug(Umapx, Umapy, Il, this, 1));
 		}
 		
 		enemiesData[Umapx][Umapy]=enemyNum*-1;

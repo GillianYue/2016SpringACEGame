@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 public class ImageLoader {
 	public BufferedImage bird, icon, mountains, sun, terrainpiece, terrainlayer, tori, kero,
 	notes, flower, hearts, pine, oak, stone, log, mushroom, spore, treeMonster, spring, leafPile,
-	fruits;
+	fruits, treeBoss, leaf, bugs, bTerrainpiece, bTerrainlayer, bossSign;
 	
 	public ImageLoader(){
 		bird=loadImage("Pics/bird.png", bird);
@@ -30,9 +30,15 @@ public class ImageLoader {
 		mushroom=loadImage("Pics/mushrooms.png", mushroom);
 		spore=loadImage("Pics/spore.png", spore);
 		treeMonster=loadImage("Pics/treeMonster.png", treeMonster);
-		spring=loadImage("Pics/spring.png",spring);
-		leafPile=loadImage("Pics/pileLeaf.png",leafPile);
-		fruits=loadImage("Pics/fruits.png",fruits);
+		spring=loadImage("Pics/spring.png", spring);
+		leafPile=loadImage("Pics/pileLeaf.png", leafPile);
+		fruits=loadImage("Pics/fruits.png", fruits);
+		treeBoss=loadImage("Pics/treeBoss.png", treeBoss);
+		leaf=loadImage("Pics/leaf.png", leaf);
+		bugs=loadImage("Pics/bugs.png", bugs);
+		bTerrainpiece=loadImage("Pics/bossterrainpiece.png", bTerrainpiece);
+		bTerrainlayer=loadImage("Pics/bossterrainlayer.png", bTerrainlayer);
+		bossSign=loadImage("Pics/bossSign.png", bossSign);
 	}
 	
 	public BufferedImage loadImage(String fileName, BufferedImage image){

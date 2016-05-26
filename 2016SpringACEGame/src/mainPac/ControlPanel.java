@@ -238,6 +238,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			collisionDetectionForEnemy(e);
 			gravityForEnemies(e);
 			}
+			e.individualMoving();
 			e.coordinatesSyncMapToScreen();
 		}
 	}
@@ -491,11 +492,11 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		   lost=true;
 		}else{
 		for(enemy e: CharacterPanel.enemies){
-			if(e.enemyOnScreen() && mainCharacter.collisionWithEnemy(e)){
+			if(e.onDisplay() && mainCharacter.collisionWithEnemy(e)){
 	int cWidth=(int)mainCharacter.recCollisionWithEnemy(e).getWidth();
 	int cHeight=(int)mainCharacter.recCollisionWithEnemy(e).getHeight();
 		if(cWidth>cHeight){
-			if(e.injurable()){
+			if(e.injurable() && e.canJumpOnTop()){
 			e.HP-=1;
 			System.out.println(e.characterName+" is injured!!!");
 			}

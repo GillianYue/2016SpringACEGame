@@ -32,7 +32,15 @@ public class tempObject {
 	}
 	
 	public void paintObject(Graphics g){
-		g.drawImage(myImage, 10*(mx-MapPanel.currmapMinX), 10*my, null);
+		if(Direction==1){
+			g.drawImage(myImage, 10*(mx-MapPanel.currmapMinX), 10*my, 
+					10*(mx-MapPanel.currmapMinX)+myImage.getWidth(),
+					10*my+myImage.getHeight(), 0, 0, myImage.getWidth(), myImage.getHeight(), null);
+			}else if(Direction==-1){
+				g.drawImage(myImage, 10*(mx-MapPanel.currmapMinX)+myImage.getWidth(), 10*my, 
+						10*(mx-MapPanel.currmapMinX),
+						10*my+myImage.getHeight(), 0, 0, myImage.getWidth(), myImage.getHeight(), null);
+			}
 	}
 	
 	public int getObjMX(){
