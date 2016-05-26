@@ -35,7 +35,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	Timer t;
 	double gravity=9.8; 
 	ImageLoader Il;
-	boolean lost;
+	boolean lost, inBossBattle;
 	MapPanel mapPanel;
 	public character.Character mainCharacter;
 	XMLReader xml;
@@ -198,8 +198,15 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		mainCharacterCombo (mainCharacter);
 		enemyCombo();
+		if(!inBossBattle){
 		updateMapInterval();
 		moveTheBackground();
+		checkForBoss();
+		}else{
+			if(bgm.currentClip!=1){//boss theme music
+				bgm.changeTo(1);
+			}
+		}
 		//bird.printMyStatus();
 		//bird.printMyCoordinates();
 		panelDraw.paintPanels();
@@ -547,7 +554,9 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				tempT.start();
 			}else if(o.getClass()==fruit.class){
 				MapPanel.objGarbage.add(o);
+				if(mainCharacter.HP<6){
 				mainCharacter.HP +=1;
+				}
 				MapPanel.objData[o.getObjMX()][o.getObjMY()]=0;
 			}
 		}else if(cWidth<=cHeight){
@@ -576,6 +585,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	    CharacterPanel.enemies.clear();
 	    MapPanel.objects.clear();
 	    xml.loadLevel1();
+	    bgm.changeTo(0);
 	}
 	
 		public void collisionDetectionForEnemy(enemy e){
@@ -737,5 +747,20 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}
 		}catch(Exception p){
 		}
+		}
+		
+		public boolean checkForBoss(){
+			if(mainCharacter.getMapX()>331){
+				inBossBattle=true;
+				for(int wall=30; wall<43; wall++){
+				MapPanel.map[315][wall]=100;
+				}
+				for(int wall=30; wall<43; wall++){
+					MapPanel.map[383][wall]=100;
+					}
+				return true;
+			}else{
+				return false;
+			}
 		}
 }

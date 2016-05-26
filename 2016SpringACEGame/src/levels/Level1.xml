@@ -130,7 +130,7 @@ X180 Y34
 </enemies>
 
 <enemies enemyNum="4"> <!-- treeBoss -->
-X12 Y20
+X358 Y35
 </enemies>
 
 <enemies enemyNum="5"> <!-- bug -->
