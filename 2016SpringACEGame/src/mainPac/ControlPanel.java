@@ -120,6 +120,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			}  if(set.contains(KeyEvent.VK_DOWN) && set.contains(KeyEvent.VK_A)){
 				if(mainCharacter.equals(bird)){
 				bird.squatAttack();
+				bgm.playchirp();
 				}
 				Timer tempT = new Timer (1000, new ActionListener(){
 					@Override
@@ -154,6 +155,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}
 		if(set.contains(KeyEvent.VK_A)){
 			mainCharacter.attack();
+			bgm.playchirp();
 			Timer tempT = new Timer (1000, new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
