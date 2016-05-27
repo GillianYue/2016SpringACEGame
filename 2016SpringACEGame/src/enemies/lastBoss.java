@@ -22,4 +22,12 @@ public class lastBoss extends enemy{
 	public boolean gravityApplies(){
 	return false;	
 	}
+	
+	public void killAllLeaves(){
+		
+	}
+	
+	public void onslaught(){
+	}
+	
 }

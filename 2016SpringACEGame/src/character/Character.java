@@ -255,4 +255,26 @@ public class Character {
 	public void setOnGround(boolean og){
 		onGround=og;
 	}
+	
+	public void getHurt(){
+		
+			injured=true;
+			Timer tempT = new Timer (1000, new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					injured=false;
+				}
+			});
+			tempT.setRepeats(false);
+			tempT.start();	
+			HP-=1;
+	
+	}
+	
+	public Rectangle getNoteBounds(){
+		return null;
+	}
+	
+	public void killNote(){
+	}
 }

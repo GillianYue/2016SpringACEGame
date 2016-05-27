@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
 
+import audio.BGMPlayer;
 import character.Bird;
 import character.CharacterPanel;
 import enemies.enemy;
@@ -14,13 +15,14 @@ import mainPac.ImageLoader;
 public class Note extends tempObject implements ActionListener{
 
 	int count=0; Bird myBird; CharacterPanel characterPanel;
-	public Note(int MX, int MY, ImageLoader il, int direction, Bird bird, CharacterPanel cp) {
+	public Note(int MX, int MY, ImageLoader il, int direction, Bird bird, CharacterPanel cp, BGMPlayer bgm) {
 		super(MX, MY, il, direction);
 		myImage=il.notes.getSubimage((int)(Math.random()/0.5)*10,(int)(Math.random()/0.5)*10, 10, 10);
 		characterPanel = cp;
 		myBird=bird;
 		myT = new Timer (60, this);
 		myT.start();
+		bgm.playchirp();
 	}
 
 	public void updatePos(){
@@ -29,7 +31,6 @@ public class Note extends tempObject implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		updatePos();
 		for(enemy E: CharacterPanel.enemies){
 			if(collideEnemy(E)){

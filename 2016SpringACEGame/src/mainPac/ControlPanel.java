@@ -23,6 +23,8 @@ import character.Bird;
 import character.CharacterPanel;
 import character.Frog;
 import enemies.enemy;
+import enemies.lastBoss;
+import enemies.treeBoss;
 import map.MapPanel;
 import map.Unit;
 
@@ -41,6 +43,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	XMLReader xml;
 	BGMPlayer bgm;
 	PanelUpdater panelDraw;
+	lastBoss currentBoss;
 	/*
 	 * in coordinates sync the character's status is constantly reset
 	 */
@@ -120,7 +123,6 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			}  if(set.contains(KeyEvent.VK_DOWN) && set.contains(KeyEvent.VK_A)){
 				if(mainCharacter.equals(bird)){
 				bird.squatAttack();
-				bgm.playchirp();
 				}
 				Timer tempT = new Timer (1000, new ActionListener(){
 					@Override
@@ -155,7 +157,6 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}
 		if(set.contains(KeyEvent.VK_A)){
 			mainCharacter.attack();
-			bgm.playchirp();
 			Timer tempT = new Timer (1000, new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -497,7 +498,7 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 	
 	public void checkForLose(){
 		if(mainCharacter.getMapY()>50){
-			System.out.println("you lose!!!!!");
+			System.out.println("you lose!!!!! Height");
 		   lost=true;
 		}else{
 		for(enemy e: CharacterPanel.enemies){
@@ -516,17 +517,8 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				if(e.damageColliding() && !mainCharacter.injured){
 				mainCharacter.hVelo=mainCharacter.myDirection()*10;
 				System.out.println("tori is injured!!!!");
-				mainCharacter.HP-=1;
-				mainCharacter.injured=true;
 				mainCharacter.changeStatus(5);//bird's status 5 is injured
-				Timer tempT = new Timer (1000, new ActionListener(){
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						mainCharacter.injured=false;
-					}
-				});
-				tempT.setRepeats(false);
-				tempT.start();
+				mainCharacter.getHurt();
 				mainCharacter.velocity=0;
 				}
 		}
@@ -534,6 +526,13 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 		}//end check collision with enemy
 		for(tempObject o: MapPanel.objects){
 			if( mainCharacter.collisionWithObject(o)){
+				if(o.getClass()==fruit.class){
+					MapPanel.objGarbage.add(o);
+					if(mainCharacter.HP<6){
+					mainCharacter.HP +=1;
+					}
+					MapPanel.objData[o.getObjMX()][o.getObjMY()]=0;
+				}else{
 	int cWidth=(int)mainCharacter.recCollisionWithObj(o).getWidth();
 	int cHeight=(int)mainCharacter.recCollisionWithObj(o).getHeight();
 		if(cWidth>cHeight){
@@ -554,12 +553,6 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				});
 				tempT.setRepeats(false);
 				tempT.start();
-			}else if(o.getClass()==fruit.class){
-				MapPanel.objGarbage.add(o);
-				if(mainCharacter.HP<6){
-				mainCharacter.HP +=1;
-				}
-				MapPanel.objData[o.getObjMX()][o.getObjMY()]=0;
 			}
 		}else if(cWidth<=cHeight){
 			System.out.println("bumpin into obj!!!");
@@ -571,20 +564,24 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 			mainCharacter.hVelo=0;
 		}
 			}
+			}
 		}//end check collision with objects
 		if(mainCharacter.HP==0){
-			System.out.println("you lose!!!");
+			System.out.println("you lose!!! HP");
 			lost=true;
 		}
 		}
 	}
 	
 	public void restartLevel(){
+		if(currentBoss!=null)
+		currentBoss.killAllLeaves();
 		mainCharacter.HP=mainCharacter.maxHP;
 		mainCharacter.resetCharacter();
 		mapPanel.resetMapPanel();
 	    lost=false;
 	    CharacterPanel.enemies.clear();
+	    inBossBattle=false;
 	    MapPanel.objects.clear();
 	    xml.loadLevel1();
 	    bgm.changeTo(0);
@@ -760,6 +757,14 @@ public class ControlPanel extends JPanel implements KeyListener, ActionListener{
 				for(int wall=30; wall<43; wall++){
 					MapPanel.map[383][wall]=100;
 					}
+				if(CurrentLevel==1){
+					for(enemy e:CharacterPanel.enemies){
+						if(e.getClass()==treeBoss.class){
+							currentBoss=(treeBoss)e;
+						}
+					}
+				}
+				currentBoss.onslaught();
 				return true;
 			}else{
 				return false;

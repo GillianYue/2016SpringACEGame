@@ -24,7 +24,6 @@ X158-164 Y37-39
 X171-190 Y41-43
 X200-230 Y44-50
 X270-280 Y31-33
-X300-350 Y44-50
 </units>
 
 <units unitNum="7"> <!-- Blayer -->
@@ -94,6 +93,7 @@ X287 Y25
 <objects objNum="4"> <!-- snake spring -->
 X220 Y40
 X255 Y38
+X369 Y40
 </objects>
 
 <objects objNum="5"> <!-- leaf pile -->
@@ -102,6 +102,16 @@ X230 Y18
 X239 Y14
 X247 Y12
 X260 Y10
+X317 Y35
+X322 Y30
+X327 Y25
+X332 Y20
+X337 Y15 
+X342 Y10
+X347 Y15
+X352 Y20
+X357 Y25
+X362 Y30
 </objects>
 
 <objects objNum="6"> <!-- fruit -->
@@ -122,6 +132,7 @@ X210 Y40
 
 <enemies enemyNum="1"> <!-- pansy -->
 X50 Y36
+X275 Y35
 </enemies>
 
 <enemies enemyNum="3"> <!-- treeMonster -->

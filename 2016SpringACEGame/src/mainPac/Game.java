@@ -29,6 +29,8 @@ public class Game {
 	
 		ImageLoader imageLoader = new ImageLoader();
 		
+		BGMPlayer bgm = new BGMPlayer();
+		
 		JLayeredPane jlp = new JLayeredPane();
 		
 		BackgroundPanel backgroundPanel = new BackgroundPanel(fWidth,fHeight, imageLoader);
@@ -37,7 +39,7 @@ public class Game {
 		MapPanel mapPanel = new MapPanel (fWidth, fHeight, imageLoader);
 		mapPanel.setSize(fWidth, fHeight); mapPanel.setOpaque(false);
 		
-		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader);
+		CharacterPanel characterPanel = new CharacterPanel(fWidth, fHeight, imageLoader, bgm);
 		characterPanel.setSize(fWidth, fHeight); characterPanel.setOpaque(false);
 		
 		XMLReader xmlReader = new XMLReader(mapPanel, characterPanel);
@@ -47,7 +49,6 @@ public class Game {
 		jlp.add(mapPanel, Integer.valueOf(3));
 		jlp.setVisible(true);
 
-		BGMPlayer bgm = new BGMPlayer();
 		
 		gameFrame.add(jlp);
 		gameFrame.setVisible(true);

@@ -9,6 +9,7 @@ import javax.swing.Timer;
 
 import TempObjects.Hearts;
 import TempObjects.Note;
+import audio.BGMPlayer;
 import mainPac.ImageLoader;
 import map.MapPanel;
 
@@ -20,8 +21,9 @@ public class Bird extends Character{
 	ImageLoader Il;
 	Note note;
 	Hearts hearts;
+	BGMPlayer bgm;
 	
-	public Bird(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp){
+	public Bird(int initialmapX, int initialmapY, ImageLoader il, CharacterPanel cp, BGMPlayer BGM){
 		super(initialmapX, initialmapY, il, cp);
 		myImage = il.tori;
 		Il=il;
@@ -31,6 +33,7 @@ public class Bird extends Character{
 		numOfWalkingStatus=3; //0, 1, 2
 		individualWidth=35; 
 		individualHeight=40;
+		bgm=BGM;
 	}
 	
 	@Override
@@ -47,6 +50,7 @@ public class Bird extends Character{
 		}
 		if(noteOn){
 			//draw the note and move the note!!
+			if(note!=null)
 			note.paintObject(g);
 		}else{
 			note=null;
@@ -135,9 +139,9 @@ public class Bird extends Character{
 	public void squatAttack(){
 		myStatus=4;
 		if(facingDirection==1){
-			note = new Note(myMapX+5, myMapY+3, Il, facingDirection, this, characterPanel);
+			note = new Note(myMapX+5, myMapY+3, Il, facingDirection, this, characterPanel, bgm);
 			}else{
-			note = new Note(myMapX-1, myMapY+3, Il, facingDirection, this, characterPanel);
+			note = new Note(myMapX-1, myMapY+3, Il, facingDirection, this, characterPanel, bgm);
 			}
 			noteOn=true;
 		attacking=true;
@@ -147,9 +151,9 @@ public class Bird extends Character{
 		if(!noteOn){
 		myStatus=6;
 		if(facingDirection==1){
-		note = new Note(myMapX+5, myMapY+2, Il, facingDirection, this, characterPanel);
+		note = new Note(myMapX+5, myMapY+2, Il, facingDirection, this, characterPanel, bgm);
 		}else{
-		note = new Note(myMapX-1, myMapY+2, Il, facingDirection, this, characterPanel);
+		note = new Note(myMapX-1, myMapY+2, Il, facingDirection, this, characterPanel, bgm);
 		}
 		noteOn=true;
 		}
@@ -165,5 +169,17 @@ public class Bird extends Character{
 	@Override
 	public Rectangle getMyBounds(){
 		return new Rectangle(x+5, y+5, individualWidth, individualHeight);
+	}
+	
+	public Rectangle getNoteBounds(){
+		if(note!=null){
+		return note.getBounds();
+		}else{
+			return new Rectangle(0,0,0,0);
+		}
+	}
+	
+	public void killNote(){
+		note=null;
 	}
 }

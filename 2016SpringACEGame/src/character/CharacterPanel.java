@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import audio.BGMPlayer;
 import enemies.bug;
 import enemies.enemy;
 import enemies.flower;
@@ -20,19 +21,19 @@ public class CharacterPanel extends JPanel{
 	private int pWidth, pHeight;
 	public Bird bird; public Frog frog;
 	public int[][] enemiesData;
-	public int initialX=20, initialY=35;
+	public int initialX=330, initialY=35;
 	ImageLoader Il;
 	public static ArrayList<enemy> enemies, enemiesGarbage;
 	public static character.Character mainCharacter;
 	
-	public CharacterPanel(int width, int height, ImageLoader il){
+	public CharacterPanel(int width, int height, ImageLoader il, BGMPlayer bgm){
 		pWidth=width;
 		pHeight=height;
 		Il=il;
 		enemies = new ArrayList<enemy>();
 		enemiesGarbage = new ArrayList<enemy>();
 		enemiesData= new int [MapPanel.mapMaxX][MapPanel.mapMaxY];
-		bird= new Bird(initialX, initialY, il, this);
+		bird= new Bird(initialX, initialY, il, this, bgm);
 		mainCharacter=bird;
 	}
 	
