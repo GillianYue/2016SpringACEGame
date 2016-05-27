@@ -21,7 +21,7 @@ public class CharacterPanel extends JPanel{
 	private int pWidth, pHeight;
 	public Bird bird; public Frog frog;
 	public int[][] enemiesData;
-	public int initialX=330, initialY=35;
+	public int initialX=20, initialY=35;
 	ImageLoader Il;
 	public static ArrayList<enemy> enemies, enemiesGarbage;
 	public static character.Character mainCharacter;
