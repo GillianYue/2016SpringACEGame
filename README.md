@@ -3,7 +3,15 @@ Hi! This repository is for my Sophomore Spring ACE project: Chirpy Adventure. It
 
 Controls:
 Arrow keys to move left and right.
+
+
 Space to jump.
+
+
 Hold SHIFT while moving to run.
+
+
 Press Z to attack in musical notes!
-Survive!
+
+
+Survive!!!!!!
